@@ -1,0 +1,23 @@
+.sideHide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 300ms, opacity 300ms;
+  
+  &.visible {
+    transform: translate(0%, 0%) scale(1);
+  }
+
+  &.hidden {
+    transform: translate(0%, 10%) scale(0.9);
+    pointer-events: none;
+  }
+}
+
+.content {
+  background: #fff;
+  width: auto;
+  margin: 0;
+  position: relative;
+  max-width: 100%;
+}

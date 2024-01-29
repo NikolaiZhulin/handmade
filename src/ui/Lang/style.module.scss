@@ -1,0 +1,51 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.Lang {
+  position: relative;
+  button {
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.25s ease-out;
+    svg {
+      width: 18px;
+      height: auto;
+    }
+    &:nth-child(1) {
+      border-radius: 6px 6px 0 0;
+      position: relative;
+      z-index: 3;
+    }
+    &:nth-child(2) {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+    }
+    &:nth-child(3) {
+      border-radius: 0 0 6px 6px;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+    }
+  }
+  &:hover {
+    button {
+      background: $hover-gray;
+      &:nth-child(2) {
+        background: $hover-gray;
+        transform: translateY(100%);
+      }
+      &:nth-child(3) {
+        background: $hover-gray;
+        transform: translateY(200%);
+      }
+    }
+  }
+}

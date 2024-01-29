@@ -1,0 +1,49 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.ChangeViewContainer {
+  position: relative;
+  width: max-content;
+  display: flex;
+  width: 60px;
+  height: 32px;
+  background: $medium-gray;
+  border-radius: 6px;
+  padding: 2px;
+  overflow: hidden;
+  display: flex;
+  .ChangeView {
+    width: calc(50%);
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    z-index: 1;
+    svg {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &::before {
+    position: absolute;
+    content: "";
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    background: $white;
+    left: 2px;
+    top: 50%;
+    transform: translate(0, -50%);
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+  }
+
+  &.Grid {
+    &::before{
+      transform: translate(100%, -50%);
+    }
+   
+  }
+}

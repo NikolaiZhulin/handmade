@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.ButtonDelete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $red;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 0 6px;
+  transition: 0.25s ease-out background;
+  //@include button-text();
+  svg{
+    width: 14px;
+    height: auto;
+  }
+  &:hover {
+    background-color: $google-hover;
+  }
+}

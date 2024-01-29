@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: $white;
+  padding: 30px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.last {
+  & > button {
+    border: none;
+  }
+}

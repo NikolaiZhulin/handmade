@@ -1,0 +1,43 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.Input {
+  display: flex;
+  height: 40px;
+  padding: 0 14px;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid $dark-gray;
+  transition: 0.25s ease-out background;
+  position: relative;
+  font-size: 14px;
+
+  svg {
+    width: 18px;
+    min-width: 18px;
+    height: auto;
+  }
+  input {
+    width: 100%;
+    color: $black;
+    appearance: none;
+
+    &[type="number"]::-webkit-inner-spin-button,
+    &[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+  &.focus{
+    border-color: $main-green;
+  }
+
+  &.errorState {
+    border-color: $red;
+  }
+}
+
+.error {
+  color: $red;
+}

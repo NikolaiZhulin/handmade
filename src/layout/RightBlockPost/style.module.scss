@@ -1,0 +1,127 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.RightBlockPost {
+  max-width: 285px;
+  border-radius: 6px;
+  background-color: $white;
+  height: min-content;
+  width: 100%;
+  position: sticky;
+  top: 116px;
+
+  .priceBlock {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    .price {
+      color: $gold;
+      @include Heading2;
+      font-size: 24px;
+      margin: 0 auto 0 0;
+    }
+    .share {
+      padding: 0;
+      svg{
+        path{
+          transition: 0.25s ease-out all;
+          fill: #ffffff00;
+        }
+      }
+      &:hover {
+        svg {
+          path {
+            fill: $black;
+            stroke: $black;
+          }
+        }
+      }
+    }
+    .favorite {
+      padding: 0;
+
+      svg {
+        path {
+          fill: $white;
+          stroke: $black;
+          transition:
+            0.25s ease-out fill,
+            0.25s ease-out stroke;
+        }
+      }
+      &:hover {
+        svg {
+          path {
+            fill: $accent;
+            stroke: $accent;
+          }
+        }
+      }
+    }
+    .active {
+        svg {
+          path {
+            fill: $accent;
+            stroke: $accent;
+          }
+        }
+      }
+  }
+  .badge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    .badgeItem {
+      padding: 4px 10px;
+      background-color: $light-gray;
+      border-radius: 4px;
+      //@include Heading5();
+    }
+    .badgeTime {
+      color: $text-gray;
+      //@include Heading5();
+    }
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-top: 1px solid $light-gray;
+    border-bottom: 1px solid $light-gray;
+  }
+}
+
+.contacts {
+  padding: 8px 0;
+  .contactItem {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    &:nth-child(n):not(:last-child) {
+      border-bottom: 1px solid $light-gray;
+    }
+
+    @media screen and (max-width: 1200px) {
+      &:nth-child(n) {
+        border-bottom: 1px solid $light-gray;
+      }
+    }
+  }
+  .contactIcon > svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  a {
+    @include Text1();
+    text-decoration: underline;
+    color: $main-green;
+    margin: 0 auto 0 0;
+  }
+}

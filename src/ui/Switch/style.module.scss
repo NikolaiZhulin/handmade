@@ -1,0 +1,38 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.Switch {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 44px;
+  height: 24px;
+  background: $dark-gray;
+  border-radius: 3em;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+.Switch:checked {
+  background: $main-brand;
+}
+.Switch:after {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: $white;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+.Switch:checked:after {
+  left: calc(100% - 22px);
+}

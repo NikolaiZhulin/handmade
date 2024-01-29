@@ -1,0 +1,38 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.Main {
+  background: $white;
+  padding: 80px 0 0 0;
+  .MainWrapper {
+    margin: 20px 0 0 0;
+    display: flex;
+    gap: 20px;
+    .TitleBlock {
+      display: flex;
+      justify-content: space-between;
+    }
+    .AnnouncementWrapper {
+      margin: 4px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .Loading {
+      display: block;
+      margin: 34px auto 20px auto;
+    }
+  }
+
+  @media (max-width: 1280px){
+    padding: 64px 10px 0 10px;
+  }
+
+  @media (max-width: 1200px){
+    padding: 64px 0 0 0;
+  }
+
+  @media (max-width: 600px){
+    padding: 116px 0 0 0;
+  }
+}

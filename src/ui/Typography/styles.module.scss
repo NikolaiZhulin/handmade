@@ -1,0 +1,71 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.Heading3 {
+  @include Heading3();
+}
+
+.Heading2 {
+  @include Heading2();
+}
+
+.Heading1 {
+  @include Heading1();
+}
+
+.Text3 {
+  @include Text3();
+}
+
+.Text2 {
+  @include Text2();
+}
+
+.Text1 {
+  @include Text1();
+}
+
+.w400 {
+  font-weight: 400;
+}
+
+.w500 {
+  font-weight: 500;
+}
+
+.w550 {
+  font-weight: 550;
+}
+
+.w600 {
+  font-weight: 600;
+}
+
+.w700 {
+  font-weight: 700;
+}
+
+.base {
+  font-style: normal;
+  font-family: Montserrat;
+}
+
+.grayText {
+  color: $text-gray;
+}
+
+.brandText {
+  color: $main-brand;
+}
+
+.blackText {
+  color: $black;
+}
+
+.whiteText {
+  color: $white;
+}
+
+.redText {
+  color: $red;
+}

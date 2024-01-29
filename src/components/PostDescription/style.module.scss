@@ -1,0 +1,34 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.PostDescription {
+  padding: 22px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid $light-gray;
+  border-bottom: 1px solid $light-gray;
+  .ButtonLogin {
+    margin: 0 0 0 auto;
+    width: max-content;
+    height: 32px;
+    padding: 0 32px;
+    color: $grey-text;
+    gap: 4px;
+    svg {
+      path {
+        transition: ease-out 0.25s fill;
+        fill: $grey-text;
+      }
+    }
+    &:hover {
+      background: $hover-gray;
+      color: $light-blue;
+      svg {
+        path {
+          fill: $light-blue;
+        }
+      }
+    }
+  }
+}

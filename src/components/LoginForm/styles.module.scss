@@ -1,0 +1,54 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 14px;
+  .Input {
+    margin: 2px 0 0 0;
+  }
+  .Button {
+    width: 100%;
+  }
+  .ButtonSendSms {
+    margin: 0 -10px 0 0;
+  }
+  .Heading5 {
+    text-align: center;
+    color: $text-gray;
+    a {
+      position: relative;
+      color: $text-gray;
+      text-decoration: underline;
+    }
+  }
+  .Heading4 {
+    text-align: center;
+  }
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.linkButton {
+  height: 44px;
+  width: 100%;
+  background: transparent;
+  color: $main-green;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+.socialText {
+  text-align: center;
+  font-family: 'Helvetica Neue';
+  font-size: 14px;
+  line-height: 18px;
+}

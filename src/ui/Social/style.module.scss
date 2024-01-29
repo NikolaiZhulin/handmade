@@ -1,0 +1,15 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.Social {
+  display: flex;
+  height: 44px;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  transition: 0.25s ease-out background;
+  svg {
+    width: 18px;
+    height: auto;
+  }
+}

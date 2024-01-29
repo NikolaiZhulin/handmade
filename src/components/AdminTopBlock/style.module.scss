@@ -1,0 +1,12 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.AdminTopBlock {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  .Heading2 {
+    flex-shrink: 0;
+    width: 295px;
+  }
+}

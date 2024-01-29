@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=test
+        - NEXT_PUBLIC_AUTH_API_URL=https://api-test.unlim.ge
+        - NEXT_PUBLIC_POSTS_API_URL=https://api-test.unlim.ge
+        - NEXT_PUBLIC_ADMIN_API_URL=https://api-test.unlim.ge
+        - NEXT_PUBLIC_FRONT_URL=https://test.unlim.ge
+    container_name: unlim_app_front_test
+    environment:
+      - NODE-ENV=test
+    ports:
+      - "3013:3000"

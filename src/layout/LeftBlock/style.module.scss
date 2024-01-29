@@ -1,0 +1,24 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.LeftBlock {
+  padding-bottom: 20px;
+  width: 285px;
+  overflow: auto;
+  flex-shrink: 0;
+  height: max-content;
+  position: sticky;
+  left: 0;
+  // top: 116px;
+  top: 96px;
+  margin-top: 30px;
+  height: calc(100vh - 96px);
+  &:only-child{
+    width: 100%;
+  }
+  &::-webkit-scrollbar {
+    width: 0px;
+    display: none;
+    height: 0px;
+  }
+}

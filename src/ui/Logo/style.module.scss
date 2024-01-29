@@ -1,0 +1,17 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.logo {
+  a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: max-content;
+    color: $black;
+    font-family: Montserrat;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px;
+  }
+}

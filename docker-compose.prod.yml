@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
+    container_name: unlim_app_front_prod
+    environment:
+      - NODE-ENV=production
+    ports:
+      - "3014:3000"

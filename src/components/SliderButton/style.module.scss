@@ -1,0 +1,68 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.AuthorizationFormButton {
+  position: relative;
+  display: flex;
+  background: transparent;
+  overflow: hidden;
+  transition: all 300ms ease;
+  border: 2px solid $light-gray;
+
+  &.afterGray{
+    background: $light-gray;
+  }
+
+  &.afterGreen::after {
+    background: $main-green;
+  }
+
+  &.afterGray::after {
+    background: $white;
+  }
+  &::after {
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
+    content: '';
+    display: block;
+    width: 49.5%;
+    height: 100%;
+    transition: 0.25s ease-in-out left;
+  }
+
+  .Button {
+    width: 50%;
+    z-index: 1;
+    transition: .25s ease-out color, 0.25s ease-out background-color;
+    &.active {
+      background: transparent;
+      color: $white;
+
+      &.gray {
+        color: $black;
+      }
+    }
+
+    &.notActive {
+      background: transparent;
+      color: $black;
+
+      &.gray {
+        color: $black;
+      }
+
+      &:hover {
+        color: $blue;
+        background-color: $hover-gray;
+      }
+    }
+  }
+  &.login {
+    &::after {
+      left: 50%;
+    }
+  }
+}

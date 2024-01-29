@@ -1,0 +1,17 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.Stub {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 0;
+  h5{
+    color: $text-gray;
+    margin: -16px 0 0 0;
+  }
+}

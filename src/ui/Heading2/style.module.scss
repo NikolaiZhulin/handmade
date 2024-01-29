@@ -1,0 +1,6 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.Heading2 {
+  @include Heading2();
+}

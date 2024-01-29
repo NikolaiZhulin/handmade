@@ -1,0 +1,40 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.TextareaWrapper {
+  position: relative;
+  width: 100%;
+
+  &.errorState {
+    margin-bottom: 16px;
+  }
+}
+.Textarea {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  border: 1px solid $dark-gray !important;
+  border-radius: 6px;
+  box-sizing: border-box;
+  border: none;
+  width: 100%;
+  overflow: hidden;
+  background: none;
+  resize: none;
+  padding: 11px 14px;
+
+  &.empty {
+    max-height: 40px;
+  }
+
+  &.errorState {
+    border-color: $red !important;
+  }
+}
+
+.error {
+  color: $red;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+}

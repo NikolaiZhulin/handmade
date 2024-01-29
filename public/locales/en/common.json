@@ -1,0 +1,214 @@
+{
+  "header": {
+    "createPost": "Submit Ad",
+    "signIn": "Sign In",
+    "search": "Search",
+    "cabinet": "My Account",
+    "city": "City",
+    "help": "Help"
+  },
+  "banner": {
+    "banner_text": "Безопасность в каждой сделке"
+  },
+  "auth": {
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "confirmationCode": "Confirmation Code",
+    "sendCode": "SMS",
+    "createPassword": "Create Password",
+    "acceptRules1": "By creating an account, I accept",
+    "acceptRules2": "the terms of the privacy policy",
+    "oneClick": "or register in 1 click",
+    "password": "Password",
+    "rememberMe": "Remember Me",
+    "forgotPass": "Forgot Password?",
+    "socialSignIn": "or",
+    "phone_placeholder": "Phone",
+    "registration_sms_info": "We will send a code or call you. There is no need to answer the call. The code can be sent by email or SMS",
+    "registration_conditions": "By creating an account, I accept the “Terms of Privacy Policy”"
+  },
+  "main": {
+    "lastPosts": "Latest Ads",
+    "categoryTitle": "Categories",
+    "dealPrice": "Negotiable"
+  },
+  "post": {
+    "descriptionTitle": "Description",
+    "userPosts": "Seller's Other Ads",
+    "showAll": "Show All",
+    "edditing": "Editing",
+    "translateInfo": "The ad text will be automatically translated into the user's language, but instead of automatic translation, you can provide your own version of the text",
+    "textGe": "Add description in Georgian",
+    "textEn": "Add description in English",
+    "used": "Used",
+    "new": "New",
+    "contacts": "Contacts",
+    "addTitle": "Add Ad",
+    "addDescription": "Specify details",
+    "willFaster": "This will speed up the sale",
+    "howToContact": "How to contact you?",
+    "post": "Place Ad"
+  },
+  "preview": {
+    "title": "Preview",
+    "ru": "(in Russian)",
+    "en": "(in English)",
+    "ge": "(in Georgian)",
+    "title2": "Ad Preview",
+    "access": "Will be available on the next step of ad submission"
+  },
+  "search": {
+    "found": "Found",
+    "foundPosts": "ads",
+    "new": "New",
+    "old": "Old",
+    "cheap": "Cheap",
+    "expensive": "Expensive",
+    "noPosts": "Nothing found",
+    "changeQuery": "Try changing the search criteria",
+    "reset": "Reset Filters",
+    "new1": "New",
+    "find": "Find",
+    "show": "Show"
+  },
+  "profile": {
+    "setup": "Set Up Profile",
+    "myPosts": "My Ads",
+    "myFavourite": "Favorites",
+    "logout": "Logout",
+    "registered": "Registered",
+    "loadImage": "Upload Profile Photo",
+    "mainInfo": "Main Info",
+    "delete": "Delete Profile",
+    "deleteWarn1": "Are you sure you want to delete your profile?",
+    "deleteWarn2": "All your data will be lost",
+    "contactsTitle": "Other Contact Methods",
+    "activePosts": "Active",
+    "pausedPosts": "Paused",
+    "emptyList": "List is empty",
+    "noPosts": "You have no ads",
+    "placePost": "Place an ad for your product or service",
+    "risePost": "Rise",
+    "postViews": "views",
+    "edit": "Edit",
+    "postDeleteWarn": "Do you want to delete the ad?"
+  },
+  "favourites": {
+    "cleared": "Favorites cleared",
+    "title": "Favorite Ads",
+    "clear": "Clear",
+    "clearWarn": "Do you want to remove all ads from favorites?",
+    "noPosts": "You have no favorite ads",
+    "advice": "You can mark any ad to have quick access to it"
+  },
+  "footer": {
+    "text1": "площадка объявлений с продажей хендмейд-продукции. Использование ресурса Handmade означает согласие с Пользовательским соглашением и Политикой обработки персональных данных. ООО «Окро», УНП 00000000, 6000, г. Батуми, ул.Чавчавазе 97, офис 20.",
+    "and": "и"
+  },
+  "cities": {
+    "batumi": "Batumi",
+    "tbilisi": "Tbilisi"
+  },
+  "metals": {
+    "gold": "Gold",
+    "silver": "Silver",
+    "platinum": "Platinum",
+    "copper": "Copper",
+    "brass": "Brass",
+    "titan": "Titan"
+},
+
+  "categories": {
+    "cars": "Cars/Motorcycles",
+    "technique": "Technology",
+    "clothes": "Clothing",
+    "beauty": "Beauty and Health",
+    "home": "Real Estate",
+    "pets": "Pets",
+    "work": "Jobs",
+    "services": "Services",
+    "other": "Other"
+  },
+  "stones": {
+    "none": "Without stones",
+    "agate": "Agate",
+    "aquamarine": "Aquamarine",
+    "alpanite": "Alpanite",
+    "amethyst": "Amethyst"
+},
+  "timeMaps": {
+    "minute1": "minute",
+    "minute2": "minutes",
+    "minute3": "minutes",
+    "hours1": "hour",
+    "hours2": "hours",
+    "hours3": "hours",
+    "months1": "month",
+    "months2": "months",
+    "months3": "months",
+    "days1": "day",
+    "days2": "days",
+    "days3": "days",
+    "years1": "year",
+    "years2": "years",
+    "years3": "years",
+    "backWord": "ago"
+  },
+  "toasts": {
+    "dataUpdated": "Data updated",
+    "profileDelete": "Profile has been deleted"
+  },
+  "inputs": {
+    "phone": "Phone",
+    "additionalPhone": "Additional phone",
+    "name": "Name",
+    "city": "City",
+    "metal": "Metal",
+    "currentPass": "Current password",
+    "newPass": "New password",
+    "repeatPassword": "Repeat password",
+    "postName": "Product and service name",
+    "postDescription": "Description",
+    "category": "Category",
+    "usedPeriod": "How long used?",
+    "period": "Period",
+    "telegram": "Telegram",
+    "whatsApp": "WhatsApp",
+    "viber": "Viber",
+    "facebook": "Facebook",
+    "imageInfo": "Upload up to 9 photos of your product",
+    "allCategories": "All categories",
+    "onlyImage": "Only with photo"
+  },
+  "errors": {
+    "enterNumber": "Enter a number",
+    "required": "Required field",
+    "nonNegative": "Number must be greater than 0",
+    "phone": "Invalid phone number format",
+    "atleastOneContact": "Specify at least one contact"
+  },
+  "breadcrumbs": {
+    "main": "Main",
+    "create": "Подача объявления",
+    "favourite": "Избранные объявления",
+    "history": "История просмотров",
+    "myPosts": "Мои объявления",
+    "myFilters": "Мои фильтры",
+    "settings": "Настройки профиля"
+  },
+  "totalPostsCount": "total ads from all of Georgia",
+  "report": "Report",
+  "save": "Save",
+  "currency": "Currency",
+  "delete": "Delete",
+  "price": "Cost",
+  "continue": "Continue",
+  "attachImage": "Attach photo",
+  "back": "Back",
+  "skip": "Skip",
+  "reset": "Reset",
+  "price2": "Price",
+  "all_list": "The whole list",
+  "yes": "Yes",
+  "no": "No"
+}

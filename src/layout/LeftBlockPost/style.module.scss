@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.LeftBlockPost {
+  width: 895px;
+  background: $white;
+  overflow: hidden;
+  flex-shrink: 0;
+}

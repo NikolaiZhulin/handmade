@@ -1,0 +1,31 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.Statistics {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 30px;
+  width: 100%;
+  height: max-content;
+  background: $white;
+  .NumberContainer {
+    color: $text-gray;
+    //@include Heading2();
+    font-weight: 400;
+    .Total {
+      color: $black;
+      font-weight: 700;
+    }
+    .Site,
+    .Parser {
+      font-weight: 400;
+    }
+  }
+  .Period,
+  .Info {
+    //@include Heading4();
+    color: $text-gray;
+  }
+}

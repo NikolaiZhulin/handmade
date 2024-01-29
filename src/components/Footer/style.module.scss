@@ -1,0 +1,33 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.Footer {
+  padding-top: 20px;
+  margin-top: auto;
+  .FooterContainer {
+    padding: 20px 0;
+    .Heading5 {
+      text-align: center;
+      color: $text-gray;
+      span {
+        color: $text-gray;
+        font-weight: 700;
+      }
+      a {
+        color: $text-gray;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .FooterMenu{
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 1200px) {
+  .FooterMenu{
+    display: flex;
+  }
+}

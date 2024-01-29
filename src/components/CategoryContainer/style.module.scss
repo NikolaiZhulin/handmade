@@ -1,0 +1,21 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.CategoryContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 18px;
+  padding: 30px;
+  background: $white;
+  border-radius: 6px;
+  div {
+    a {
+      &:last-child {
+        button {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}

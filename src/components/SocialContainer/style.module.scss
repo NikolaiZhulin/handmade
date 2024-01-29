@@ -1,0 +1,30 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.SocialContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  .facebock {
+    background: $facebock;
+    &:hover {
+      background: $facebock-hover;
+    }
+  }
+  .google {
+    background: $red;
+    &:hover {
+      background: $google-hover;
+    }
+  }
+  .apple {
+    background: $black;
+    &:hover{
+      background: $apple-hover;
+    }
+  }
+
+  button {
+    width: 100%;
+  }
+}

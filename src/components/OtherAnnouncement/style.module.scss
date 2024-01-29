@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.OtherAnnouncement {
+  padding: 22px 44px 44px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  .AnnouncementContainer {
+    margin: 0;
+    gap: 6px;
+    .Announcement {
+      gap: 14px;
+    }
+  }
+  .ButtonLogin {
+    width: 100%;
+    gap: 4px;
+    font-weight: 700;
+    height: 32px;
+  }
+}

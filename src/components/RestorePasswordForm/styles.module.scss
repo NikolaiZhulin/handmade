@@ -1,0 +1,40 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.restorePasswordForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+  .Input {
+    margin: 2px 0 0 0;
+  }
+  .Button {
+    width: 100%;
+  }
+  .ButtonSendSms {
+    margin: 0 -10px 0 0;
+  }
+  .Heading5 {
+    text-align: center;
+    color: $text-gray;
+    a {
+      position: relative;
+      color: $text-gray;
+      text-decoration: underline;
+    }
+  }
+  .Heading4 {
+    text-align: center;
+  }
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.full {
+  width: 100%;
+}

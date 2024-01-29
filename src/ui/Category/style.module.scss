@@ -1,0 +1,50 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.Category {
+  display: flex;
+  height: 44px;
+  padding: 0;
+  justify-content: left;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  border-radius: 0;
+  background-color: none;
+  font-family: Helvetica Neue;
+  color: $black;
+  transition:
+    0.25s ease-out background,
+    0.25s ease-out padding;
+  border-bottom: 1px solid $light-gray;
+
+  .rightItem {
+    margin-left: auto;
+    margin-right: 14px;
+  }
+
+  &.active {
+    border: none;
+    padding: 0 0 0 14px;
+    background-color: $hover-gray;
+    //@include button-text();
+  }
+
+  svg {
+    width: 24px;
+    height: auto;
+  }
+
+  &:hover {
+    padding: 0 0 0 14px;
+    background-color: $hover-gray;
+  }
+}
+
+.withBorder {
+  border-bottom: 1px solid $light-gray;
+}
+
+.noBorder {
+  border: none !important;
+}

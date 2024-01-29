@@ -1,0 +1,64 @@
+@import '../../../../styles/variables.scss';
+
+.wrapper {
+  padding: 14px 0;
+  width: 100%;
+  height: 156px;
+
+  &.withBorder {
+    border-bottom: 1px solid $light-gray;
+  }
+}
+
+.image {
+  width: 160px;
+  height: 100%;
+  border-radius: 6px;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &.disabled {
+    filter: grayscale(100) 
+  }
+}
+
+.placeholder {
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url(../../../../images/no-photo.png);
+}
+
+.button {
+  height: 32px;
+
+  &.edit {
+    color: $text-gray;
+    text-decoration: underline;
+    font-weight: 400;
+    padding: 0;
+  }
+
+  &.delete {
+    color: $red;
+    text-decoration: underline;
+    font-weight: 400;
+    padding: 0;
+  }
+}
+
+.textContainer {
+  padding: 11px 0;
+  width: 100%;
+}
+
+.h100 {
+  height: 100%;
+}

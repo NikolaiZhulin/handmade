@@ -1,0 +1,119 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.CreatInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  .Heading2 {
+    margin: 0 0 6px 0;
+  }
+  .Heading5 {
+    margin: -8px 0 0 0;
+    color: $text-gray;
+  }
+  .Button {
+    margin: -8px 0 0 0;
+    width: 100%;
+  }
+  .FlexContainer {
+    gap: 8px;
+  }
+  .ButtonNext{
+    width: 100%;
+  }
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gray-text {
+  color: $text-gray
+}
+
+.select {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.flowButtons {
+  position: relative;
+  display: flex;
+  background: $light-gray;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 300ms ease;
+  height: min-content;
+  &::after {
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
+    content: '';
+    display: block;
+    width: 50%;
+    height: calc(100% - 4px);
+    border-radius: 3px;
+    background: $main-brand;
+    transition: 0.25s ease-in-out left;
+  }
+  .Button {
+    width: 50%;
+    z-index: 1;
+    transition: .25s ease-out color;
+    &.active {
+      background: transparent;
+      color: $white;
+    }
+
+    &.notActive {
+      background: transparent;
+      color: $black;
+    }
+  }
+  &.used {
+    &::after {
+      left: 50%;
+    }
+  }
+}
+
+.gap8 {
+  gap: 8px;
+}
+
+.w85 {
+  width: 85%;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.switchInput {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  & > input[type="checkbox"] {
+    transform: translateY(35%);
+  }
+}

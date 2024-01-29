@@ -1,0 +1,130 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+.GridLink {
+  display: flex;
+}
+.Announcement {
+  display: flex;
+  transition: 0.25s ease-out all;
+  cursor: pointer;
+
+  img{
+    transition: .25s ease-out transform;
+  }
+  .AnnouncementInformation {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 9px;
+    .Heading2 {
+      color: #C5975B;
+      font-weight: 700;
+    }
+
+    .Text3{
+      transition: .25s ease-out color;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      text-overflow: ellipsis;
+    }
+  }
+  .AnnouncementBottomBlock {
+    padding-top: 9px;
+    border-top: 1px solid #DDD8D4;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    svg {
+      width: 24px;
+      height: auto;
+    }
+    .Heading4 {
+      transition: 0.25s ease-out color;
+    }
+
+    .Heading5 {
+      color: $text-gray;
+    }
+    .City{
+      opacity: $black;
+    }
+    span {
+      height: 24px;
+      width: 1px;
+      background: #DDD8D4;
+    }
+
+    @media (max-width: 600px){
+      border-top: none;
+      padding-top: 0;
+      gap: 8px;
+      display: grid;
+      grid-template-areas: 'price price'
+                            'city city'
+                            'updatedInfo button';
+
+      .favoriteButton{
+        grid-area: button;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .price{
+        grid-area: price;
+        padding-bottom: 10px;
+        margin: 0;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #DDD8D4;
+      }
+
+      .updatedInfo{
+        grid-area: updatedInfo;
+      }
+
+      .City{
+        grid-area: city;
+      }
+
+      span{
+        display: none;
+      }
+    }
+  }
+  &:hover {
+    box-shadow: 0px 0px 40px 0px rgba(32, 32, 32, 0.50);
+
+    img{
+      transform: scale(1.05);
+    }
+    .Heading4 {
+      color: $blue;
+
+    }
+  }
+}
+.Grid {
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #C5975B;
+  padding: 10px;
+  gap: 9px;
+
+  .AnnouncementInformation{
+    gap: 9px;
+  }
+
+
+  &:hover{
+    background: none;
+  }
+  .AnnouncementInformation {
+  }
+
+  @media (max-width: 1200px){
+
+  }
+} 

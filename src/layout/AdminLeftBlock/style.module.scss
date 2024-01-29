@@ -1,0 +1,11 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.AdminLeftBlock {
+  width: 270px;
+  padding: 30px;
+  background: $white;
+  border-radius: 6px;
+  flex-shrink: 0;
+  height: max-content;
+}

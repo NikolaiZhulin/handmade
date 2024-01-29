@@ -1,0 +1,43 @@
+@import '@/styles/variables.scss';
+@import '@/styles/mixin.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 10px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  background-color: $blue;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  @include Heading2;
+  user-select: none;
+}
+
+.name {
+  @include Text2();
+  font-weight: 700;
+  user-select: none;
+}
+
+.account {
+  @include Text3();
+  font-weight: 500;
+  color: #202020;
+  opacity: 0.7;
+  user-select: none;
+}
+
+.last {
+  & > button {
+    border: none;
+  }
+}

@@ -1,0 +1,51 @@
+export const ADMIN_SIDE_LINKS = [
+  {
+    title: 'admin.links.posts',
+    link: () => '/admin/dashboard',
+    icon: 'posts',
+    badge: false,
+    regexp: /\/admin\/dashboard$/,
+  },
+  {
+    title: 'admin.links.users',
+    link: () => '/admin/dashboard/users',
+    icon: 'user',
+    badge: false,
+    regexp: /\/admin\/dashboard\/users/,
+  },
+  {
+    title: 'admin.links.reports',
+    link: () => '/admin/dashboard/reports',
+    icon: 'reports',
+    badge: true,
+    regexp: /\/admin\/dashboard\/reports/,
+  },
+  {
+    title: 'admin.links.filters',
+    link: () => '/admin/dashboard/filters',
+    icon: 'filters',
+    badge: false,
+    regexp: /\/admin\/dashboard\/filters/,
+  },
+  {
+    title: 'admin.links.words',
+    link: () => '/admin/dashboard/key-words',
+    icon: 'posts',
+    badge: false,
+    regexp: /\/admin\/dashboard\/key-words/,
+  },
+  {
+    title: 'admin.links.categories',
+    link: () => '/admin/dashboard/categories',
+    icon: 'list-icon',
+    badge: false,
+    regexp: /\/admin\/dashboard\/categories/,
+  },
+  {
+    title: 'admin.links.ads',
+    link: () => '/admin/dashboard/ads',
+    icon: 'ads',
+    badge: false,
+    regexp: /\/admin\/dashboard\/ads/,
+  },
+];

@@ -1,0 +1,126 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.Table {
+  margin: 15px 0 0 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 684px;
+  //@include Heading5();
+  .TableHeder {
+    background: $medium-gray;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    .TableHeaderItem {
+      border-right: 1px solid $light-gray;
+      border-top: 1px solid $light-gray;
+      border-bottom: 1px solid $light-gray;
+      padding: 12px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      &:nth-child(1) {
+        width: 80px;
+        flex-shrink: 0;
+        border-left: 1px solid $light-gray;
+      }
+      &:nth-child(2) {
+        width: 100px;
+        flex-shrink: 0;
+      }
+      &:nth-child(3) {
+        width: 100%;
+      }
+      &:nth-child(4) {
+        width: 150px;
+        flex-shrink: 0;
+      }
+      &:nth-child(5) {
+        width: 78px;
+        flex-shrink: 0;
+      }
+      &:nth-child(6) {
+        width: 78px;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+      &:nth-child(7) {
+        width: 38px;
+        flex-shrink: 0;
+        justify-content: center;
+      }
+    }
+  }
+  .TableContainer {
+    display: flex;
+    flex-direction: column;
+    .TableItem {
+      display: flex;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      height: 70px;
+      .Item {
+        overflow: hidden;
+        border-right: 1px solid $light-gray;
+        border-bottom: 1px solid $light-gray;
+        padding: 12px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        &:nth-child(1) {
+          width: 80px;
+          flex-shrink: 0;
+          border-left: 1px solid $light-gray;
+          a {
+            text-decoration: underline;
+            white-space: nowrap;
+            max-width: 100%;
+            text-overflow: ellipsis;
+            display: block;
+            overflow: hidden;
+          }
+        }
+        &:nth-child(2) {
+          width: 100px;
+          flex-shrink: 0;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+        }
+        &:nth-child(3) {
+          width: 100%;
+        }
+        &:nth-child(4) {
+          width: 150px;
+          flex-shrink: 0;
+        }
+        &:nth-child(5) {
+          width: 78px;
+          flex-shrink: 0;
+          justify-content: center;
+        }
+        &:nth-child(6) {
+          width: 78px;
+          flex-shrink: 0;
+          justify-content: center;
+          a {
+            text-decoration: underline;
+            white-space: nowrap;
+            max-width: 100%;
+            text-overflow: ellipsis;
+            display: block;
+            overflow: hidden;
+          }
+        }
+        &:nth-child(7) {
+          width: 38px;
+          flex-shrink: 0;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

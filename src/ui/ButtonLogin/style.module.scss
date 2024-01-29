@@ -1,0 +1,19 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixin.scss";
+
+.ButtonLogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: $black;
+  transition: 0.25s ease-out background, .25s ease-out color;
+  width: max-content;
+  &:hover {
+    background-color: $hover-gray;
+  }
+  svg{
+    width: 54px;
+    height: auto;
+  }
+}
