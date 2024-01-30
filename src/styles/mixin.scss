@@ -1,34 +1,48 @@
 @mixin Heading1 {
-  font-family: Montserrat;
-  font-size: 64px;
+  font-family: HelveticaNeueCyr;
+  font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: 100%;
+  line-height: 125%;
 }
 @mixin Heading2 {
-  font-family: Montserrat;
+  font-family: HelveticaNeueCyr;
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
-  line-height: 24px;
+  line-height: 133%;
 }
 @mixin Heading3 {
-  font-family: Montserrat;
+  font-family: HelveticaNeueCyr;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 137%;
+}
+@mixin Heading4 {
+  font-family: HelveticaNeueCyr;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px;
+  line-height: 128%;
+}
+@mixin Heading4 {
+  font-family: HelveticaNeueCyr;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 116%;
 }
 
 @mixin Text1 {
-  font-family: Montserrat;
+  font-family: HelveticaNeueCyr;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
 }
 @mixin Text2 {
-  font-family: Montserrat;
+  font-family: HelveticaNeueCyr;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -41,5 +55,3 @@
   font-weight: 400;
   line-height: 14px;
 }
-
-

@@ -9,8 +9,8 @@ import Main from '@/layout/Main';
 import MainWrapper from '@/layout/MainWrapper';
 import LeftBlock from '@/layout/LeftBlock';
 import RightBlock from '@/layout/RightBlock';
-import CreatInfo from '@/components/CreateInfo';
-import CreatePreview from '@/components/CreatPreview';
+import CreateInfo from '@/components/CreateInfo';
+import CreatePreview from '@/components/CreatePreview';
 import { useCreatePostContext } from '@/hooks/useCreatePostContext/useCreatePostContext';
 import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -41,7 +41,7 @@ export default function Home() {
           <MainWrapper className="2xl:!mt-0 2xl:h-full 2xl:min-h-[calc(100vh-96px)]">
             <CreatePostContext.Provider value={context}>
               <LeftBlock className="flex flex-col w-full gap-[18px] p-[30px] bg-white rounded-[6px] !mt-0 2xl:!h-auto 2xl:!static xs:!px-[20px] xs:!py-[14px] xs:!pt-0 xs:gap-0">
-                <CreatInfo />
+                <CreateInfo />
               </LeftBlock>
               {!isLaptop && (
                 <RightBlock>
