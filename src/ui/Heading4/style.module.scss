@@ -1,6 +1,6 @@
-@import "../../styles/variables.scss";
-@import "../../styles/mixin.scss";
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
 
 .Heading4 {
-  //@include Heading4();
+  @include Heading4();
 }
