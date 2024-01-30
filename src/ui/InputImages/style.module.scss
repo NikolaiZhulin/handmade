@@ -7,7 +7,6 @@
   flex-direction: column;
   gap: 8px;
   background-color: $light-gray;
-  border-radius: 6px;
   border: 1px dashed $dark-gray;
   padding: 8px;
   height: 206px;
@@ -43,7 +42,7 @@
           //@include Heading5Medium();
           color: $white;
         }
-        .Images{
+        .Images {
           border: 2px solid $main-brand;
           border-radius: 6px;
         }

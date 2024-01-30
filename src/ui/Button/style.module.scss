@@ -11,7 +11,9 @@
   gap: 10px;
   font-family: Montserrat;
   color: $white;
-  transition: 0.25s ease-out background,0.25s ease-out opacity;
+  transition:
+    0.25s ease-out background,
+    0.25s ease-out opacity;
   width: max-content;
   line-height: normal;
 
@@ -74,7 +76,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  background-color:#F6FFFC;
+  background-color: #f6fffc;
   color: $black;
   transition:
     0.25s ease-out background,
@@ -89,7 +91,7 @@
     height: auto;
   }
 }
-.deliteProfile {
+.deleteProfile {
   display: flex;
   height: 32px;
   padding: 0 20px 0 13px;

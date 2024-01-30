@@ -1,24 +1,25 @@
 import {
   ChangeEvent,
+  DragEvent,
   FC,
   MouseEvent,
   PropsWithChildren,
   useEffect,
   useRef,
   useState,
-  DragEvent,
 } from 'react';
 
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
-import { mergeStyles } from '@/helpers/mergeStyles';
 import { getImage } from '@/helpers/getImage';
-import { useTranslation } from '@/hooks/useTranslation';
+import { mergeStyles } from '@/helpers/mergeStyles';
 import { validateFilesExtensions } from '@/helpers/validateFilesExtensions';
+import { useTranslation } from '@/hooks/useTranslation';
 import { cn } from '@/utils/utils';
 
 import ButtonDelete from '../ButtonDelete';
 import Typography from '../Typography';
 
+import Button from '../Button';
 import style from './style.module.scss';
 
 interface IProps {
@@ -130,9 +131,10 @@ const InputImages: FC<PropsWithChildren<IProps>> = ({
       />
       {files.length <= 5 && (
         <label className={style.label} htmlFor="file" onClick={() => inputRef.current?.click()}>
-          <button className={style.Submit} disabled={disabled}>
+          <Button className={cn(style.ButtonNext, '!w-full !gap-2')} disabled={disabled}>
+            <HomeSvgSelector id={'attach-file'} />
             {t('attachImage')}
-          </button>
+          </Button>
         </label>
       )}
     </form>

@@ -27,6 +27,7 @@ const STYLES_MAP = {
     black: styles.blackText,
     white: styles.whiteText,
     red: styles.redText,
+    green: styles.greenText,
   },
 };
 
