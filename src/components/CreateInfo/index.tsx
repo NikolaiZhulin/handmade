@@ -13,7 +13,7 @@ import { FourthStep } from './components/FourthStep';
 
 interface IProps {}
 
-const CreatInfo: FC<PropsWithChildren<IProps>> = () => {
+const CreateInfo: FC<PropsWithChildren<IProps>> = () => {
   const [step, setStep] = useState(0);
   const onStep = (direction: number) => setStep((prev) => prev + direction);
   const isLaptop = useMediaQuery('(max-width: 1200px)');
@@ -30,9 +30,9 @@ const CreatInfo: FC<PropsWithChildren<IProps>> = () => {
   return (
     <>
       {step === 0 && isLaptop && <Breadcrumbs className="2xl:p-0 xs:px-0" />}
-      <div className={cn(style.CreatInfo, '2xl:h-full')}>{formSteps[step]}</div>
+      <div className={cn(style.CreateInfo, '2xl:h-full')}>{formSteps[step]}</div>
     </>
   );
 };
 
-export default CreatInfo;
+export default CreateInfo;
