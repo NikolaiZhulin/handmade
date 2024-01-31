@@ -81,7 +81,7 @@ const FeedbackModal = () => {
               <Typography variant="heading3">{t('back')}</Typography>
             </button>
           )}
-          <div className={cn('flex flex-col gap-[14px]', '2xl:align-start xs:w-full 2xl:h-full')}>
+          <div className={cn('flex flex-col gap-[14px]', '2xl:items-start xs:w-full 2xl:h-full')}>
             <div className={cn('text-[18px] leading-[24px] font-bold font-montserrat mb-2')}>
               {t('modals.feedback')}
             </div>
