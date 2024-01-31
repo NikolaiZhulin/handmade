@@ -9,10 +9,9 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  border-radius: 0 6px;
   transition: 0.25s ease-out background;
   //@include button-text();
-  svg{
+  svg {
     width: 14px;
     height: auto;
   }

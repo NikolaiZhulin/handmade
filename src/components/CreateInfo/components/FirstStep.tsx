@@ -122,12 +122,14 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
           {t('post.addTitle')}
         </Typography>
         <div className="flex flex-col gap-[8px] overflow-hidden">
-          <Input
-            controllerProps={{ name: 'name', control }}
-            placeholder={t('inputs.postName')}
-            disabled={!accessToken}
-            autoComplete="off"
-          />
+          <div className="pt-2">
+            <Input
+              controllerProps={{ name: 'name', control }}
+              placeholder={t('inputs.postName')}
+              disabled={!accessToken}
+              autoComplete="off"
+            />
+          </div>
           <div className="pt-2">
             <Textarea
               controllerProps={{ name: `text${capitalize(language)}` as keyof FormState, control }}
@@ -135,7 +137,7 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
               disabled={!accessToken}
             />
           </div>
-          <Typography variant="heading5" color="gray" className={style.Heading5}>
+          <Typography variant="heading3" color="gray" className={style.Heading5}>
             {t('post.translateInfo')}
           </Typography>
 

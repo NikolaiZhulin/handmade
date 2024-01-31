@@ -15,8 +15,6 @@ const STYLES_MAP = {
     heading1: styles.Heading1,
     heading2: styles.Heading2,
     heading3: styles.Heading3,
-    heading4: styles.Heading4,
-    heading5: styles.Heading5,
     text1: styles.Text1,
     text2: styles.Text2,
     text3: styles.Text3,
