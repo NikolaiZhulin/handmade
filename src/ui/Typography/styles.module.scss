@@ -1,14 +1,6 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixin.scss';
 
-.Heading5 {
-  @include Heading5();
-}
-
-.Heading4 {
-  @include Heading4();
-}
-
 .Heading3 {
   @include Heading3();
 }
@@ -76,4 +68,8 @@
 
 .redText {
   color: $red;
+}
+
+.greenText {
+  color: $green;
 }

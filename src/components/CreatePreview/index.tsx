@@ -1,15 +1,15 @@
 import { FC, useContext, useState } from 'react';
 
-import Stub from '@/layout/Stub';
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
-import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { cities } from '@/constants/cities';
-import { useTranslation } from '@/hooks/useTranslation';
-import Typography from '@/ui/Typography';
+import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
+import { useTranslation } from '@/hooks/useTranslation';
+import Stub from '@/layout/Stub';
+import Typography from '@/ui/Typography';
 
-import style from './style.module.scss';
 import { PreviewImages } from './components/PreviewImages';
+import style from './style.module.scss';
 
 interface IProps {}
 
@@ -110,9 +110,11 @@ const CreatePreview: FC<IProps> = ({}) => {
         </div>
       ) : (
         <Stub>
-          <HomeSvgSelector id="document" />
-          <Typography variant="heading2">{t('preview.title2')}</Typography>
-          <Typography variant="heading5">{t('preview.access')}</Typography>
+          <img src="/images/create_ad.png" className="w-[585px] h-[300px]" />
+          <div className="flex flex-col items-center gap-1">
+            <Typography variant="heading2">{t('preview.title2')}</Typography>
+            <Typography variant="heading5">{t('preview.access')}</Typography>
+          </div>
         </Stub>
       )}
     </>

@@ -1,24 +1,25 @@
 import {
   ChangeEvent,
+  DragEvent,
   FC,
   MouseEvent,
   PropsWithChildren,
   useEffect,
   useRef,
   useState,
-  DragEvent,
 } from 'react';
 
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
-import { mergeStyles } from '@/helpers/mergeStyles';
 import { getImage } from '@/helpers/getImage';
-import { useTranslation } from '@/hooks/useTranslation';
+import { mergeStyles } from '@/helpers/mergeStyles';
 import { validateFilesExtensions } from '@/helpers/validateFilesExtensions';
+import { useTranslation } from '@/hooks/useTranslation';
 import { cn } from '@/utils/utils';
 
 import ButtonDelete from '../ButtonDelete';
 import Typography from '../Typography';
 
+import Button from '../Button';
 import style from './style.module.scss';
 
 interface IProps {
@@ -84,55 +85,75 @@ const InputImages: FC<PropsWithChildren<IProps>> = ({
 
   return (
     <form
-      className={mergeStyles(style.InputImages, className)}
+      className={mergeStyles(
+        style.InputImages,
+        className,
+        files.length === 0 ? '!h-[206px]' : files.length === 1 ? '!h-[196px]' : '!h-[268px]',
+      )}
       onSubmit={(e) => e.preventDefault()}
       onDrop={handleDrop}
     >
-      {!!files.length && (
-        <div
-          className={cn(
-            style.GridContainer,
-            '2xl:!w-[319px] 2xl:!left-[50%] 2xl:-translate-x-[50%]',
-          )}
-        >
-          {files.map((file, i) => {
-            const url = file instanceof File ? URL.createObjectURL(file) : getImage(file);
-            return (
-              <div
-                className={style.GridItem}
-                key={file instanceof File ? file.name : file}
-                onClick={handleImageClick(i)}
-              >
-                <ButtonDelete className={style.ButtonDelete} onClick={handleRemoveImage(i)} />
-                <img className={style.Images} src={url} />
-              </div>
-            );
-          })}
-        </div>
-      )}
+      <div className="relative h-full">
+        {files.length < 9 && (
+          <input
+            className={style.Load}
+            type="file"
+            name="file"
+            onChange={handleFilesChange}
+            multiple={true}
+            accept=".png,.jpeg,.webp,.jpg"
+            ref={inputRef}
+            disabled={disabled}
+          />
+        )}
+        {files.length > 0 && (
+          <div
+            className={cn(
+              style.GridContainer,
+              '2xl:!w-[319px] 2xl:!left-[50%] 2xl:-translate-x-[50%]',
+              files.length === 0 ? '!h-[206px]' : files.length === 1 ? '!h-[128px]' : '!h-[200px]',
+            )}
+          >
+            {files.map((file, i) => {
+              const url = file instanceof File ? URL.createObjectURL(file) : getImage(file);
+              const isFirstImage = i === 0;
+
+              const gridRowStyle = files.length > 1 && isFirstImage ? '1 / 3' : undefined;
+              const gridColumnStyle = isFirstImage ? '2 / 4' : undefined;
+              return (
+                <div
+                  className={cn(style.GridItem)}
+                  style={{ gridRow: gridRowStyle, gridColumn: gridColumnStyle }}
+                  key={file instanceof File ? file.name : file}
+                  onClick={handleImageClick(i)}
+                >
+                  <ButtonDelete className={style.ButtonDelete} onClick={handleRemoveImage(i)} />
+                  <img className={style.Images} src={url} />
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
       {!files.length && (
         <div className={style.FormContainer}>
-          <HomeSvgSelector id="load-img"></HomeSvgSelector>
-          <Typography variant="heading4" className={style.Heading4}>
+          <HomeSvgSelector id="load-img" />
+          <Typography variant="heading3" className={style.Heading4}>
             {t('inputs.imageInfo')}
           </Typography>
         </div>
       )}
-      <input
-        className={style.Load}
-        type="file"
-        name="file"
-        onChange={handleFilesChange}
-        multiple={true}
-        accept=".png,.jpeg,.webp,.jpg"
-        ref={inputRef}
-        disabled={disabled}
-      />
       {files.length <= 5 && (
-        <label className={style.label} htmlFor="file" onClick={() => inputRef.current?.click()}>
-          <button className={style.Submit} disabled={disabled}>
+        <label className={style.label} htmlFor="file">
+          <Button
+            className={cn(style.ButtonNext, '!w-full !gap-2')}
+            disabled={disabled}
+            onClick={() => inputRef.current?.click()}
+          >
+            <HomeSvgSelector id={'attach-file'} />
             {t('attachImage')}
-          </button>
+          </Button>
         </label>
       )}
     </form>

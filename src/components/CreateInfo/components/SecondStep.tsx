@@ -1,21 +1,21 @@
-import { FC, useContext } from 'react';
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { FC, useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
+import SliderButton from '@/components/SliderButton';
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
 import { cities } from '@/constants/cities';
-import Button from '@/ui/Button';
-import Input from '@/ui/Input';
-import FlexContainer from '@/layout/FlexContainer';
-import { CreatePostContext } from '@/contexts/CreatePostContext';
-import { post } from '@/constants/post.common';
 import { UsedPeriod } from '@/constants/enums';
-import SliderButton from '@/components/SliderButton';
-import { useTranslation } from '@/hooks/useTranslation';
-import Typography from '@/ui/Typography';
+import { post } from '@/constants/post.common';
+import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
+import { useTranslation } from '@/hooks/useTranslation';
+import FlexContainer from '@/layout/FlexContainer';
+import Button from '@/ui/Button';
 import Select from '@/ui/CustomSelect';
+import Input from '@/ui/Input';
+import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
 
 import style from '../style.module.scss';
@@ -96,12 +96,12 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
       <div className={style.back}>
         <button onClick={handleMove(-1)} className={cn(style['back-btn'], '2xl:!gap-[14px]')}>
           <HomeSvgSelector id="arrow-left" />
-          <Typography variant="heading4">{t('back')}</Typography>
+          <Typography variant="heading3">{t('back')}</Typography>
         </button>
       </div>
       <div className="mb-[8px] 2xl:flex 2xl:flex-col 2xl:gap-[4px]">
         <Typography variant="heading2">{t('post.addDescription')}</Typography>
-        <Typography variant="heading5" className={style['gray-text']}>
+        <Typography variant="heading3" className={style['gray-text']}>
           {t('post.willFaster')}
         </Typography>
       </div>

@@ -8,20 +8,17 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
-import { cn } from '@/utils/utils';
-import { useTranslation } from '@/hooks/useTranslation';
-import { capitalize } from '@/helpers/capitalize';
-import { useClickOutside } from '@/hooks/useOnClickOutside';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import Checkbox from '@/ui/Checkbox';
+import { capitalize } from '@/helpers/capitalize';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useClickOutside } from '@/hooks/useOnClickOutside';
+import { useTranslation } from '@/hooks/useTranslation';
+import { cn } from '@/utils/utils';
 
-import Typography from '../Typography';
 import FloatLabel from '../FloatLabel';
+import Typography from '../Typography';
 
 import Dropdown from './components/Dropdown';
 
@@ -115,7 +112,7 @@ const Select: FC<IProps> = ({
           ref={triggerRef}
           onClick={() => setIsOpen((prev) => !prev)}
           className={cn(
-            'px-[14px] py-[11px] ring-dark-gray ring-1 w-[calc(100%-2px)]',
+            'px-[14px] py-[10px] ring-dark-gray ring-1 w-[calc(100%-2px)]',
             'flex justify-between bg-white transition-shadow',
             isOpen && 'ring-main-green',
             error && 'ring-red',
@@ -155,7 +152,7 @@ const Select: FC<IProps> = ({
         </span>
       )}
       {isOpen &&
-        (inDialog && !withoutDialog ? (
+        (!withoutDialog ? (
           <Dialog open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
             <DialogContent className="w-[405px] rounded-0 2xl:py-[10px] 2xl:px-0 xs:w-[calc(100%-40px)] xs:mx-[20px] xs:translate-x-[calc(-50%-20px)]">
               <Dropdown

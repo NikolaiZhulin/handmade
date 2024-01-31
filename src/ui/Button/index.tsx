@@ -16,7 +16,7 @@ const COLORS_MAP = {
   green: style.green,
   blue: style.blue,
   neutral: style.neutral,
-  deliteProfile: style.deliteProfile,
+  deleteProfile: style.deleteProfile,
   ghost: style.ghost,
   yellow: style.yellow,
   red: style.red,

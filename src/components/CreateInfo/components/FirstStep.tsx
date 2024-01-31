@@ -1,26 +1,24 @@
-import { useForm } from 'react-hook-form';
-import { FC, useContext, useEffect, useState } from 'react';
-import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { FC, useContext, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
-import Input from '@/ui/Input';
-import Textarea from '@/ui/Textarea';
-import ButtonLogin from '@/ui/ButtonLogin';
-import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
-import FlexContainer from '@/layout/FlexContainer';
-import InputImages from '@/ui/InputImages';
-import Button from '@/ui/Button';
-import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { Currency } from '@/constants/enums';
-import { useTranslation } from '@/hooks/useTranslation';
-import Typography from '@/ui/Typography';
-import { capitalize } from '@/helpers/capitalize';
-import Select from '@/ui/CustomSelect';
+import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { UserContext } from '@/contexts/UserContext';
+import { capitalize } from '@/helpers/capitalize';
+import { useTranslation } from '@/hooks/useTranslation';
+import FlexContainer from '@/layout/FlexContainer';
+import Button from '@/ui/Button';
+import Select from '@/ui/CustomSelect';
+import Input from '@/ui/Input';
+import InputImages from '@/ui/InputImages';
+import Textarea from '@/ui/Textarea';
+import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
 
-import style from '../style.module.scss';
 import { CURRENCY_MAP } from '../config';
+import style from '../style.module.scss';
 
 interface IProps {
   onStep: (direction: number) => void;
@@ -119,87 +117,98 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
 
   return (
     <>
-      <Typography variant="heading2" className={style.Heading2}>
-        {t('post.addTitle')}
-      </Typography>
-      <Input
-        controllerProps={{ name: 'name', control }}
-        placeholder={t('inputs.postName')}
-        disabled={!accessToken}
-        autoComplete="off"
-      />
-      <Textarea
-        controllerProps={{ name: `text${capitalize(language)}` as keyof FormState, control }}
-        placeholder={t('inputs.postDescription')}
-        disabled={!accessToken}
-      />
-      <Typography variant="heading5" className={style.Heading5}>
-        {t('post.translateInfo')}
-      </Typography>
-      <ButtonLogin
-        className={cn(style.Button, 'xs:!h-[32px]')}
-        onClick={toggleGe}
-        disabled={!accessToken}
-      >
-        <HomeSvgSelector id={secondaryLangs[0]} />
-        {t(`post.text${capitalize(secondaryLangs[0])}${isGeShown ? 1 : ''}`)}
-      </ButtonLogin>
-      {isGeShown && (
-        <Textarea
-          controllerProps={{
-            name: `text${capitalize(secondaryLangs[0])}` as keyof FormState,
-            control,
-          }}
-          placeholder={t(`inputs.postDescription${capitalize(secondaryLangs[0])}`)}
-          disabled={!accessToken}
-        />
-      )}
-      <ButtonLogin
-        className={cn(style.Button, 'xs:!h-[32px]')}
-        onClick={toggleEng}
-        disabled={!accessToken}
-      >
-        <HomeSvgSelector id={secondaryLangs[1]} />
-        {t(`post.text${capitalize(secondaryLangs[1])}${isEngShown ? 1 : ''}`)}
-      </ButtonLogin>
-      {isEngShown && (
-        <Textarea
-          controllerProps={{
-            name: `text${capitalize(secondaryLangs[1])}` as keyof FormState,
-            control,
-          }}
-          placeholder={t(`inputs.postDescription${capitalize(secondaryLangs[1])}`)}
-          disabled={!accessToken}
-        />
-      )}
-      <FlexContainer className={style.FlexContainer} align="start">
-        <Input
-          controllerProps={{ name: 'price', control }}
-          placeholder={t('price')}
-          type="number"
-          disabled={!accessToken}
-          className="2xl:w-full"
-        />
-        <Select
-          containerClassname="w-[100px]"
-          options={CURRENCY_MAP}
-          placeholder={t('currency')}
-          onSelect={handleCurrencyChnage}
-          showOnlyIcon={true}
-          valueWithIcon={true}
-          defaultValue={CURRENCY_MAP.find((el) => el.value === currency)}
-        />
-      </FlexContainer>
-      <InputImages initialFiles={files} onFiles={handleFilesChange} disabled={!accessToken} />
-      <Button
-        className={cn(style.ButtonNext, '2xl:mt-auto')}
-        onClick={handleNextClick}
-        disabled={!accessToken}
-      >
-        <Typography variant="heading3" weight={550} color="white">
-          {t('continue')}
+      <div className="flex flex-col gap-[14px]">
+        <Typography variant="heading2" className={style.Heading2}>
+          {t('post.addTitle')}
         </Typography>
-      </Button>
+        <div className="flex flex-col gap-[8px] overflow-hidden">
+          <div className="pt-2">
+            <Input
+              controllerProps={{ name: 'name', control }}
+              placeholder={t('inputs.postName')}
+              disabled={!accessToken}
+              autoComplete="off"
+            />
+          </div>
+          <Textarea
+            controllerProps={{ name: `text${capitalize(language)}` as keyof FormState, control }}
+            placeholder={t('inputs.postDescription')}
+            disabled={!accessToken}
+          />
+          <Typography variant="heading3" color="gray" className={style.Heading5}>
+            {t('post.translateInfo')}
+          </Typography>
+
+          <Button
+            className={cn(style.Button, '2xl:!h-[44px] !h-[66px] !w-auto')}
+            onClick={toggleGe}
+            disabled={!accessToken}
+          >
+            {t(`post.text${capitalize(secondaryLangs[0])}${isGeShown ? 1 : ''}`)}
+          </Button>
+
+          {isGeShown && (
+            <Textarea
+              controllerProps={{
+                name: `text${capitalize(secondaryLangs[0])}` as keyof FormState,
+                control,
+              }}
+              placeholder={t(`inputs.postDescription${capitalize(secondaryLangs[0])}`)}
+              disabled={!accessToken}
+            />
+          )}
+          <Button
+            className={cn(style.Button, '2xl:!h-[44px] !h-[66px] !w-auto')}
+            onClick={toggleEng}
+            disabled={!accessToken}
+          >
+            {t(`post.text${capitalize(secondaryLangs[1])}${isEngShown ? 1 : ''}`)}
+          </Button>
+
+          {isEngShown && (
+            <Textarea
+              controllerProps={{
+                name: `text${capitalize(secondaryLangs[1])}` as keyof FormState,
+                control,
+              }}
+              placeholder={t(`inputs.postDescription${capitalize(secondaryLangs[1])}`)}
+              disabled={!accessToken}
+            />
+          )}
+
+          <FlexContainer className={cn(style.FlexContainer, 'pt-2')}>
+            <Input
+              controllerProps={{ name: 'price', control }}
+              placeholder={t('price')}
+              type="number"
+              disabled={!accessToken}
+              className="2xl:w-full"
+            />
+            <Select
+              containerClassname="w-[100px]"
+              options={CURRENCY_MAP}
+              placeholder={t('currency')}
+              onSelect={handleCurrencyChnage}
+              showOnlyIcon={true}
+              valueWithIcon={true}
+              defaultValue={CURRENCY_MAP.find((el) => el.value === currency)}
+            />
+          </FlexContainer>
+        </div>
+        <InputImages initialFiles={files} onFiles={handleFilesChange} disabled={!accessToken} />
+        {files.length > 0 && (
+          <Button
+            color="white"
+            className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}
+            onClick={handleNextClick}
+            disabled={!accessToken}
+          >
+            <Typography variant="heading3" weight={500} color="green">
+              {t('continue')}
+            </Typography>
+          </Button>
+        )}
+      </div>
     </>
   );
 };

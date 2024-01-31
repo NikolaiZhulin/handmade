@@ -4,7 +4,7 @@
 .TextareaWrapper {
   position: relative;
   width: 100%;
-
+  margin-top: 8px;
   &.errorState {
     margin-bottom: 16px;
   }
@@ -14,7 +14,6 @@
   align-items: center;
   min-height: 40px;
   border: 1px solid $dark-gray !important;
-  border-radius: 6px;
   box-sizing: border-box;
   border: none;
   width: 100%;
