@@ -96,7 +96,7 @@ const Page = () => {
             {t('errors.wrongLoginAndPass')}
           </Typography>
         )}
-        <div className="flex align-center gap-[10px]">
+        <div className="flex items-center gap-[10px]">
           <HomeSvgSelector id="logo_admin" />
           <Typography variant="heading2">Admin</Typography>
         </div>
