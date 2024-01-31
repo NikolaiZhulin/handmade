@@ -130,13 +130,11 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
               autoComplete="off"
             />
           </div>
-          <div className="pt-2">
-            <Textarea
-              controllerProps={{ name: `text${capitalize(language)}` as keyof FormState, control }}
-              placeholder={t('inputs.postDescription')}
-              disabled={!accessToken}
-            />
-          </div>
+          <Textarea
+            controllerProps={{ name: `text${capitalize(language)}` as keyof FormState, control }}
+            placeholder={t('inputs.postDescription')}
+            disabled={!accessToken}
+          />
           <Typography variant="heading3" color="gray" className={style.Heading5}>
             {t('post.translateInfo')}
           </Typography>
