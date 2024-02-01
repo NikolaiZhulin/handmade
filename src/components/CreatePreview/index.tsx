@@ -8,7 +8,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Stub from '@/layout/Stub';
 import Typography from '@/ui/Typography';
 
-import { PreviewImages } from './components/PreviewImages';
+import { PreviewImage } from './components/PreviewImages';
 import style from './style.module.scss';
 
 interface IProps {}
@@ -34,38 +34,29 @@ const CreatePreview: FC<IProps> = ({}) => {
     requestCategories,
   } = state;
 
-  const updateActiveIndex = (ind: number) => () => {
-    setActiveIndex(ind);
-  };
-
   return (
     <>
       {[name, price, currency].every((el) => el) ? (
         <div className={style.wrapper}>
-          <Typography variant="heading4" className={style.grayText}>
+          <Typography variant="heading3" className={style.grayText}>
             {t('preview.title')}
           </Typography>
           <Typography variant="heading2">{name}</Typography>
           <div className={style.images}>
             {files.map((file, i) => (
-              <PreviewImages
+              <PreviewImage
+                key={i + '1'}
                 file={file}
                 index={i}
-                activeIndex={activeIndex}
-                updateActiveIndex={updateActiveIndex}
-                key={i}
+                activeImage={activeIndex === i}
+                updateActiveIndex={(i) => setActiveIndex(i)}
               />
             ))}
           </div>
           <div>
-            <Typography variant="heading1" className={style.price}>
+            <Typography variant="heading2" className={style.price}>
               {price} {currency}
             </Typography>
-            {isUsed && (
-              <Typography variant="heading4" className={style.grayText}>
-                {usedAmount} {usedPeriod} {t('post.used')}
-              </Typography>
-            )}
           </div>
           {city && (
             <div className={style.flex}>
@@ -113,7 +104,7 @@ const CreatePreview: FC<IProps> = ({}) => {
           <img src="/images/create_ad.png" className="w-[585px] h-[300px]" />
           <div className="flex flex-col items-center gap-1">
             <Typography variant="heading2">{t('preview.title2')}</Typography>
-            <Typography variant="heading5">{t('preview.access')}</Typography>
+            <Typography variant="heading3">{t('preview.access')}</Typography>
           </div>
         </Stub>
       )}
