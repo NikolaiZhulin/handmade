@@ -1,26 +1,25 @@
-import { FC, useContext, useEffect, useState } from 'react';
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
+import { FC, useContext, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import * as z from 'zod';
 
-import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
-import Input from '@/ui/Input';
-import Switch from '@/ui/Switch';
-import Button from '@/ui/Button';
-import { mergeStyles } from '@/helpers/mergeStyles';
-import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { useCreatePost } from '@/api/posts/create-post';
-import { IPostContactInfo } from '@/types/posts';
-import { useTranslation } from '@/hooks/useTranslation';
-import Typography from '@/ui/Typography';
 import StatusModal from '@/components/modals/StatusModal';
-import { cn } from '@/utils/utils';
+import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
+import { CreatePostContext } from '@/contexts/CreatePostContext';
+import { mergeStyles } from '@/helpers/mergeStyles';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useTranslation } from '@/hooks/useTranslation';
+import { IPostContactInfo } from '@/types/posts';
+import Button from '@/ui/Button';
+import Input from '@/ui/Input';
+import Typography from '@/ui/Typography';
+import { cn } from '@/utils/utils';
 
-import style from '../style.module.scss';
 import { thirdStepConfig } from '../config';
+import style from '../style.module.scss';
 
 interface IProps {
   onStep: (direction: number) => void;
@@ -201,46 +200,57 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
           action={() => (modalType === 'error' ? setModalType('') : push('/'))}
         />
       )}
-      <div className={style.back}>
-        <button onClick={handleBack} className={cn(style['back-btn'], '2xl:!gap-[14px]')}>
-          <HomeSvgSelector id="arrow-left" />
-          <Typography variant="heading4">{t('back')}</Typography>
-        </button>
-      </div>
-      <Typography variant="heading2">{t('post.howToContact')}</Typography>
-      <div className={style.switchInput}>
-        <Input
-          controllerProps={{ name: 'phone', control }}
-          leftElem={<HomeSvgSelector id="tube" />}
-          className={cn(style.w85, '2xl:!w-full')}
-          placeholder={t('inputs.phone')}
-          disabled={!formValues.isPhoneActive}
-          mask="phone"
-        />
-        <Switch controllerProps={{ name: 'isPhoneActive', control }} />
-      </div>
-      <Input controllerProps={{ name: 'contactName', control }} placeholder={t('inputs.name')} />
-      <Typography variant="heading2">{t('profile.contactsTitle')}</Typography>
-      {thirdStepConfig.map((item) => (
-        <div className={style.switchInput} key={item.controller}>
-          <Input
-            controllerProps={{ name: item.controller, control }}
-            leftElem={<HomeSvgSelector id={item.icon} />}
-            className={mergeStyles(style.w100)}
-            placeholder={t(item.placeholder)}
-            disabled={!formValues[item.switch]}
-            mask={item.mask}
-          />
-          <Switch controllerProps={{ name: item.switch, control }} />
+      <div className="flex flex-col gap-[14px]">
+        <div className={style.back}>
+          <button onClick={handleBack} className={cn(style['back-btn'], '2xl:!gap-[14px]')}>
+            <HomeSvgSelector id="arrow-left" />
+            <Typography variant="heading3">{t('back')}</Typography>
+          </button>
         </div>
-      ))}
-      <Button
-        className={cn(style.ButtonNext, '2xl:mt-auto')}
-        onClick={isLaptop ? () => onStep(1) : handlePost}
-        disabled={isLoading}
-      >
-        {isLaptop ? 'Продолжить' : t('post.post')}
-      </Button>
+        <Typography variant="heading2">{t('post.howToContact')}</Typography>
+        <div className={style.switchInput}>
+          <Input
+            controllerProps={{ name: 'phone', control }}
+            leftElem={<HomeSvgSelector id="tube" />}
+            className={cn(style.w100, '2xl:!w-full')}
+            placeholder={t('inputs.phone')}
+            disabled={!formValues.isPhoneActive}
+            mask="phone"
+          />
+        </div>
+        <Input controllerProps={{ name: 'contactName', control }} placeholder={t('inputs.name')} />
+        <div className={style.switchInput}>
+          <Input
+            controllerProps={{ name: thirdStepConfig[0].controller, control }}
+            leftElem={<HomeSvgSelector id={thirdStepConfig[0].icon} />}
+            className={mergeStyles(style.w100)}
+            placeholder={t(thirdStepConfig[0].placeholder)}
+            disabled={formValues[thirdStepConfig[0].switch]}
+            mask={thirdStepConfig[0].mask}
+          />
+        </div>
+        <Typography variant="heading2">{t('profile.contactsTitle')}</Typography>
+
+        {thirdStepConfig.slice(1).map((item) => (
+          <div className={style.switchInput} key={item.controller}>
+            <Input
+              controllerProps={{ name: item.controller, control }}
+              leftElem={<HomeSvgSelector id={item.icon} />}
+              className={mergeStyles(style.w100)}
+              placeholder={t(item.placeholder)}
+              disabled={formValues[item.switch]}
+              mask={item.mask}
+            />
+          </div>
+        ))}
+        <Button
+          className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}
+          onClick={isLaptop ? () => onStep(1) : handlePost}
+          disabled={isLoading}
+        >
+          {isLaptop ? 'Продолжить' : t('post.post')}
+        </Button>
+      </div>
     </>
   );
 };

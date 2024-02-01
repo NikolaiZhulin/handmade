@@ -1,30 +1,30 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
 
+import { useGetPostById } from '@/api/posts/post-by-id';
+import { useUpdatePost } from '@/api/posts/update-post';
+import { cities } from '@/constants/cities';
+import { post as postConfig } from '@/constants/post.common';
+import { getErrorToast } from '@/helpers/aggregateErrorsMessage';
+import { mergeStyles } from '@/helpers/mergeStyles';
+import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useTranslation } from '@/hooks/useTranslation';
 import FlexContainer from '@/layout/FlexContainer';
+import { IPostContactInfo } from '@/types/posts';
+import Button from '@/ui/Button';
+import Select from '@/ui/CustomSelect';
 import Input from '@/ui/Input';
+import InputImages from '@/ui/InputImages';
+import Switch from '@/ui/Switch';
 import Textarea from '@/ui/Textarea';
 import Typography from '@/ui/Typography';
-import InputImages from '@/ui/InputImages';
-import Button from '@/ui/Button';
-import { post as postConfig } from '@/constants/post.common';
-import { useGetPostById } from '@/api/posts/post-by-id';
-import { cities } from '@/constants/cities';
-import { mergeStyles } from '@/helpers/mergeStyles';
-import Switch from '@/ui/Switch';
-import { IPostContactInfo } from '@/types/posts';
-import { useUpdatePost } from '@/api/posts/update-post';
-import { getErrorToast } from '@/helpers/aggregateErrorsMessage';
-import { useTranslation } from '@/hooks/useTranslation';
-import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
-import Select from '@/ui/CustomSelect';
 import { cn } from '@/utils/utils';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-import SliderButton from '../SliderButton';
 import { CURRENCY_MAP, thirdStepConfig } from '../CreateInfo/config';
+import SliderButton from '../SliderButton';
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 
 import styles from './styles.module.scss';
@@ -133,6 +133,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
       };
 
       const formData = new FormData();
+      console.log('formData', formData);
 
       Object.entries(rest).forEach(([key, value]) => {
         if (value !== undefined && formState.dirtyFields[key as keyof FormState]) {
@@ -174,7 +175,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
             controllerProps={{ name: 'textRu', control }}
             placeholder={t('inputs.postDescription')}
           />
-          <Typography variant="heading4">{t('post.translateInfo')}</Typography>
+          <Typography variant="heading3">{t('post.translateInfo')}</Typography>
           <Button fullWidth={true} color="neutral" onClick={toggleGe}>
             <HomeSvgSelector id="ge" />
             <Typography variant="heading3" color="black">

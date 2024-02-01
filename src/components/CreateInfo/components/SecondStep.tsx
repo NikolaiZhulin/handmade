@@ -71,6 +71,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
       usedAmount: state.usedAmount,
       usedPeriod: state.usedPeriod,
       metal: state.metal,
+      sex: state.sex,
       jewel: state.jewel,
       sample: state.sample,
       stone: state.stone,
@@ -113,8 +114,10 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
   };
   const setIsJewelry = (isActive: boolean) => () => setValue('isJewelry', !isActive);
 
-  const handleSelectChange = (value: string | string[]) => {
+  const handleSelectChange = (value: string) => {
     if (Array.isArray(value)) {
+      console.log('value', value);
+
       setValue('sex', value);
       return;
     }
@@ -208,17 +211,20 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
           className="!w-full"
           defaultValue={true}
         />
+        <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
+          <Typography variant="heading2">{t('post.sex')}</Typography>
+        </div>
         <div className=" min-h-[0px] flex flex-col gap-[14px]">
-          {sexes.map((el) => (
+          {sexes.map(({ label, value }) => (
             <Checkbox
-              key={el.value}
+              key={value}
               controllerProps={{ control, name: 'sex' }}
-              id={el.value}
-              value={el.value}
-              checked={sex?.includes(el.value)}
+              id={value}
+              value={value}
+              checked={sex?.includes(value)}
               onChangeCustom={(_, value) => handleSelectChange(value as string)}
             >
-              {t(el.label)}
+              {t(label)}
             </Checkbox>
           ))}
         </div>
@@ -226,7 +232,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
           className={cn(style.ButtonNext, '2xl:mt-auto !w-full mt-8')}
           onClick={handleMove(1)}
         >
-          {Object.keys(touchedFields).length <= 0 ? t('skip') : t('continue')}
+          {Object.keys(touchedFields).length === 0 ? t('skip') : t('continue')}
         </Button>
       </div>
     </>

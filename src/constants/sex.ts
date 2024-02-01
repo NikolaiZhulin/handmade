@@ -1,11 +1,11 @@
 export const sexes = [
   {
-    label: 'sex.for_her',
+    label: 'post.for_her',
     value: 'for_her',
     icon: '',
   },
   {
-    label: 'sex.for_him',
+    label: 'post.for_him',
     value: 'for_him',
     icon: '',
   },
