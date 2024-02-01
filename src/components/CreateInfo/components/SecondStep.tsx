@@ -5,19 +5,22 @@ import * as z from 'zod';
 
 import SliderButton from '@/components/SliderButton';
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
-import { cities } from '@/constants/cities';
 import { UsedPeriod } from '@/constants/enums';
-import { post } from '@/constants/post.common';
 import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
 import { useTranslation } from '@/hooks/useTranslation';
-import FlexContainer from '@/layout/FlexContainer';
 import Button from '@/ui/Button';
 import Select from '@/ui/CustomSelect';
 import Input from '@/ui/Input';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
 
+import { cities } from '@/constants/cities';
+import { metals } from '@/constants/metals';
+import { samples } from '@/constants/sample';
+import { sexes } from '@/constants/sex';
+import { stones } from '@/constants/stones';
+import Checkbox from '@/ui/Checkbox';
 import style from '../style.module.scss';
 
 interface IProps {
@@ -29,6 +32,14 @@ interface FormState {
   usedAmount: number;
   usedPeriod: UsedPeriod;
   city: string;
+  metal: string;
+  jewel: string;
+  sample: string;
+  stone: string;
+  size: string;
+  isJewelry: boolean;
+  sex: string[];
+  careRecommendations: string;
   requestCategories: string[];
   address: string;
 }
@@ -56,8 +67,15 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
   } = useForm<FormState>({
     defaultValues: {
       isUsed: state.isUsed,
+      isJewelry: true,
       usedAmount: state.usedAmount,
       usedPeriod: state.usedPeriod,
+      metal: state.metal,
+      jewel: state.jewel,
+      sample: state.sample,
+      stone: state.stone,
+      size: state.size,
+      careRecommendations: state.careRecommendations,
       city: state.city,
       requestCategories: state.requestCategories,
       address: state.address,
@@ -66,13 +84,13 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
     mode: 'all',
   });
 
-  const [isUsed, usedPeriod, city, requestCategories] = watch([
+  const [sex, isUsed, usedPeriod, city, requestCategories] = watch([
+    'sex',
     'isUsed',
     'usedPeriod',
     'city',
     'requestCategories',
   ]);
-  const changeUsed = (value: boolean) => () => setValue('isUsed', !value);
 
   const handleMove = (direction: number) => () => {
     setState(getValues());
@@ -84,71 +102,133 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
   };
 
   const handleCityValue = (newValue: string) => {
-    setValue('city', newValue, { shouldTouch: true });
+    setValue('metal', newValue, { shouldTouch: true });
   };
 
-  const handlePeriodChange = (newValue: string) => {
-    setValue('usedPeriod', newValue as UsedPeriod, { shouldTouch: true });
+  const handleSamplesValue = (newValue: string) => {
+    setValue('sample', newValue, { shouldTouch: true });
+  };
+  const handleStoneValue = (newValue: string) => {
+    setValue('stone', newValue, { shouldTouch: true });
+  };
+  const setIsJewelry = (isActive: boolean) => () => setValue('isJewelry', !isActive);
+
+  const handleSelectChange = (value: string | string[]) => {
+    if (Array.isArray(value)) {
+      setValue('sex', value);
+      return;
+    }
   };
 
   return (
     <>
-      <div className={style.back}>
-        <button onClick={handleMove(-1)} className={cn(style['back-btn'], '2xl:!gap-[14px]')}>
-          <HomeSvgSelector id="arrow-left" />
-          <Typography variant="heading3">{t('back')}</Typography>
-        </button>
+      <div className="flex flex-col gap-[14px]">
+        <div className={style.back}>
+          <button onClick={handleMove(-1)} className={cn(style['back-btn'], '2xl:!gap-[14px]')}>
+            <HomeSvgSelector id="arrow-left" />
+            <Typography variant="heading3">{t('back')}</Typography>
+          </button>
+        </div>
+        <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
+          <Typography variant="heading2">{t('post.addDescription')}</Typography>
+          <Typography variant="heading3" className={style['gray-text']}>
+            {t('post.willFaster')}
+          </Typography>
+        </div>
+        <div className="flex flex-col gap-2">
+          <div className="pt-2">
+            <Select
+              options={categories}
+              placeholder={t('inputs.jewel')}
+              onSelect={handleCategoriesValue}
+              value={categories.find((el) => requestCategories?.includes(el.value))}
+            />
+          </div>
+          <div className="pt-2">
+            <Select
+              withTranslate={true}
+              options={metals}
+              placeholder={t('inputs.metal')}
+              onSelect={handleCityValue}
+              value={metals.find((el) => requestCategories?.includes(el.value))}
+            />
+          </div>
+          <div className="pt-2">
+            <Select
+              withTranslate={true}
+              options={samples}
+              placeholder={t('inputs.sample')}
+              onSelect={handleSamplesValue}
+              value={samples.find((el) => requestCategories?.includes(el.value))}
+            />
+          </div>
+          <div className="pt-2">
+            <Select
+              withTranslate={true}
+              options={stones}
+              placeholder={t('inputs.stone')}
+              onSelect={handleStoneValue}
+              value={stones.find((el) => requestCategories?.includes(el.value))}
+            />
+          </div>
+          <div className="pt-2">
+            <Input controllerProps={{ control, name: 'size' }} placeholder={t('inputs.size')} />
+          </div>
+          <div className="pt-2">
+            <Input
+              controllerProps={{ control, name: 'careRecommendations' }}
+              placeholder={t('inputs.careRecommendations')}
+            />
+          </div>
+          <div className="pt-2">
+            <Select
+              withTranslate={true}
+              options={cities}
+              placeholder={t('inputs.city')}
+              onSelect={handleCityValue}
+              value={cities.find((el) => requestCategories?.includes(el.value))}
+            />
+          </div>
+          <div className="pt-2">
+            <Input
+              controllerProps={{ control, name: 'address' }}
+              placeholder={t('inputs.address')}
+            />
+          </div>
+        </div>
+
+        <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
+          <Typography variant="heading2">{t('post.bijouterie')}</Typography>
+        </div>
+        <SliderButton
+          leftText={t('yes')}
+          rightText={t('no')}
+          variant="gray"
+          onClick={setIsJewelry}
+          className="!w-full"
+          defaultValue={true}
+        />
+        <div className=" min-h-[0px] flex flex-col gap-[14px]">
+          {sexes.map((el) => (
+            <Checkbox
+              key={el.value}
+              controllerProps={{ control, name: 'sex' }}
+              id={el.value}
+              value={el.value}
+              checked={sex?.includes(el.value)}
+              onChangeCustom={(_, value) => handleSelectChange(value as string)}
+            >
+              {t(el.label)}
+            </Checkbox>
+          ))}
+        </div>
+        <Button
+          className={cn(style.ButtonNext, '2xl:mt-auto !w-full mt-8')}
+          onClick={handleMove(1)}
+        >
+          {Object.keys(touchedFields).length <= 0 ? t('skip') : t('continue')}
+        </Button>
       </div>
-      <div className="mb-[8px] 2xl:flex 2xl:flex-col 2xl:gap-[4px]">
-        <Typography variant="heading2">{t('post.addDescription')}</Typography>
-        <Typography variant="heading3" className={style['gray-text']}>
-          {t('post.willFaster')}
-        </Typography>
-      </div>
-      <Select
-        options={categories}
-        placeholder={t('inputs.category')}
-        onSelect={handleCategoriesValue}
-        value={categories.find((el) => requestCategories?.includes(el.value))}
-      />
-      <Select
-        withTranslate={true}
-        options={cities}
-        placeholder={t('inputs.city')}
-        onSelect={handleCityValue}
-        value={cities.find((el) => el.value === city)}
-      />
-      <Input controllerProps={{ control, name: 'address' }} placeholder={t('inputs.address')} />
-      <SliderButton
-        onClick={changeUsed}
-        leftText={t('post.used')}
-        rightText={t('post.new')}
-        className="!w-full"
-        variant="gray"
-        small={true}
-        defaultValue={!isUsed}
-      />
-      {isUsed && (
-        <FlexContainer className={style.gap8} align="start">
-          <Input
-            controllerProps={{ name: 'usedAmount', control }}
-            placeholder={t('inputs.usedPeriod')}
-            className="!w-full"
-            type="number"
-          />
-          <Select
-            withTranslate={true}
-            containerClassname="!w-full"
-            options={post.usedPeriod}
-            placeholder={t('inputs.period')}
-            onSelect={handlePeriodChange}
-            value={post.usedPeriod.find((el) => el.value === usedPeriod)}
-          />
-        </FlexContainer>
-      )}
-      <Button className={cn(style.ButtonNext, '2xl:mt-auto')} onClick={handleMove(1)}>
-        {Object.keys(touchedFields).length <= 0 ? t('skip') : t('continue')}
-      </Button>
     </>
   );
 };

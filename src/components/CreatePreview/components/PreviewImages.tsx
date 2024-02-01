@@ -7,18 +7,18 @@ import style from '../style.module.scss';
 interface IProps {
   file: File;
   index: number;
-  activeIndex: number;
-  updateActiveIndex: (i: number) => () => void;
+  activeImage: boolean;
+  updateActiveIndex: (i: number) => void;
 }
 
-export const PreviewImages: FC<IProps> = ({ file, index, activeIndex, updateActiveIndex }) => {
+export const PreviewImage: FC<IProps> = ({ file, index, activeImage, updateActiveIndex }) => {
   return (
-    <div className={style.ImgComtainer}>
+    <div className={style.ImgContainer}>
       <img
         key={file.name}
         src={URL.createObjectURL(file)}
-        className={mergeStyles(style.image, index === activeIndex && style.active)}
-        onClick={updateActiveIndex(index)}
+        className={mergeStyles(style.image, activeImage && style.active, 'cursor-pointer')}
+        onClick={() => updateActiveIndex(index)}
       />
     </div>
   );

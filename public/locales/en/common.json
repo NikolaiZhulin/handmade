@@ -42,12 +42,15 @@
     "textEn": "Add description in English",
     "used": "Used",
     "new": "New",
+    "yes": "Yes",
+    "no": "No",
     "contacts": "Contacts",
     "addTitle": "Add Ad",
     "addDescription": "Specify details",
     "willFaster": "This will speed up the sale",
     "howToContact": "How to contact you?",
-    "post": "Place Ad"
+    "post": "Place Ad",
+    "bijouterie": "Bijouterie"
   },
   "preview": {
     "title": "Preview",
@@ -116,7 +119,7 @@
     "copper": "Copper",
     "brass": "Brass",
     "titan": "Titan"
-},
+  },
 
   "categories": {
     "cars": "Cars/Motorcycles",
@@ -135,7 +138,7 @@
     "aquamarine": "Aquamarine",
     "alpanite": "Alpanite",
     "amethyst": "Amethyst"
-},
+  },
   "timeMaps": {
     "minute1": "minute",
     "minute2": "minutes",
@@ -162,8 +165,14 @@
     "phone": "Phone",
     "additionalPhone": "Additional phone",
     "name": "Name",
+    "jewel": "Jewel",
+    "bijouterie": "Bijouterie",
+    "careRecommendations": "Care recommendations",
     "city": "City",
     "metal": "Metal",
+    "sample": "Sample",
+    "stone": "Stone",
+    "size": "Size",
     "currentPass": "Current password",
     "newPass": "New password",
     "repeatPassword": "Repeat password",
