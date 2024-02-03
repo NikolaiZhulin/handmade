@@ -17,7 +17,9 @@ export interface ICreatePostContext {
   sample: string;
   stone: string;
   size: string;
+  sex: string[];
   careRecommendations: string;
+  bijouterie: boolean;
   isUsed: boolean;
   usedAmount?: number;
   usedPeriod?: UsedPeriod;
@@ -48,7 +50,9 @@ export const CREATE_POST_CONTEXT_DEFAULT_VALUES: ICreatePostContext = {
   sample: '',
   stone: '',
   size: '',
+  sex: [],
   careRecommendations: '',
+  bijouterie: true,
   currency: Currency.GEL,
   files: [],
   requestCategories: [],

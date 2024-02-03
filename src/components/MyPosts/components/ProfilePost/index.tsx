@@ -1,22 +1,22 @@
-import { FC, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { FC, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
+import { useDeletePost } from '@/api/posts/delete-post';
+import { useUpdatePost } from '@/api/posts/update-post';
+import Modal from '@/components/modals/Modal';
+import { CURRENCY_SYMBOLS } from '@/constants/currency';
+import { getErrorToast } from '@/helpers/aggregateErrorsMessage';
+import { capitalize } from '@/helpers/capitalize';
+import { getImage } from '@/helpers/getImage';
 import { mergeStyles } from '@/helpers/mergeStyles';
+import { useTranslation } from '@/hooks/useTranslation';
 import FlexContainer from '@/layout/FlexContainer';
 import { IUserPostPreview, PostNameKeys } from '@/types/posts';
-import { getImage } from '@/helpers/getImage';
 import Button from '@/ui/Button';
-import Typography from '@/ui/Typography';
 import Switch from '@/ui/Switch';
-import { useUpdatePost } from '@/api/posts/update-post';
-import { CURRENCY_SYMBOLS } from '@/constants/currency';
-import { useDeletePost } from '@/api/posts/delete-post';
-import { getErrorToast } from '@/helpers/aggregateErrorsMessage';
-import Modal from '@/components/modals/Modal';
-import { useTranslation } from '@/hooks/useTranslation';
-import { capitalize } from '@/helpers/capitalize';
+import Typography from '@/ui/Typography';
 
 import styles from './styles.module.scss';
 
@@ -76,13 +76,13 @@ const ProfilePost: FC<IProps> = ({ withBorder, post, disabled, refetch }) => {
             className={styles.textContainer}
             justify="evenly"
           >
-            <Typography variant="heading3" weight={550}>
+            <Typography variant="heading3" weight={500}>
               {post[nameKey as keyof PostNameKeys]}
             </Typography>
             <Typography variant="heading3" color={disabled ? 'gray' : 'brand'} weight={700}>
               {post.price} {CURRENCY_SYMBOLS[post.currency]}
             </Typography>
-            <Typography variant="heading4" color="gray">
+            <Typography variant="heading3" color="gray">
               20 {t('profile.postViews')}
             </Typography>
           </FlexContainer>

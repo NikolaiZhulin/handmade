@@ -12,6 +12,15 @@ export interface FormState {
   textGe: string;
   price: number;
   currency: Currency;
+  sex: string[];
+  metal: string;
+  jewel: string;
+  sample: string;
+  stone: string;
+  size: string;
+  careRecommendations: string;
+  address: string;
+  isJewelry: boolean;
   files: File[];
   isUsed: boolean;
   usedAmount: number;

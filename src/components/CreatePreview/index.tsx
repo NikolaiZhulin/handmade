@@ -8,12 +8,16 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Stub from '@/layout/Stub';
 import Typography from '@/ui/Typography';
 
+import { useForm } from 'react-hook-form';
+import { FormState } from '../PostEdit/utils';
 import { PreviewImage } from './components/PreviewImages';
 import style from './style.module.scss';
 
-interface IProps {}
+interface IProps {
+  step: number;
+}
 
-const CreatePreview: FC<IProps> = ({}) => {
+const CreatePreview: FC<IProps> = ({ step }) => {
   const [state] = useContext(CreatePostContext);
   const [activeIndex, setActiveIndex] = useState(0);
   const { t } = useTranslation();
@@ -27,12 +31,18 @@ const CreatePreview: FC<IProps> = ({}) => {
     price,
     currency,
     files,
-    isUsed,
-    usedPeriod,
-    usedAmount,
     city,
     requestCategories,
+    careRecommendations,
+    sample,
+    stone,
+    metal,
+    jewel,
+    bijouterie,
+    size,
+    sex,
   } = state;
+  const { formState } = useForm<FormState>();
 
   return (
     <>
@@ -96,6 +106,51 @@ const CreatePreview: FC<IProps> = ({}) => {
                 {t('post.descriptionTitle')} {(textGe || textRu) && t('preview.en')}
               </Typography>
               <Typography variant="heading3">{textEn}</Typography>
+            </>
+          )}
+          {step === 2 && (
+            <>
+              <Typography variant="heading2">{t('post.parameters')}</Typography>
+              <div className="flex  w-full justify-between">
+                <div className="flex flex-1 flex-col gap-2 items-start">
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('post.jewel')}
+                  </Typography>
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('post.material')}
+                  </Typography>
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('inputs.sample')}
+                  </Typography>
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('inputs.stone')}
+                  </Typography>
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('inputs.bijouterie')}
+                  </Typography>
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('inputs.size')}
+                  </Typography>
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('inputs.careRecommendations')}
+                  </Typography>
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('inputs.sex')}
+                  </Typography>
+                </div>
+                <div className="flex flex-1 flex-col gap-2 items-start">
+                  <Typography variant="heading3">{jewel ? jewel : 'Отсутствует'}</Typography>
+                  <Typography variant="heading3">{metal ? metal : 'Отсутствует'}</Typography>
+                  <Typography variant="heading3">{sample ? sample : 'Отсутствует'}</Typography>
+                  <Typography variant="heading3">{stone ? stone : 'Отсутствует'}</Typography>
+                  <Typography variant="heading3">{bijouterie ? 'post.yes' : 'post.no'}</Typography>
+                  <Typography variant="heading3">{size ? size : 'Отсутствует'}</Typography>
+                  <Typography variant="heading3">
+                    {careRecommendations ? careRecommendations : 'Отсутствует'}
+                  </Typography>
+                  <Typography variant="heading3">{sex ? sex : 'Отсутствует'}</Typography>
+                </div>
+              </div>
             </>
           )}
         </div>

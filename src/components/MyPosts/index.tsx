@@ -1,19 +1,20 @@
-import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
+import { FC, useEffect, useState } from 'react';
 
-import FlexContainer from '@/layout/FlexContainer';
-import Typography from '@/ui/Typography';
 import { useGetMyPosts } from '@/api/posts/get-my-posts';
 import { mergeStyles } from '@/helpers/mergeStyles';
-import Button from '@/ui/Button';
 import { useTranslation } from '@/hooks/useTranslation';
+import FlexContainer from '@/layout/FlexContainer';
+import Button from '@/ui/Button';
+import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
 
 import SliderButton from '../SliderButton';
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 
-import styles from './styles.module.scss';
+import { Currency } from '@/constants/enums';
 import ProfilePost from './components/ProfilePost';
+import styles from './styles.module.scss';
 
 const MyPosts: FC = () => {
   const [queryState, setQueryState] = useState(true);
@@ -39,7 +40,7 @@ const MyPosts: FC = () => {
       justify="start"
       className="2xl:!h-full"
     >
-      {hasAnyPosts && (
+      {true && (
         <FlexContainer className={cn(styles.w100, '2xl:flex-col 2xl:!items-start 2xl:gap-[14px]')}>
           <Typography variant="heading2">{t('profile.myPosts')}</Typography>
           <SliderButton
@@ -52,19 +53,23 @@ const MyPosts: FC = () => {
           />
         </FlexContainer>
       )}
-      {posts && hasAnyPosts ? (
+      {true ? (
         <>
-          {posts.posts.length ? (
+          {true ? (
             <FlexContainer direction="column" className={styles.w100}>
-              {posts.posts.map((post, i) => (
-                <ProfilePost
-                  key={post.id}
-                  withBorder={i !== posts.posts.length - 1}
-                  post={post}
-                  disabled={!queryState}
-                  refetch={refetch}
-                />
-              ))}
+              {[mock_post].map((post, i) => {
+                console.log(post);
+
+                return (
+                  <ProfilePost
+                    key={post.id}
+                    withBorder={i !== 1 - 1}
+                    post={post}
+                    disabled={!queryState}
+                    refetch={refetch}
+                  />
+                );
+              })}
             </FlexContainer>
           ) : (
             <FlexContainer
@@ -94,7 +99,7 @@ const MyPosts: FC = () => {
             <Typography variant="heading3" weight={700}>
               {t('profile.noPosts')}
             </Typography>
-            <Typography variant="heading4" color="gray" className={styles.maxText}>
+            <Typography variant="heading3" color="gray" className={styles.maxText}>
               {t('profile.placePost')}
             </Typography>
           </FlexContainer>
@@ -108,3 +113,32 @@ const MyPosts: FC = () => {
 };
 
 export default MyPosts;
+const mock_post = {
+  id: '123',
+  images: [],
+  nameRu: 'Мок пост',
+  nameEn: 'Mock post',
+  nameGe: 'Geargian post',
+  price: 700,
+  currency: Currency.USD,
+  updatedAt: '',
+  textRu:
+    'Мок постМок постМок постМок постМок постМок постМок постМок постМок постМок постМок пост',
+  textEn: 'Mock postMock postMock postMock postMock postMock postMock post',
+  city: 'Novi Sad',
+  categories: 'Jewelry',
+  contacts: {
+    phone: '99234234234',
+    additionalPhone: '625464643646',
+    telegram: '@adfsdf',
+    name: 'Antocjs',
+    isPhoneActive: true,
+    isAdditionalPhoneActive: true,
+  },
+  isActive: true,
+  isUsed: true,
+  usedAmount: 3,
+  usedPeriod: 'month',
+  address: 'janka cmelica',
+  usdPrice: 600,
+};

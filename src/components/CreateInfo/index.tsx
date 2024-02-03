@@ -11,12 +11,14 @@ import { FirstStep } from './components/FirstStep';
 import style from './style.module.scss';
 import { FourthStep } from './components/FourthStep';
 
-interface IProps {}
+interface IProps {
+  step: number;
+  setStep: (value: number) => void;
+}
 
-const CreateInfo: FC<PropsWithChildren<IProps>> = () => {
-  const [step, setStep] = useState(0);
-  const onStep = (direction: number) => setStep((prev) => prev + direction);
+const CreateInfo: FC<PropsWithChildren<IProps>> = ({ step, setStep }) => {
   const isLaptop = useMediaQuery('(max-width: 1200px)');
+  const onStep = (direction: number) => setStep(direction);
 
   const formSteps = useMemo(() => {
     return [

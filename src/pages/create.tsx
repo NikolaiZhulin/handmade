@@ -14,6 +14,7 @@ import LeftBlock from '@/layout/LeftBlock';
 import Main from '@/layout/Main';
 import MainWrapper from '@/layout/MainWrapper';
 import RightBlock from '@/layout/RightBlock';
+import { useState } from 'react';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   return {
@@ -26,6 +27,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 export default function Home() {
   const context = useCreatePostContext();
   const isLaptop = useMediaQuery('(max-width: 1200px)');
+  const [step, setStep] = useState(0);
 
   return (
     <>
@@ -41,11 +43,14 @@ export default function Home() {
           <MainWrapper className="2xl:!mt-0 2xl:h-full 2xl:min-h-[calc(100vh-96px)]">
             <CreatePostContext.Provider value={context}>
               <LeftBlock className="flex flex-col w-full gap-[18px] py-[30px] bg-white rounded-[6px] !mt-0 2xl:!h-auto 2xl:!static xs:!px-[20px] xs:!py-[14px] xs:!pt-0 xs:gap-0">
-                <CreateInfo />
+                <CreateInfo
+                  step={step}
+                  setStep={(direction) => setStep((prev) => prev + direction)}
+                />
               </LeftBlock>
               {!isLaptop && (
                 <RightBlock>
-                  <CreatePreview />
+                  <CreatePreview step={step} />
                 </RightBlock>
               )}
             </CreatePostContext.Provider>

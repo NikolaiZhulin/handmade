@@ -109,7 +109,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
       <div className={style.back}>
         <button onClick={handleBack} className={cn(style['back-btn'], '2xl:!gap-[14px]')}>
           <HomeSvgSelector id="arrow-left" />
-          <Typography variant="heading4">{t('back')}</Typography>
+          <Typography variant="heading3">{t('back')}</Typography>
         </button>
       </div>
       <Typography className="2xl:my-[14px]" variant="heading2">

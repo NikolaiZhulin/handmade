@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .w50 {
   width: 49%;
 }
@@ -14,4 +16,35 @@
   width: 100%;
   border: 1px solid black;
   padding: 4px;
+}
+.Button {
+  display: flex;
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-family: Montserrat;
+  color: $white;
+  transition:
+    0.25s ease-out background,
+    0.25s ease-out opacity;
+  width: max-content;
+  line-height: normal;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  &:disabled {
+    background-color: $light-gray !important;
+  }
+}
+
+.green {
+  background-color: $main-green;
+  &:hover:not(:disabled) {
+    background-color: $green-light;
+  }
 }

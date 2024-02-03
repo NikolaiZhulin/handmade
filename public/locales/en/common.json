@@ -34,6 +34,9 @@
   },
   "post": {
     "descriptionTitle": "Description",
+    "parameters": "Parameters",
+    "material": "Material",
+
     "userPosts": "Seller's Other Ads",
     "showAll": "Show All",
     "edditing": "Editing",
@@ -44,6 +47,8 @@
     "new": "New",
     "yes": "Yes",
     "no": "No",
+    "for_her": "For her",
+    "for_him": "For him",
     "contacts": "Contacts",
     "addTitle": "Add Ad",
     "addDescription": "Specify details",
