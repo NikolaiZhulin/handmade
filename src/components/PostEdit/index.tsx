@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -29,6 +29,12 @@ import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 
 import styles from './styles.module.scss';
 import { FormState, schema, setDefaultValues } from './utils';
+import { sexes } from '@/constants/sex';
+import Checkbox from '@/ui/Checkbox';
+import { metals } from '@/constants/metals';
+import { samples } from '@/constants/sample';
+import { stones } from '@/constants/stones';
+import { CreatePostContext } from '@/contexts/CreatePostContext';
 
 interface IProps {
   postId: string;
@@ -45,6 +51,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
     i18n: { language },
   } = useTranslation();
   const categories = useGetCategoriesForSelect('leftIcon');
+  const [state, setState] = useContext(CreatePostContext);
 
   const [isEngShown, setIsEngShown] = useState(!!post?.textEn);
   const [isGeShown, setIsGeShown] = useState(!!post?.textGe);
@@ -59,6 +66,22 @@ const PostEdit: FC<IProps> = ({ postId }) => {
   }, [post]);
 
   const { control, setValue, handleSubmit, watch, reset, formState } = useForm<FormState>({
+    defaultValues: {
+      isUsed: state.isUsed,
+      isJewelry: true,
+      usedAmount: state.usedAmount,
+      usedPeriod: state.usedPeriod,
+      metal: state.metal,
+      sex: state.sex,
+      jewel: state.jewel,
+      sample: state.sample,
+      stone: state.stone,
+      size: state.size,
+      careRecommendations: state.careRecommendations,
+      city: state.city,
+      requestCategories: state.requestCategories,
+      address: state.address,
+    },
     resolver: zodResolver(schema),
     mode: 'all',
   });
@@ -79,7 +102,8 @@ const PostEdit: FC<IProps> = ({ postId }) => {
     }
   }, [post]);
 
-  const { currency, isUsed, usedPeriod, city, requestCategories, ...formValues } = watch();
+  const { currency, isJewelry, sex, isUsed, usedPeriod, city, requestCategories, ...formValues } =
+    watch();
 
   const handleFilesChange = (files: (File | string)[]) => {
     setFiles(files);
@@ -159,6 +183,31 @@ const PostEdit: FC<IProps> = ({ postId }) => {
     })();
   };
 
+  const handleCategoriesValue = (newValue: string) => {
+    setValue('requestCategories', [newValue], { shouldTouch: true });
+  };
+
+  const handleCityValue = (newValue: string) => {
+    setValue('metal', newValue, { shouldTouch: true });
+  };
+
+  const handleSamplesValue = (newValue: string) => {
+    setValue('sample', newValue, { shouldTouch: true });
+  };
+  const handleStoneValue = (newValue: string) => {
+    setValue('stone', newValue, { shouldTouch: true });
+  };
+  const setIsJewelry = (isActive: boolean) => () => setValue('isJewelry', !isActive);
+
+  const handleSelectChange = (value: string) => {
+    if (Array.isArray(value)) {
+      console.log('value', value);
+
+      setValue('sex', value);
+      return;
+    }
+  };
+
   return (
     <FlexContainer className={cn(styles.w100, '2xl:flex-col')} align="start" gap={30}>
       <FlexContainer direction="column" align="start" className={cn(styles.w50, '2xl:!w-full')}>
@@ -175,12 +224,11 @@ const PostEdit: FC<IProps> = ({ postId }) => {
             controllerProps={{ name: 'textRu', control }}
             placeholder={t('inputs.postDescription')}
           />
-          <Typography variant="heading3">{t('post.translateInfo')}</Typography>
-          <Button fullWidth={true} color="neutral" onClick={toggleGe}>
-            <HomeSvgSelector id="ge" />
-            <Typography variant="heading3" color="black">
-              {t('post.textGe')}
-            </Typography>
+          <Typography variant="heading3" color="gray">
+            {t('post.translateInfo')}
+          </Typography>
+          <Button className={cn(styles.Button, '!w-full')} fullWidth={true} onClick={toggleGe}>
+            {t('post.textGe')}
           </Button>
           {isGeShown && (
             <Textarea
@@ -188,11 +236,8 @@ const PostEdit: FC<IProps> = ({ postId }) => {
               placeholder={t('inputs.postDescription')}
             />
           )}
-          <Button fullWidth={true} color="neutral" onClick={toggleEng}>
-            <HomeSvgSelector id="en" />
-            <Typography variant="heading3" color="black">
-              {t('post.textEn')}
-            </Typography>
+          <Button className={cn(styles.Button, '!w-full')} fullWidth={true} onClick={toggleEng}>
+            {t('post.textEn')}
           </Button>
           {isEngShown && (
             <Textarea
@@ -217,45 +262,96 @@ const PostEdit: FC<IProps> = ({ postId }) => {
             />
           </FlexContainer>
           <InputImages className={styles.w100} initialFiles={files} onFiles={handleFilesChange} />
-          <Select
-            options={categories}
-            placeholder={t('inputs.category')}
-            onSelect={handleFieldChange('requestCategories', true)}
-            value={categories.find((el) => requestCategories?.includes(el.value))}
-          />
-          <Select
-            withTranslate={true}
-            options={cities}
-            placeholder={t('inputs.city')}
-            onSelect={handleFieldChange('city')}
-            value={cities.find((el) => el.value === city)}
-          />
-          <SliderButton
-            leftText={t('post.used')}
-            rightText={t('post.new')}
-            variant="green"
-            onClick={handleUsedChange}
-            className={styles.w100}
-            defaultValue={!isUsed}
-          />
-          {isUsed && (
-            <FlexContainer gap={8} className="w-full">
-              <Input
-                controllerProps={{ name: 'usedAmount', control }}
-                type="number"
-                className="w-full"
-                placeholder={t('inputs.usedPeriod')}
+          <div className="flex flex-col gap-2 w-full">
+            <div className="pt-2">
+              <Select
+                options={categories}
+                placeholder={t('inputs.jewel')}
+                onSelect={handleCategoriesValue}
+                value={categories.find((el) => requestCategories?.includes(el.value))}
               />
+            </div>
+            <div className="pt-2">
               <Select
                 withTranslate={true}
-                containerClassname="w-[150px]"
-                options={postConfig.usedPeriod}
-                placeholder={t('inputs.period')}
-                onSelect={handleFieldChange('usedPeriod')}
-                value={postConfig.usedPeriod.find((el) => el.value === usedPeriod)}
+                options={metals}
+                placeholder={t('inputs.metal')}
+                onSelect={handleCityValue}
+                value={metals.find((el) => requestCategories?.includes(el.value))}
               />
-            </FlexContainer>
-          )}
+            </div>
+            <div className="pt-2">
+              <Select
+                withTranslate={true}
+                options={samples}
+                placeholder={t('inputs.sample')}
+                onSelect={handleSamplesValue}
+                value={samples.find((el) => requestCategories?.includes(el.value))}
+              />
+            </div>
+            <div className="pt-2">
+              <Select
+                withTranslate={true}
+                options={stones}
+                placeholder={t('inputs.stone')}
+                onSelect={handleStoneValue}
+                value={stones.find((el) => requestCategories?.includes(el.value))}
+              />
+            </div>
+            <div className="pt-2">
+              <Input controllerProps={{ control, name: 'size' }} placeholder={t('inputs.size')} />
+            </div>
+            <div className="pt-2">
+              <Input
+                controllerProps={{ control, name: 'careRecommendations' }}
+                placeholder={t('inputs.careRecommendations')}
+              />
+            </div>
+            <div className="pt-2">
+              <Select
+                withTranslate={true}
+                options={cities}
+                placeholder={t('inputs.city')}
+                onSelect={handleCityValue}
+                value={cities.find((el) => requestCategories?.includes(el.value))}
+              />
+            </div>
+            <div className="pt-2">
+              <Input
+                controllerProps={{ control, name: 'address' }}
+                placeholder={t('inputs.address')}
+              />
+            </div>
+          </div>
+
+          <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
+            <Typography variant="heading2">{t('post.bijouterie')}</Typography>
+          </div>
+          <SliderButton
+            leftText={t('yes')}
+            rightText={t('no')}
+            variant="gray"
+            onClick={setIsJewelry}
+            className="!w-full"
+            defaultValue={true}
+          />
+          <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
+            <Typography variant="heading2">{t('post.sex')}</Typography>
+          </div>
+          <div className=" min-h-[0px] flex flex-col gap-[14px]">
+            {sexes.map(({ label, value }) => (
+              <Checkbox
+                key={value}
+                controllerProps={{ control, name: 'sex' }}
+                id={value}
+                value={value}
+                checked={sex?.includes(value)}
+                onChangeCustom={(_, value) => handleSelectChange(value as string)}
+              >
+                {t(label)}
+              </Checkbox>
+            ))}
+          </div>
           {!isLaptop && (
             <Button
               fullWidth={true}
@@ -305,7 +401,6 @@ const PostEdit: FC<IProps> = ({ postId }) => {
                 placeholder={t(item.placeholder)}
                 disabled={!formValues[item.switch] && !!formValues[item.controller]}
               />
-              <Switch controllerProps={{ name: item.switch, control }} />
             </FlexContainer>
           ))}
         </FlexContainer>
