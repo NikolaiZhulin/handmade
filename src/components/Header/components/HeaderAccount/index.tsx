@@ -78,7 +78,7 @@ const HeaderAccount: FC<IProps> = ({ id }) => {
           </button>
         )}
         dropdownClassname={cn(
-          'p-[14px] w-[256px] top-[45px] right-0 left-[-60px] !rounded-t-none [clip-path:inset(0px_-35px_-35px_-35px)]',
+          'p-[14px] min-w-[296px] top-[45px] right-0 left-[-60px] !rounded-t-none [clip-path:inset(0px_-35px_-35px_-35px)]',
           '2xl:w-full',
         )}
         options={({ close }) => [

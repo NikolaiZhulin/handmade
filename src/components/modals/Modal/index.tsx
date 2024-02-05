@@ -59,7 +59,7 @@ const Modal: FC<IProps> = ({
             >
               Отмена
             </Button>
-            <Button className="!w-1/2 xs:!w-full xs:!shrink" color="red" onClick={confirmHandler}>
+            <Button className="!w-1/2 xs:!w-full xs:!shrink" color="green" onClick={confirmHandler}>
               Удалить
             </Button>
           </DialogFooter>

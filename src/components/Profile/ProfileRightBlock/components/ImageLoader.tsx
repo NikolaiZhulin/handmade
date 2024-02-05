@@ -18,13 +18,13 @@ const ImageLoader: FC<IProps> = ({ label, onChange }) => {
     <label
       htmlFor="profile"
       className={cn(
-        'flex w-full justify-center items-center bg-blue hover:bg-light-blue',
-        'gap-2 py-[11px] px-[24px] rounded-[6px] cursor-pointer transition-[background-color] duration-300 ease-out',
+        'flex w-full justify-center items-center bg-main-green hover:bg-green-light [&>svg]:!w-[24px] [&>svg]:!h-[24px]',
+        'gap-2 py-[11px] px-[24px] cursor-pointer transition-[background-color] duration-300 ease-out',
       )}
     >
       <input type="file" id="profile" className="hidden" onChange={handleChange} />
-      <HomeSvgSelector id="photo" />
-      <Typography variant="heading3" color="white" weight={550}>
+      <HomeSvgSelector id="photo-icon" />
+      <Typography variant="text2" color="white" weight={500}>
         {label}
       </Typography>
     </label>

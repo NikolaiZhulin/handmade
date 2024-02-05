@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import Link from 'next/link';
 
-import ButtonLogin from '@/ui/ButtonLogin';
 import { IMainPagePost } from '@/types/posts';
 import Typography from '@/ui/Typography';
 import { useTranslation } from '@/hooks/useTranslation';
 import { cn } from '@/utils/utils';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import Button from '@/ui/Button';
 
 import AnnouncementContainer from '../AnnouncementContainer';
 import Announcement from '../Announcement';
@@ -19,24 +20,34 @@ interface IProps {
 }
 
 const OtherAnnouncement: FC<IProps> = ({ posts, totalCount, userId }) => {
-  const diff = totalCount - posts.length;
   const { t } = useTranslation();
+  const isLaptop = useMediaQuery('(max-width: 900px)');
+
+  const SHOWED_POSTS = isLaptop ? 2 : 3;
+  const diff = totalCount - SHOWED_POSTS;
 
   return (
-    <div className={cn(style.OtherAnnouncement, 'xs:!p-[14px] 2xl:!pt-0')}>
+    <div
+      className={cn(
+        style.OtherAnnouncement,
+        '2xl:!px-[30px] xs:!px-[14px] xs:!mt-[14px] 2xl:!pt-0',
+      )}
+    >
       <Typography variant="heading2">{t('post.userPosts')}</Typography>
       <AnnouncementContainer className={style.AnnouncementContainer}>
-        {posts.map((post) => (
+        {posts.slice(0, SHOWED_POSTS).map((post) => (
           <Announcement post={post} key={post.id} />
         ))}
       </AnnouncementContainer>
       {diff > 0 && (
-        <Link href={`/user/${userId}/posts`}>
-          <ButtonLogin className={style.ButtonLogin}>
-            <span>({totalCount})</span>
-            {t('post.showAll')}
-          </ButtonLogin>
-        </Link>
+        <div className="w-full flex justify-center">
+          <Link href={`/user/${userId}/posts`}>
+            <Button className="text-white font-medium">
+              {t('post.showAll')}
+              <span className="text-white">({totalCount})</span>
+            </Button>
+          </Link>
+        </div>
       )}
     </div>
   );

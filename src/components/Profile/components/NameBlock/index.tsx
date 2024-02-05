@@ -13,9 +13,10 @@ interface IProps {
   image?: string;
   preview?: string;
   nameColor?: 'black' | 'white';
+  smallUserName?: boolean;
 }
 
-const NameBlock: FC<IProps> = ({ name, subtext, image, preview, nameColor }) => {
+const NameBlock: FC<IProps> = ({ name, subtext, image, smallUserName, preview, nameColor }) => {
   return (
     <FlexContainer gap={14} justify="start">
       <div className={styles.image}>
@@ -28,14 +29,19 @@ const NameBlock: FC<IProps> = ({ name, subtext, image, preview, nameColor }) => 
             title="profile photo"
           />
         ) : (
-          <Heading1>{name[0]}</Heading1>
+          <Typography variant={'heading2'}>{name[0]}</Typography>
         )}
       </div>
       <div>
-        <Typography variant="heading3" weight={700} color={nameColor}>
+        <Typography
+          variant="heading2"
+          weight={700}
+          color={nameColor}
+          className={smallUserName ? '!text-[14px]' : ''}
+        >
           {name}
         </Typography>
-        <Typography variant="heading4" color="gray">
+        <Typography variant="text3" color="gray">
           {subtext}
         </Typography>
       </div>

@@ -75,7 +75,7 @@ const DialogContent = React.forwardRef<
     >
       {children}
       {withClose && (
-        <DialogPrimitive.Close className="absolute top-[19px] right-[15px] [&>svg]:h-[24px] [&>svg]:w-[24px] hover:opacity-50">
+        <DialogPrimitive.Close className="absolute !z-[1000] top-[19px] right-[15px] [&>svg]:h-[24px] [&>svg]:w-[24px] hover:opacity-50">
           <HomeSvgSelector id={'modal-cross'} />
         </DialogPrimitive.Close>
       )}

@@ -1,6 +1,8 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import * as clipboard from 'clipboard-polyfill';
+import { toast } from 'react-toastify';
 
 import Header from '@/components/Header';
 import Container from '@/layout/Container';
@@ -13,8 +15,10 @@ import RightBlock from '@/layout/RightBlock';
 import CategoryContainer from '@/components/CategoryContainer';
 import ContactsBlock from '@/components/UserPosts/ContactsBlock';
 import PostsBlock from '@/components/UserPosts/PostsBlock';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import Breadcrumbs from '@/components/Breadcrumbs';
+import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
+import { CONTACT_LINKS } from '@/layout/RightBlockPost/config';
+import Typography from '@/ui/Typography';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext<{ id: string }>) => {
   const params = ctx.params;
@@ -30,7 +34,12 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext<{ id: st
 };
 
 const PostPage = ({ posts, user }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const isLaptop = useMediaQuery('(max-width: 1200px)');
+  const { t } = useTranslation();
+
+  const copyHandler = (text: string) => () => {
+    clipboard.writeText(text);
+    toast.success(t('toasts.copied'));
+  };
 
   return (
     <>
@@ -42,8 +51,7 @@ const PostPage = ({ posts, user }: InferGetServerSidePropsType<typeof getServerS
       </Head>
       <Header isHideSearch={true} />
       <Container>
-        <Main>
-          {isLaptop && <Breadcrumbs className="xs:py-0" />}
+        <Main className="xs:!pt-[53px]">
           <MainWrapper className="2xl:!mt-0">
             <LeftBlock className="2xl:hidden">
               <CategoryContainer />
@@ -54,6 +62,42 @@ const PostPage = ({ posts, user }: InferGetServerSidePropsType<typeof getServerS
             >
               <ContactsBlock user={user} />
               <PostsBlock posts={posts} />
+              <div className="hidden border-b-[1px] border-light-gray border-solid 2xl:block">
+                <Typography
+                  className="py-[10px] border-t-[1px] border-solid border-light-gray"
+                  variant="heading2"
+                >
+                  {t('post.contacts')}
+                </Typography>
+                {Object.entries({
+                  tube: user.additionalPhone,
+                  telegram: user.telegram,
+                  whatsapp: user.whatsApp,
+                  viber: user.viber,
+                  facebook: user.facebook,
+                }).map(([key, value]) =>
+                  value ? (
+                    <div
+                      className="flex items-center gap-[14px] py-[10px] border-t-[1px] border-light-gray border-solid"
+                      key={key}
+                    >
+                      <div className="[&>svg]:w-[24px] [&>svg]:h-[24px] sv">
+                        <HomeSvgSelector id={key} />
+                      </div>
+                      <a
+                        href={`${CONTACT_LINKS[key as keyof typeof CONTACT_LINKS] ?? ''}${value}`}
+                        target="_blank"
+                        className="text-blue underline underline-offset-2"
+                      >
+                        {value}
+                      </a>
+                      <button onClick={copyHandler(value)} className="ml-auto">
+                        <HomeSvgSelector id="copy" />
+                      </button>
+                    </div>
+                  ) : null,
+                )}
+              </div>
             </RightBlock>
           </MainWrapper>
         </Main>

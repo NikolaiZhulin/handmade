@@ -9,7 +9,7 @@ export type SortBy = 'createdAt' | 'price';
 export type sortAt = 'ASC' | 'DESC';
 export interface GetPostsVariables {
   filter: {
-    category: string;
+    category?: string;
     withPhoto?: boolean;
     city?: string[] | string;
     priceFrom?: number;
@@ -22,8 +22,8 @@ export interface GetPostsVariables {
     limit?: number;
   };
   sort?: {
-    sortBy: SortBy;
-    sortAt: sortAt;
+    sortBy?: SortBy;
+    sortAt?: 'ASC' | 'DESC';
   };
 }
 

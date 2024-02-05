@@ -8,12 +8,12 @@ import FlexContainer from '@/layout/FlexContainer';
 import Button from '@/ui/Button';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
+import Announcement from '@/components/Announcement';
+import AnnouncementContainer from '@/components/AnnouncementContainer';
 
 import SliderButton from '../SliderButton';
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 
-import { Currency } from '@/constants/enums';
-import ProfilePost from './components/ProfilePost';
 import styles from './styles.module.scss';
 
 const MyPosts: FC = () => {
@@ -33,45 +33,33 @@ const MyPosts: FC = () => {
   }, [posts]);
 
   return (
-    <FlexContainer
-      direction="column"
-      gap={14}
-      align="start"
-      justify="start"
-      className="2xl:!h-full"
-    >
-      {hasAnyPosts && (
-        <FlexContainer className={cn(styles.w100, '2xl:flex-col 2xl:!items-start 2xl:gap-[14px]')}>
-          <Typography variant="heading2">{t('profile.myPosts')}</Typography>
-          <SliderButton
-            leftText={t('profile.activePosts')}
-            rightText={t('profile.pausedPosts')}
-            variant="gray"
-            onClick={handleTypeChange}
-            small={true}
-            className="w-[345px] 2xl:!w-full"
-          />
-        </FlexContainer>
-      )}
+    <FlexContainer direction="column" align="start" justify="start" className="2xl:!h-full">
+      <FlexContainer className={cn(styles.w100, '2xl:flex-col 2xl:!items-start 2xl:gap-[14px]')}>
+        <Typography variant="heading2">{t('profile.myPosts')}</Typography>
+        <SliderButton
+          leftText={t('profile.activePosts')}
+          rightText={t('profile.pausedPosts')}
+          variant="gray"
+          onClick={handleTypeChange}
+          small={true}
+          className="w-[345px] 2xl:!w-full"
+        />
+      </FlexContainer>
       {posts && hasAnyPosts ? (
         <>
-          a
           {posts.posts.length ? (
-            <FlexContainer direction="column" className={styles.w100}>
-              {posts.map((post, i) => {
-                console.log(post);
-
-                return (
-                  <ProfilePost
+            <AnnouncementContainer className="w-full">
+              {[...posts.posts, ...posts.posts, ...posts.posts, ...posts.posts, ...posts.posts].map(
+                (post) => (
+                  <Announcement
                     key={post.id}
-                    withBorder={i !== posts.posts.length - 1}
                     post={post}
-                    disabled={!queryState}
-                    refetch={refetch}
+                    isMyAnnouncement
+                    refetchPostsList={refetch}
                   />
-                );
-              })}
-            </FlexContainer>
+                ),
+              )}
+            </AnnouncementContainer>
           ) : (
             <FlexContainer
               direction="column"
@@ -114,32 +102,3 @@ const MyPosts: FC = () => {
 };
 
 export default MyPosts;
-// const mock_post = {
-//   id: '123',
-//   images: [],
-//   nameRu: 'Мок пост',
-//   nameEn: 'Mock post',
-//   nameGe: 'Geargian post',
-//   price: 700,
-//   currency: Currency.USD,
-//   updatedAt: '',
-//   textRu:
-//     'Мок постМок постМок постМок постМок постМок постМок постМок постМок постМок постМок пост',
-//   textEn: 'Mock postMock postMock postMock postMock postMock postMock post',
-//   city: 'Novi Sad',
-//   categories: 'Jewelry',
-//   contacts: {
-//     phone: '99234234234',
-//     additionalPhone: '625464643646',
-//     telegram: '@adfsdf',
-//     name: 'Antocjs',
-//     isPhoneActive: true,
-//     isAdditionalPhoneActive: true,
-//   },
-//   isActive: true,
-//   isUsed: true,
-//   usedAmount: 3,
-//   usedPeriod: 'month',
-//   address: 'janka cmelica',
-//   usdPrice: 600,
-// };

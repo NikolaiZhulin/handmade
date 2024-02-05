@@ -143,7 +143,7 @@ const ProfileRightBlock: FC = () => {
           }}
           placeholder={t(item.placeholder)}
           leftElem={item.icon && <HomeSvgSelector id={item.icon} />}
-          className={styles.w100}
+          className={cn(styles.w100)}
           key={item.name}
         />
       ))}
@@ -151,7 +151,7 @@ const ProfileRightBlock: FC = () => {
   );
 
   return (
-    <FlexContainer gap={30} align="start" className="2xl:!w-full">
+    <FlexContainer gap={20} align="start" className="2xl:!w-full 2xl:!flex-col">
       <FlexContainer
         gap={14}
         direction="column"
@@ -178,7 +178,6 @@ const ProfileRightBlock: FC = () => {
             key={item.name}
           />
         ))}
-        {isLaptop && <Contacts className="2xl:!w-full" />}
         <Typography variant="heading2">{t('profile.changePassTitle')}</Typography>
         {SECOND_INPUT_BLOCK.map((item) => (
           <Input
@@ -202,27 +201,25 @@ const ProfileRightBlock: FC = () => {
           onClick={handleSubmitClick}
           disabled={Object.values(formState.dirtyFields).every((el) => !el) && !file}
         >
-          <Typography variant="heading3" weight={550} color="white">
+          <Typography variant="heading3" weight={500} color="white">
             {t('save')}
           </Typography>
         </Button>
         <Modal
           trigger={
             <Button fullWidth={true} color="neutral">
-              <HomeSvgSelector id="trashcan" />
-              <Typography variant="heading4" color="gray">
+              <Typography variant="text1" className="!text-main-green">
                 {t('profile.delete')}
               </Typography>
             </Button>
           }
           triggerClassName="w-full"
           header={t('profile.deleteWarn1')}
-          dialogClassName="max-w-[420px] gap-2 xs:w-[calc(100%-40px)] xs:rounded-[12px]"
-          subheader={t('profile.deleteWarn2')}
+          dialogClassName="max-w-[420px] gap-2 xs:w-[calc(100%-40px)]"
           confirmHandler={() => deleteProfile()}
         />
       </FlexContainer>
-      {!isLaptop && <Contacts />}
+      <Contacts className="2xl:!w-full" />
     </FlexContainer>
   );
 };

@@ -151,6 +151,7 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
           options={[{ value: 'all', label: t('inputs.allCategories') }, ...categories]}
           onSelect={(value) => setValue('category', value)}
           value={categories.find((el) => el.value === category)}
+          withoutDialog
         />
         <Checkbox controllerProps={{ control, name: 'withPhoto' }} checked={withPhoto}>
           {t('inputs.onlyImage')}

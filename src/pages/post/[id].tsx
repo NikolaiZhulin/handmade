@@ -13,12 +13,12 @@ import OtherAnnouncement from '@/components/OtherAnnouncement';
 import RightBlockPost from '@/layout/RightBlockPost';
 import Footer from '@/components/Footer';
 import ImagesPost from '@/components/ImagesPost';
-import BanerTop from '@/components/BanerTop';
 import { useTranslation } from '@/hooks/useTranslation';
 import { capitalize } from '@/helpers/capitalize';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { categories } from '@/constants/categories';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import RightBlockPostHeader from '@/components/RightBlockPostHead';
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext<{ id: string }>) => {
   const params = ctx.params;
@@ -55,20 +55,28 @@ const PostPage = ({ post }: InferGetServerSidePropsType<typeof getServerSideProp
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header isHideSearch={true} isHideCounter={true} className="2xl:!pb-[14px]" />
-      <Main className="xs:!pt-[60px] 2xl:!pt-[72px]">
+      <Main className="!pt-[80px] xs:!pt-[60px] 2xl:!pt-[72px]">
         <Container>
-          <BanerTop />
-          {!isLaptop && (
-            <Breadcrumbs
-              currentPath={t(
-                categories.find((el) => post.categories.includes(el.value))?.label ?? '',
-              )}
-              currentLink={`/search?category=${post.categories[0]}`}
-            />
-          )}
-          <MainWrapper className="justify-between 2xl:flex-col 2xl:w-full 2xl:!mt-0 !mt-[14px]">
+          <Breadcrumbs
+            currentPath={t(
+              categories.find((el) => post.categories.includes(el.value))?.label ?? '',
+            )}
+            currentLink={`/search?category=${post.categories[0]}`}
+            className="2xl:!px-[30px]"
+          />
+          <MainWrapper className="justify-between 2xl:flex-col 2xl:w-full 2xl:!mt-0 !mt-[0]">
             <LeftBlockPost className="w-[895px] 2xl:!w-full 2xl:!rounded-none">
-              {!!post.images.length && <ImagesPost images={post.images} />}
+              <ImagesPost images={post.images} />
+              <RightBlockPostHeader
+                id={post.id}
+                price={post.price}
+                currency={post.currency}
+                className="hidden 2xl:block 2xl:px-[30px] 2xl:mt-[30px] xs:mt-[14px] xs:px-[15px]"
+                postCategories={post.categories}
+                time={post.updatedAt}
+              />
+
+              {currentLangText && <PostDescription text={currentLangText} postId={post.id} />}
               {isLaptop && (
                 <RightBlockPost
                   price={post.price}
@@ -81,7 +89,6 @@ const PostPage = ({ post }: InferGetServerSidePropsType<typeof getServerSideProp
                   id={post.id}
                 />
               )}
-              {currentLangText && <PostDescription text={currentLangText} postId={post.id} />}
               {!!post.userPosts.length && (
                 <OtherAnnouncement
                   posts={post.userPosts}

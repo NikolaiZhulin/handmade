@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useMemo, useState } from 'react';
+import { FC, PropsWithChildren, useMemo } from 'react';
 
 import { cn } from '@/utils/utils';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -8,7 +8,6 @@ import Breadcrumbs from '../Breadcrumbs';
 import ThirdStep from './components/ThirdStep';
 import SecondStep from './components/SecondStep';
 import { FirstStep } from './components/FirstStep';
-import style from './style.module.scss';
 import { FourthStep } from './components/FourthStep';
 
 interface IProps {
@@ -32,7 +31,7 @@ const CreateInfo: FC<PropsWithChildren<IProps>> = ({ step, setStep }) => {
   return (
     <>
       {step === 0 && isLaptop && <Breadcrumbs className="2xl:p-0 xs:px-0" />}
-      <div className={cn(style.CreateInfo, '2xl:h-full')}>{formSteps[step]}</div>
+      <div className={cn('2xl:h-full')}>{formSteps[step]}</div>
     </>
   );
 };

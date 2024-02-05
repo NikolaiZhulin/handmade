@@ -7,7 +7,7 @@ import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { useTranslation } from '@/hooks/useTranslation';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
-import Swiper from '@/components/Swiper';
+// import Swiper from '@/components/Swiper';
 import { CURRENCY_SYMBOLS } from '@/constants/currency';
 import { CategoryBadge } from '@/layout/RightBlockPost/components/CategoryBadge';
 import { PostAddress } from '@/layout/RightBlockPost/components/Address';
@@ -115,7 +115,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
       <Typography className="2xl:my-[14px]" variant="heading2">
         Все ли верно?
       </Typography>
-      <Swiper images={[]} keyUpdater={false} swiperHeight={'2xl:h-[637px] xs:h-[295px]'} />
+      {/*<Swiper images={[]} keyUpdater={false} swiperHeight={'2xl:h-[637px] xs:h-[295px]'} />*/}
       <div className="2xl:py-[14px] 2xl:!p-0 2xl:mt-[14px]">
         <Typography variant="heading1" color="brand" className="mt-auto">
           {state.price === 0

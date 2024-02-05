@@ -10,7 +10,7 @@ import { mergeStyles } from '@/helpers/mergeStyles';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 const Categories = () => {
   const [modals, setModal] = useContext(ModalContext);
@@ -28,7 +28,7 @@ const Categories = () => {
     >
       <div
         className={cn(
-          'group hover:text-white relative flex cursor-pointer select-none items-center transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+          'group hover:text-white px-[10px] relative flex cursor-pointer select-none items-center transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
           'font-montserrat 2xl:px-[30px] xs:!px-[15px] font-semibold text-[14px] leading-[18px] py-[10px] gap-[8px] pr-[18px] hover:pr-0 transition-all duration-300 hover:bg-green-light ease-out',
         )}
       >

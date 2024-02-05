@@ -6,6 +6,7 @@ import { useState, type ReactElement, type ReactNode, useEffect } from 'react';
 import { QueryClientProvider, QueryClient, DehydratedState, Hydrate } from '@tanstack/react-query';
 import '@/styles/reset.css';
 import '@/styles/fonts.css';
+import '@/styles/toastify.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

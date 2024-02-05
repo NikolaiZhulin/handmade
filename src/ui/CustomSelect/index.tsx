@@ -152,7 +152,7 @@ const Select: FC<IProps> = ({
         </span>
       )}
       {isOpen &&
-        (!withoutDialog ? (
+        (inDialog && !withoutDialog ? (
           <Dialog open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
             <DialogContent className="w-[405px] rounded-0 2xl:py-[10px] 2xl:px-0 xs:w-[calc(100%-40px)] xs:mx-[20px] xs:translate-x-[calc(-50%-20px)]">
               <Dropdown

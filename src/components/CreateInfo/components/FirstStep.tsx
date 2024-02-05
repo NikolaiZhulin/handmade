@@ -121,7 +121,7 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
         <Typography variant="heading2" className={style.Heading2}>
           {t('post.addTitle')}
         </Typography>
-        <div className="flex flex-col gap-[8px] overflow-hidden">
+        <div className="flex flex-col gap-[8px]">
           <div className="pt-2">
             <Input
               controllerProps={{ name: 'name', control }}
@@ -192,13 +192,14 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
               showOnlyIcon={true}
               valueWithIcon={true}
               defaultValue={CURRENCY_MAP.find((el) => el.value === currency)}
+              withoutDialog
             />
           </FlexContainer>
         </div>
         <InputImages initialFiles={files} onFiles={handleFilesChange} disabled={!accessToken} />
         {files.length > 0 && (
           <Button
-            color="white"
+            color="neutral"
             className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}
             onClick={handleNextClick}
             disabled={!accessToken}

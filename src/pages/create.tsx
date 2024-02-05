@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import { useState } from 'react';
 
 import CreateInfo from '@/components/CreateInfo';
 import CreatePreview from '@/components/CreatePreview';
@@ -14,7 +15,6 @@ import LeftBlock from '@/layout/LeftBlock';
 import Main from '@/layout/Main';
 import MainWrapper from '@/layout/MainWrapper';
 import RightBlock from '@/layout/RightBlock';
-import { useState } from 'react';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   return {

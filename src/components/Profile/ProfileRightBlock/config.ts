@@ -7,7 +7,7 @@ export const FIRST_INPUT_BLOCK = [
   {
     name: 'phone',
     placeholder: 'inputs.phone',
-    icon: 'tube',
+    icon: '',
   },
   {
     name: 'city',
@@ -36,9 +36,9 @@ export const SECOND_INPUT_BLOCK = [
 
 export const THIRD_INPUT_BLOCK = [
   {
-    icon: 'tube',
+    icon: 'phone-icon',
     name: 'additionalPhone',
-    placeholder: 'inputs.phone',
+    placeholder: 'inputs.additionalPhone',
   },
   {
     icon: 'telegram',
@@ -56,7 +56,7 @@ export const THIRD_INPUT_BLOCK = [
     placeholder: 'Viber',
   },
   {
-    icon: 'facebook_filled',
+    icon: 'facebook',
     name: 'facebook',
     placeholder: 'Facebook',
   },

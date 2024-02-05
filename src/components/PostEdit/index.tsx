@@ -22,19 +22,19 @@ import Switch from '@/ui/Switch';
 import Textarea from '@/ui/Textarea';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
-
-import { CURRENCY_MAP, thirdStepConfig } from '../CreateInfo/config';
-import SliderButton from '../SliderButton';
-import { HomeSvgSelector } from '../svg/HomeSvgSelector';
-
-import styles from './styles.module.scss';
-import { FormState, schema, setDefaultValues } from './utils';
 import { sexes } from '@/constants/sex';
 import Checkbox from '@/ui/Checkbox';
 import { metals } from '@/constants/metals';
 import { samples } from '@/constants/sample';
 import { stones } from '@/constants/stones';
 import { CreatePostContext } from '@/contexts/CreatePostContext';
+
+import { HomeSvgSelector } from '../svg/HomeSvgSelector';
+import SliderButton from '../SliderButton';
+import { CURRENCY_MAP, thirdStepConfig } from '../CreateInfo/config';
+
+import { FormState, schema, setDefaultValues } from './utils';
+import styles from './styles.module.scss';
 
 interface IProps {
   postId: string;
@@ -199,10 +199,8 @@ const PostEdit: FC<IProps> = ({ postId }) => {
   };
   const setIsJewelry = (isActive: boolean) => () => setValue('isJewelry', !isActive);
 
-  const handleSelectChange = (value: string) => {
+  const handleSelectChange = (value: string[]) => {
     if (Array.isArray(value)) {
-      console.log('value', value);
-
       setValue('sex', value);
       return;
     }

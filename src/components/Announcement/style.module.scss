@@ -30,6 +30,27 @@
       text-overflow: ellipsis;
     }
   }
+  .myAnnouncementBottom{
+    display: grid;
+    row-gap: 7px;
+    align-items: center;
+    grid-template-areas: 'views price'
+                          'divider divider'
+                            'updateDelete switch';
+
+    @media (max-width: 600px) {
+      grid-template-areas: 'views views'
+                            'divider divider'
+                            'price switch'
+                            'updateDelete updateDelete';
+
+      .price{
+        margin-right: auto;
+        width: 100%;
+      }
+    }
+
+    }
   .AnnouncementBottomBlock {
     padding-top: 9px;
     border-top: 1px solid #DDD8D4;
@@ -46,8 +67,9 @@
     }
 
     .Heading5 {
-      color: $text-gray;
+      color: $text-gray !important;
     }
+
     .City{
       opacity: $black;
     }
@@ -127,4 +149,40 @@
   @media (max-width: 1200px){
 
   }
-} 
+}
+
+.button {
+  height: 20px;
+  color: $text-gray;
+  font-size: 14px;
+  line-height: 18px;
+  text-decoration: underline;
+  font-weight: 400;
+  padding: 0;
+}
+
+
+.updatedInfo{
+  grid-area: updatedInfo;
+}
+
+.City{
+  grid-area: city;
+}
+
+.views{
+  grid-area: views;
+}
+
+.divider{
+  grid-area: divider;
+}
+
+
+.switch{
+  grid-area: switch;
+}
+
+.updateDelete{
+  grid-area: updateDelete;
+}

@@ -19,6 +19,7 @@ interface IProps {
 
 const ContactsBlock: FC<IProps> = ({ user }) => {
   const { t } = useTranslation();
+
   const copyHandler = (text: string) => () => {
     clipboard.writeText(text);
     toast.success(t('toasts.copied'));
@@ -27,7 +28,7 @@ const ContactsBlock: FC<IProps> = ({ user }) => {
   return (
     <div
       className={cn(
-        'w-1/2 border-2 gap-[14px] flex flex-col sticky top-[116px] left-0 overflow-hidden h-min',
+        'w-[285px] border-2 gap-[14px] flex flex-col sticky top-[116px] left-0 overflow-hidden h-min',
         '2xl:w-full 2xl:static',
       )}
     >
@@ -37,14 +38,14 @@ const ContactsBlock: FC<IProps> = ({ user }) => {
         image={user.image}
       />
       {user.phone && (
-        <Button color="yellow" fullWidth={true} className="[&>svg>path]:fill-black">
-          <HomeSvgSelector id="tube" />
-          <Typography variant="heading3" weight={700}>
+        <Button fullWidth={true} className="text-white [&>svg]:stroke-white [&>svg]:w-[24px]">
+          <HomeSvgSelector id="phone-icon" />
+          <Typography color="white" variant="text1" weight={500}>
             {user.phone}
           </Typography>
         </Button>
       )}
-      <div className="border-b-[1px] border-light-gray border-solid">
+      <div className="border-b-[1px] border-light-gray border-solid 2xl:hidden">
         {Object.entries({
           tube: user.additionalPhone,
           telegram: user.telegram,
@@ -74,6 +75,14 @@ const ContactsBlock: FC<IProps> = ({ user }) => {
           ) : null,
         )}
       </div>
+      <Button
+        fullWidth={true}
+        onClick={() => {}}
+        className="!bg-light-gray !text-[#888D97] [&>svg>path]:fill-[#888D97] hover:!text-[#4985f9]"
+      >
+        <HomeSvgSelector id="warning" />
+        {t('post.report.send')}
+      </Button>
       {/* <ConfirmBeforeClick
         text="Заблокировать пользователя"
         approveText="Заблокировать"

@@ -14,13 +14,14 @@ import Select from '@/ui/CustomSelect';
 import Input from '@/ui/Input';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
-
 import { cities } from '@/constants/cities';
 import { metals } from '@/constants/metals';
 import { samples } from '@/constants/sample';
 import { sexes } from '@/constants/sex';
 import { stones } from '@/constants/stones';
 import Checkbox from '@/ui/Checkbox';
+import CustomSelect from '@/ui/CustomSelect';
+
 import style from '../style.module.scss';
 
 interface IProps {
@@ -85,13 +86,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
     mode: 'all',
   });
 
-  const [sex, isUsed, usedPeriod, city, requestCategories] = watch([
-    'sex',
-    'isUsed',
-    'usedPeriod',
-    'city',
-    'requestCategories',
-  ]);
+  const { sex, isUsed, usedPeriod, city, requestCategories } = watch();
 
   const handleMove = (direction: number) => () => {
     setState(getValues());
@@ -115,12 +110,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
   const setIsJewelry = (isActive: boolean) => () => setValue('isJewelry', !isActive);
 
   const handleSelectChange = (value: string) => {
-    if (Array.isArray(value)) {
-      console.log('value', value);
-
-      setValue('sex', value);
-      return;
-    }
+    setValue('sex', [...sex, value]);
   };
 
   return (
@@ -140,38 +130,42 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
         </div>
         <div className="flex flex-col gap-2">
           <div className="pt-2">
-            <Select
+            <CustomSelect
               options={categories}
               placeholder={t('inputs.jewel')}
               onSelect={handleCategoriesValue}
               value={categories.find((el) => requestCategories?.includes(el.value))}
+              withoutDialog
             />
           </div>
           <div className="pt-2">
-            <Select
+            <CustomSelect
               withTranslate={true}
               options={metals}
               placeholder={t('inputs.metal')}
               onSelect={handleCityValue}
               value={metals.find((el) => requestCategories?.includes(el.value))}
+              withoutDialog
             />
           </div>
           <div className="pt-2">
-            <Select
+            <CustomSelect
               withTranslate={true}
               options={samples}
               placeholder={t('inputs.sample')}
               onSelect={handleSamplesValue}
               value={samples.find((el) => requestCategories?.includes(el.value))}
+              withoutDialog
             />
           </div>
           <div className="pt-2">
-            <Select
+            <CustomSelect
               withTranslate={true}
               options={stones}
               placeholder={t('inputs.stone')}
               onSelect={handleStoneValue}
               value={stones.find((el) => requestCategories?.includes(el.value))}
+              withoutDialog
             />
           </div>
           <div className="pt-2">
@@ -184,12 +178,13 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
             />
           </div>
           <div className="pt-2">
-            <Select
+            <CustomSelect
               withTranslate={true}
               options={cities}
               placeholder={t('inputs.city')}
               onSelect={handleCityValue}
               value={cities.find((el) => requestCategories?.includes(el.value))}
+              withoutDialog
             />
           </div>
           <div className="pt-2">

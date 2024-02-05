@@ -48,7 +48,7 @@ const Textarea = <T extends FieldValues>({
       />
       {error && (
         <span className={style.error}>
-          <Typography variant="heading3" color="red">
+          <Typography variant="text3" color="red">
             {error.message}
           </Typography>
         </span>

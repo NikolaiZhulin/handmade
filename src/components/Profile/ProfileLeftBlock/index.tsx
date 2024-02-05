@@ -11,7 +11,6 @@ import { useGetFavouritePosts } from '@/api/posts/get-favourite';
 import { UserContext } from '@/contexts/UserContext';
 import { cn } from '@/utils/utils';
 
-import Badge from '../components/Badge';
 import NameBlock from '../components/NameBlock';
 
 import { PROFILE_SIDE_LINKS } from './config';
@@ -31,28 +30,18 @@ const ProfileLeftBlock = () => {
         image={me?.image}
         subtext={
           <Link href={`/profile/${me?.id}`}>
-            <Typography variant="heading4" color="gray">
+            <Typography variant="text3" color="gray" className="underline">
               {t('profile.setup')}
             </Typography>
           </Link>
         }
+        smallUserName
       />
       <div>
         {PROFILE_SIDE_LINKS.map((link, i) =>
           link.render ? (
             link.render(
-              <Category
-                withBorder={i !== PROFILE_SIDE_LINKS.length - 1}
-                rightItem={
-                  link.badge &&
-                  data &&
-                  !!data.length && (
-                    <Badge>
-                      <Typography variant="heading4">{data.length}</Typography>
-                    </Badge>
-                  )
-                }
-              >
+              <Category withBorder>
                 <HomeSvgSelector id={link.icon} />
                 {t(link.title)}
               </Category>,
@@ -66,17 +55,17 @@ const ProfileLeftBlock = () => {
           ) : (
             <Link href={link.link(me?.id ?? ' ')} key={link.title}>
               <Category
-                isActive={link.regexp && link.regexp.test(pathname)}
+                // isActive={link.regexp && link.regexp.test(pathname)}
                 withBorder={i !== PROFILE_SIDE_LINKS.length - 1}
-                rightItem={
-                  link.badge &&
-                  data &&
-                  !!data.length && (
-                    <Badge>
-                      <Typography variant="heading4">{data.length}</Typography>
-                    </Badge>
-                  )
-                }
+                // rightItem={
+                //   link.badge &&
+                //   data &&
+                //   !!data.length && (
+                //     <Badge>
+                //       <Typography variant="heading4">{data.length}</Typography>
+                //     </Badge>
+                //   )
+                // }
               >
                 <HomeSvgSelector id={link.icon} />
                 {t(link.title)}

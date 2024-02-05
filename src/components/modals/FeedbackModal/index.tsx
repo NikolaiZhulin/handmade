@@ -15,6 +15,7 @@ import { cn } from '@/utils/utils';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Modal from '@/containers/Modal';
 import { ModalContext } from '@/contexts/ModalContext';
+import Textarea from '@/ui/Textarea';
 
 const FeedbackModal = () => {
   const [{ feedbackModal }, setModal] = useContext(ModalContext);
@@ -22,10 +23,11 @@ const FeedbackModal = () => {
   const { mutate: createFeedback } = useCreateFeedback(() => {
     toast.success(t('toasts.messageSent'));
   }, getErrorToast);
-  const isFullScreen = useMediaQuery('(max-width: 1200px)');
+  const isFullScreen = useMediaQuery('(max-width: 600px)');
 
   const schema = z.object({
     description: z.string({ required_error: t('errors.required') }),
+    name: z.string(),
     email: z.string({ required_error: t('errors.required') }).email(t('errors.wrongEmail')),
   });
 
@@ -37,6 +39,7 @@ const FeedbackModal = () => {
   } = useForm({
     defaultValues: {
       description: '',
+      name: '',
       email: '',
     },
     resolver: zodResolver(schema),
@@ -62,40 +65,35 @@ const FeedbackModal = () => {
       <Modal
         isVisible={feedbackModal}
         onClose={() => setModal({ feedbackModal: false })}
-        backdropClassName="xs:!w-full"
+        backdropClassName="xs:!w-full xs:!top-0 xs:!h-full"
         outerWrapperClassName="xs:h-full"
+        keepBackdrop
       >
         <div
           className={cn(
-            'fixed left-[50%] top-[50%] z-50 grid translate-x-[-50%] translate-y-[-50%] border bg-background p-[30px] shadow-lg duration-200 rounded-[12px] w-[420px]',
-            '2xl:w-full 2xl:h-full 2xl:rounded-none 2xl:flex 2xl:flex-col 2xl:gap-[22px] 2xl:items-center',
-            'xs:w-full xs:px-[20px] xs:py-[14px]',
+            'fixed left-[50%] top-[50%] z-50 grid translate-x-[-50%] gap-[22px] translate-y-[-50%] border bg-background p-[30px] shadow-lg duration-200 w-[420px] xs:!w-[345px]',
           )}
         >
-          {isFullScreen && (
-            <button
-              className="flex items-center gap-[14px] h-[44px] self-start xs:h-[24px]"
-              onClick={() => setModal({ feedbackModal: false })}
-            >
-              <HomeSvgSelector id="arrow-left" />
-              <Typography variant="heading3">{t('back')}</Typography>
-            </button>
-          )}
-          <div className={cn('flex flex-col gap-[14px]', '2xl:items-start xs:w-full 2xl:h-full')}>
-            <div className={cn('text-[18px] leading-[24px] font-bold font-montserrat mb-2')}>
-              {t('modals.feedback')}
-            </div>
-            <div className={cn('flex flex-col gap-4', '2xl:w-[410px] xs:w-full')}>
-              <Input
+          <div
+            className={cn(
+              'text-[18px] leading-[24px] font-bold font-montserrat flex justify-center',
+            )}
+          >
+            {t('modals.feedback')}
+          </div>
+          <div className={cn('flex items-center flex-col w-full gap-[14px]')}>
+            <div className={cn('flex w-full flex-col gap-4', 'xs:w-full')}>
+              <Textarea
                 controllerProps={{ control, name: 'description' }}
                 placeholder={t('inputs.feedbackDesc')}
               />
+              <Input controllerProps={{ control, name: 'name' }} placeholder={t('inputs.name')} />
               <Input
                 controllerProps={{ control, name: 'email' }}
                 placeholder={t('inputs.feedbackEmail')}
               />
             </div>
-            <div className="mt-auto">
+            <div className="w-full mt-auto">
               <Button fullWidth={true} disabled={!isValid} onClick={submitClick}>
                 <Typography variant="heading3" weight={500} color="white">
                   {t('modals.send')}

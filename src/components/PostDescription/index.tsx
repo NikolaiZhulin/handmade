@@ -1,4 +1,4 @@
-import { FC, useContext, useLayoutEffect, useRef, useState } from 'react';
+import { FC, useContext, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -45,24 +45,24 @@ const PostDescription: FC<IProps> = ({ text, postId }) => {
   const [modals, setModal] = useContext(ModalContext);
   const { mutate: createReport } = useCreateReport();
   const isFullScreen = useMediaQuery('(max-width: 1200px)');
-  const [isFullText, setIsFullText] = useState(false);
-  const [textHeight, setTextHeight] = useState('154px');
+  // const [isFullText, setIsFullText] = useState(false);
+  // const [textHeight, setTextHeight] = useState('154px');
   const textRef = useRef<HTMLParagraphElement | null>(null);
 
-  useLayoutEffect(() => {
-    const textHeight = textRef.current?.getBoundingClientRect().height;
-
-    if (textHeight && textHeight < 154) {
-      setTextHeight('auto');
-      return;
-    }
-
-    if (isFullText) {
-      setTextHeight(`${textHeight}px`);
-    } else {
-      setTextHeight('154px');
-    }
-  }, [isFullText]);
+  // useLayoutEffect(() => {
+  //   const textHeight = textRef.current?.getBoundingClientRect().height;
+  //
+  //   if (textHeight && textHeight < 154) {
+  //     setTextHeight('auto');
+  //     return;
+  //   }
+  //
+  //   if (isFullText) {
+  //     setTextHeight(`${textHeight}px`);
+  //   } else {
+  //     setTextHeight('154px');
+  //   }
+  // }, [isFullText]);
 
   const { control, reset, watch, setValue, handleSubmit } = useForm<FormState>({
     defaultValues: {
@@ -119,31 +119,34 @@ const PostDescription: FC<IProps> = ({ text, postId }) => {
 
   return (
     <>
-      <div className={cn(style.PostDescription, '2xl:!border-none xs:!py-[14px] xs:!px-[20px]')}>
-        <Typography variant="heading2">{t('post.descriptionTitle')}</Typography>
-        <div
-          className={cn(
-            `transition-all duration-250 ease-out 2xl:h-[${textHeight}] 2xl:overflow-hidden`,
-          )}
-        >
-          <Typography ref={textRef} variant="heading3">
+      <div
+        className={cn(
+          style.PostDescription,
+          '2xl:mt-[18px] 2xl:!px-[30px] 2xl:!gap-[12px] 2xl:!border-none xs:mt-[14px] xs:!px-[15px]',
+        )}
+      >
+        <Typography variant="heading2" weight={700}>
+          {t('post.descriptionTitle')}
+        </Typography>
+        <div className={cn('transition-all duration-250 ease-out 2xl:overflow-hidden')}>
+          <Typography ref={textRef} variant="text1">
             {text}
           </Typography>
         </div>
-        {isFullScreen && (
-          <Button
-            color="neutral"
-            fullWidth={true}
-            className={cn('2xl:!h-[32px]', textHeight === 'auto' && '2xl:!hidden')}
-            onClick={() => setIsFullText((prev) => !prev)}
-          >
-            <Typography variant="heading4" weight={700}>
-              {isFullText ? 'Скрыть' : 'Показать'}
-            </Typography>
-          </Button>
-        )}
+        {/*{isFullScreen && (*/}
+        {/*  <Button*/}
+        {/*    color="neutral"*/}
+        {/*    fullWidth={true}*/}
+        {/*    className={cn('2xl:!h-[32px]', textHeight === 'auto' && '2xl:!hidden')}*/}
+        {/*    onClick={() => setIsFullText((prev) => !prev)}*/}
+        {/*  >*/}
+        {/*    <Typography variant="text3" weight={400}>*/}
+        {/*      {isFullText ? 'Скрыть' : 'Показать'}*/}
+        {/*    </Typography>*/}
+        {/*  </Button>*/}
+        {/*)}*/}
         <ButtonLogin
-          className={cn(style.ButtonLogin)}
+          className={cn(style.ButtonLogin, '2xl:!w-full')}
           onClick={() =>
             state.accessToken ? setModal({ postReport: true }) : setIsModalOpen(true)
           }
@@ -213,7 +216,7 @@ const PostDescription: FC<IProps> = ({ text, postId }) => {
                 <Typography variant="heading3" weight={700}>
                   {t('auth.needToAuth')}
                 </Typography>
-                <Typography variant="heading5" color="gray">
+                <Typography variant="heading3" color="gray">
                   {t('auth.enterToContinue')}
                 </Typography>
               </div>

@@ -28,60 +28,67 @@ const ImagesPost: FC<PropsWithChildren<IProps>> = ({ images }) => {
         activeIndex={currentIndex}
       />
       <div className={cn(style.ImagesPost)}>
-        <Swiper
-          swiperHeight="h-[542px] cursor-zoom-in 2xl:h-[637px] xs:h-[295px]"
-          previewBlockClassname="xbg-white"
-          onSliderClick={() => setIsModalOpen(true)}
-          activeIndex={currentIndex}
-          onIndexChange={(index) => setCurrentIndex(index)}
-          images={images}
-          keyUpdater={true}
-          leftButton={(onClick) => (
-            <>
-              {images.length > 1 && (
-                <button className={style.SliderButton} onClick={onClick}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="17"
-                    height="28"
-                    viewBox="0 0 17 28"
-                    fill="none"
+        {Boolean(images.length) ? (
+          <Swiper
+            swiperHeight="h-[542px] w-full cursor-zoom-in xs:h-[300px]"
+            previewBlockClassname="xbg-white"
+            onSliderClick={() => setIsModalOpen(true)}
+            activeIndex={currentIndex}
+            onIndexChange={(index) => setCurrentIndex(index)}
+            images={images}
+            keyUpdater={true}
+            leftButton={(onClick) => (
+              <>
+                {images.length > 1 && (
+                  <button className={style.SliderButton} onClick={onClick}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="17"
+                      height="28"
+                      viewBox="0 0 17 28"
+                      fill="none"
+                    >
+                      <path
+                        d="M2 2L14 14L2 26"
+                        stroke="white"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </>
+            )}
+            rightButton={(onClick) => (
+              <>
+                {images.length > 1 && (
+                  <button
+                    onClick={onClick}
+                    className={mergeStyles(style.SliderButton, style.right)}
                   >
-                    <path
-                      d="M2 2L14 14L2 26"
-                      stroke="white"
-                      stroke-width="3"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </button>
-              )}
-            </>
-          )}
-          rightButton={(onClick) => (
-            <>
-              {images.length > 1 && (
-                <button onClick={onClick} className={mergeStyles(style.SliderButton, style.right)}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="17"
-                    height="28"
-                    viewBox="0 0 17 28"
-                    fill="none"
-                  >
-                    <path
-                      d="M2 2L14 14L2 26"
-                      stroke="white"
-                      stroke-width="3"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </button>
-              )}
-            </>
-          )}
-          withCounter={true}
-        />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="17"
+                      height="28"
+                      viewBox="0 0 17 28"
+                      fill="none"
+                    >
+                      <path
+                        d="M2 2L14 14L2 26"
+                        stroke="white"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </>
+            )}
+            withCounter={true}
+          />
+        ) : (
+          <img src="/images/empty-ad-photo.png" alt="" />
+        )}
       </div>
     </>
   );

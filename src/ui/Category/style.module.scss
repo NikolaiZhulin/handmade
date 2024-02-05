@@ -4,14 +4,14 @@
 .Category {
   display: flex;
   height: 44px;
-  padding: 0;
+  padding: 0 10px;
   justify-content: left;
   align-items: center;
   gap: 14px;
   width: 100%;
   border-radius: 0;
   background-color: none;
-  font-family: Helvetica Neue;
+  font-family: Montserrat;
   color: $black;
   transition:
     0.25s ease-out background,
@@ -25,9 +25,12 @@
 
   &.active {
     border: none;
-    padding: 0 0 0 14px;
-    background-color: $hover-gray;
-    //@include button-text();
+    background-color: $green-light;
+    color: $white;
+
+    svg path{
+      fill: $white;
+    }
   }
 
   svg {
@@ -36,8 +39,11 @@
   }
 
   &:hover {
-    padding: 0 0 0 14px;
-    background-color: $hover-gray;
+    background-color: $green-light;
+    color: $white;
+    svg path{
+      fill: $white;
+    }
   }
 }
 

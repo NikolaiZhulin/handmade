@@ -3,6 +3,7 @@
 
 .Main {
   background: $white;
+  min-height: 100svh;
   padding: 80px 0 0 0;
   .MainWrapper {
     margin: 20px 0 0 0;
@@ -24,15 +25,11 @@
     }
   }
 
-  @media (max-width: 1280px){
-    padding: 64px 10px 0 10px;
-  }
-
   @media (max-width: 1200px){
     padding: 64px 0 0 0;
   }
 
   @media (max-width: 600px){
-    padding: 116px 0 0 0;
+    padding: 53px 0 0 0;
   }
 }

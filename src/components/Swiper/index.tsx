@@ -6,10 +6,6 @@ import { getImage } from '@/helpers/getImage';
 import ImagesPrewiev from '@/ui/ImagesPreview';
 import { cn } from '@/utils/utils';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import Typography from '@/ui/Typography';
-import { useTranslation } from '@/hooks/useTranslation';
-
-import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 
 interface IProps {
   images: string[];
@@ -37,18 +33,16 @@ const Swiper: FC<IProps> = ({
   onIndexChange,
   swiperHeight,
   previewBlockClassname,
-  onClose,
   inModal,
 }) => {
   const swiperRef = useRef<SwiperContainer>(null);
   const [swiperKey, setSwiperKey] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(activeIndex ?? 0);
   const isLaptop = useMediaQuery('(max-width: 1200px)');
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (swiperRef.current) {
-      swiperRef.current?.initialize();
+      swiperRef?.current?.initialize();
       setCurrentIndex(activeIndex ?? 0);
       const params: SwiperOptions = {
         slidesPerView: 1,
@@ -87,48 +81,47 @@ const Swiper: FC<IProps> = ({
   return (
     <>
       <div className={cn('relative overflow-hidden', swiperHeight)}>
-        {isLaptop && inModal && (
-          <div className="2xl:py-[10px] 2xl:px-[24px] 2xl:bg-white xs:px-[14px] xs:py-[10px]">
-            <button className="flex items-center gap-[14px]" onClick={onClose}>
-              <HomeSvgSelector id="arrow-left" />
-              <Typography variant="heading3" className="xs:!text-[14px]">
-                {t('back')}
-              </Typography>
-            </button>
-          </div>
-        )}
+        {/*{isLaptop && inModal && (*/}
+        {/*  <div className="2xl:py-[10px] 2xl:px-[24px] 2xl:bg-white xs:px-[14px] xs:py-[10px]">*/}
+        {/*    <button className="flex items-center gap-[14px]" onClick={onClose}>*/}
+        {/*      <HomeSvgSelector id="arrow-left" />*/}
+        {/*      <Typography variant="heading3" className="xs:!text-[14px]">*/}
+        {/*        {t('back')}*/}
+        {/*      </Typography>*/}
+        {/*    </button>*/}
+        {/*  </div>*/}
+        {/*)}*/}
         <div className={'relative h-full overflow-hidden'}>
-          {!isLaptop &&
-            (leftButton
-              ? leftButton(handleButtonClick(0))
-              : images.length > 1 && (
-                  <button
-                    className="absolute top-1/2 left-[54px] z-50 rotate-180"
-                    onClick={handleButtonClick(0)}
+          {leftButton
+            ? leftButton(handleButtonClick(0))
+            : images.length > 1 && (
+                <button
+                  className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] left-[54px] z-50 rotate-180 2xl:left-0"
+                  onClick={handleButtonClick(0)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="17"
+                    height="28"
+                    viewBox="0 0 17 28"
+                    fill="none"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="17"
-                      height="28"
-                      viewBox="0 0 17 28"
-                      fill="none"
-                    >
-                      <path
-                        d="M2 2L14 14L2 26"
-                        stroke="white"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                      />
-                    </svg>
-                  </button>
-                ))}
+                    <path
+                      d="M2 2L14 14L2 26"
+                      stroke="white"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              )}
           <swiper-container
             ref={swiperRef}
             init={false}
             key={swiperKey}
             onClick={onSliderClick}
             initialSlide={activeIndex}
-            style={{ backgroundColor: inModal ? 'black' : '' }}
+            style={{ backgroundColor: inModal ? 'black gap-[14px]' : '' }}
           >
             {images.map((img) => (
               <swiper-slide key={img}>
@@ -136,35 +129,34 @@ const Swiper: FC<IProps> = ({
               </swiper-slide>
             ))}
           </swiper-container>
-          {!isLaptop &&
-            (rightButton
-              ? rightButton(handleButtonClick(1))
-              : images.length > 1 && (
-                  <button
-                    className="absolute top-1/2 right-[54px] z-50"
-                    onClick={handleButtonClick(1)}
+          {rightButton
+            ? rightButton(handleButtonClick(1))
+            : images.length > 1 && (
+                <button
+                  className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] right-[54px] z-50 2xl:right-0"
+                  onClick={handleButtonClick(1)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="17"
+                    height="28"
+                    viewBox="0 0 17 28"
+                    fill="none"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="17"
-                      height="28"
-                      viewBox="0 0 17 28"
-                      fill="none"
-                    >
-                      <path
-                        d="M2 2L14 14L2 26"
-                        stroke="white"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                      />
-                    </svg>
-                  </button>
-                ))}
+                    <path
+                      d="M2 2L14 14L2 26"
+                      stroke="white"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              )}
         </div>
         {withCounter && images.length > 1 && (
           <div
             className={cn(
-              'absolute px-[10px] [&>span]:text-white z-[1] bottom-[14px] left-[14px] bg-black text-white overflow-hidden h-[24px] flex items-center justify-center opacity-70 text-[12px] leading-[14px] font-medium',
+              'absolute px-[10px] [&>span]:text-white z-[1] font-montserrat bottom-[14px] left-[14px] bg-black text-white overflow-hidden h-[24px] flex items-center justify-center opacity-70 text-[12px] leading-[14px] font-medium',
               'left-[14px]',
             )}
           >
@@ -175,16 +167,24 @@ const Swiper: FC<IProps> = ({
       </div>
       {(!isLaptop || inModal) && images.length > 1 && (
         <>
-          <div className="xs:overflow-auto xs:w-full xs:h-[98px] no-scrollbar">
+          <div
+            className={cn(
+              'xs:overflow-auto xs:w-full xs:h-[98px] no-scrollbar',
+              inModal && 'mt-auto py-[14px]',
+            )}
+          >
             <div
               className={cn(
                 'flex flex-col gap-[13px] items-start justify-start min-h-min max-h-[542px] over transition-transform',
                 'xs:flex-nowrap xs:w-max xs:min-w-full xs:px-[20px]',
-                inModal ? 'bg-black' : 'bg-[transparent]',
+                inModal ? 'bg-black flex-row' : 'bg-[transparent] ',
                 previewBlockClassname,
               )}
               style={{
-                transform: currentIndex > 4 ? `translateY(calc(-${currentIndex - 4} * 113px))` : '',
+                transform:
+                  !inModal && currentIndex > 4
+                    ? `translateY(calc(-${currentIndex - 4} * 113px))`
+                    : '',
               }}
             >
               {images.map((img, i) => (

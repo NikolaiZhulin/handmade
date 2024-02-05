@@ -141,18 +141,7 @@ const SearchPage: FC<IProps> = ({}) => {
             <FiltersRow onApplyFilters={onApplyFilters} className="hidden 2xl:flex mt-[20px]" />
             <>
               <FlexContainer className="mt-[30px] !justify-start xs:!grid xs:grid-cols-2 xs:grid-rows-2 gap-[14px]">
-                {data ? (
-                  <Typography variant="heading2">
-                    {/*{t('search.found')}{' '}*/}
-                    {/*{data?.pages.reduce((acc, page) => {*/}
-                    {/*  return acc + page.meta.itemCount;*/}
-                    {/*}, 0) ?? 0}{' '}*/}
-                    {/*{t('search.foundPosts')}*/}
-                    Последние
-                  </Typography>
-                ) : (
-                  <div />
-                )}
+                {data ? <Typography variant="heading2">Последние</Typography> : <div />}
                 <FlexContainer gap={14} className="ml-auto mr-[14px] xs:mr-[0]">
                   <Select
                     trigger={({ isOpen, toggleOpen, triggerRef, currentOption }) => (
@@ -184,13 +173,6 @@ const SearchPage: FC<IProps> = ({}) => {
                     defaultValue={ORDER_OPTIONS[0]}
                     withTranslate={true}
                   />
-
-                  {/*<ChangeView*/}
-                  {/*  setView={setIsGrid}*/}
-                  {/*  isGrid={isGrid}*/}
-                  {/*  leftIconId="list-icon"*/}
-                  {/*  rightIconId="grid-icon"*/}
-                  {/*/>*/}
                 </FlexContainer>
                 <ChangeView
                   setView={setIsUsdPrice}
