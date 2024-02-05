@@ -40,7 +40,7 @@ const MyPosts: FC = () => {
       justify="start"
       className="2xl:!h-full"
     >
-      {true && (
+      {hasAnyPosts && (
         <FlexContainer className={cn(styles.w100, '2xl:flex-col 2xl:!items-start 2xl:gap-[14px]')}>
           <Typography variant="heading2">{t('profile.myPosts')}</Typography>
           <SliderButton
@@ -53,17 +53,18 @@ const MyPosts: FC = () => {
           />
         </FlexContainer>
       )}
-      {true ? (
+      {posts && hasAnyPosts ? (
         <>
-          {true ? (
+          a
+          {posts.posts.length ? (
             <FlexContainer direction="column" className={styles.w100}>
-              {[mock_post].map((post, i) => {
+              {posts.map((post, i) => {
                 console.log(post);
 
                 return (
                   <ProfilePost
                     key={post.id}
-                    withBorder={i !== 1 - 1}
+                    withBorder={i !== posts.posts.length - 1}
                     post={post}
                     disabled={!queryState}
                     refetch={refetch}
@@ -113,32 +114,32 @@ const MyPosts: FC = () => {
 };
 
 export default MyPosts;
-const mock_post = {
-  id: '123',
-  images: [],
-  nameRu: 'Мок пост',
-  nameEn: 'Mock post',
-  nameGe: 'Geargian post',
-  price: 700,
-  currency: Currency.USD,
-  updatedAt: '',
-  textRu:
-    'Мок постМок постМок постМок постМок постМок постМок постМок постМок постМок постМок пост',
-  textEn: 'Mock postMock postMock postMock postMock postMock postMock post',
-  city: 'Novi Sad',
-  categories: 'Jewelry',
-  contacts: {
-    phone: '99234234234',
-    additionalPhone: '625464643646',
-    telegram: '@adfsdf',
-    name: 'Antocjs',
-    isPhoneActive: true,
-    isAdditionalPhoneActive: true,
-  },
-  isActive: true,
-  isUsed: true,
-  usedAmount: 3,
-  usedPeriod: 'month',
-  address: 'janka cmelica',
-  usdPrice: 600,
-};
+// const mock_post = {
+//   id: '123',
+//   images: [],
+//   nameRu: 'Мок пост',
+//   nameEn: 'Mock post',
+//   nameGe: 'Geargian post',
+//   price: 700,
+//   currency: Currency.USD,
+//   updatedAt: '',
+//   textRu:
+//     'Мок постМок постМок постМок постМок постМок постМок постМок постМок постМок постМок пост',
+//   textEn: 'Mock postMock postMock postMock postMock postMock postMock post',
+//   city: 'Novi Sad',
+//   categories: 'Jewelry',
+//   contacts: {
+//     phone: '99234234234',
+//     additionalPhone: '625464643646',
+//     telegram: '@adfsdf',
+//     name: 'Antocjs',
+//     isPhoneActive: true,
+//     isAdditionalPhoneActive: true,
+//   },
+//   isActive: true,
+//   isUsed: true,
+//   usedAmount: 3,
+//   usedPeriod: 'month',
+//   address: 'janka cmelica',
+//   usdPrice: 600,
+// };
