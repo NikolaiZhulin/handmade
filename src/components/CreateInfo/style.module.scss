@@ -19,7 +19,7 @@
   .FlexContainer {
     gap: 8px;
   }
-  .ButtonNext{
+  .ButtonNext {
     width: 100%;
   }
 }
@@ -42,8 +42,8 @@
   gap: 4px;
 }
 
-.gray-text {
-  color: $text-gray
+.grayText {
+  color: $text-gray;
 }
 
 .select {
@@ -77,7 +77,7 @@
   .Button {
     width: 50%;
     z-index: 1;
-    transition: .25s ease-out color;
+    transition: 0.25s ease-out color;
     &.active {
       background: transparent;
       color: $white;
@@ -113,7 +113,7 @@
   align-items: flex-start;
   justify-content: space-between;
 
-  & > input[type="checkbox"] {
+  & > input[type='checkbox'] {
     transform: translateY(35%);
   }
 }

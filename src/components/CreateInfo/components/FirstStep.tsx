@@ -45,6 +45,7 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
     t,
     i18n: { language },
   } = useTranslation();
+  console.log('files', files);
 
   const schema = z
     .object({

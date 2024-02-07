@@ -5,22 +5,20 @@ import * as z from 'zod';
 
 import SliderButton from '@/components/SliderButton';
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
-import { UsedPeriod } from '@/constants/enums';
-import { CreatePostContext } from '@/contexts/CreatePostContext';
-import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
-import { useTranslation } from '@/hooks/useTranslation';
-import Button from '@/ui/Button';
-import Select from '@/ui/CustomSelect';
-import Input from '@/ui/Input';
-import Typography from '@/ui/Typography';
-import { cn } from '@/utils/utils';
 import { cities } from '@/constants/cities';
 import { metals } from '@/constants/metals';
 import { samples } from '@/constants/sample';
 import { sexes } from '@/constants/sex';
 import { stones } from '@/constants/stones';
+import { CreatePostContext } from '@/contexts/CreatePostContext';
+import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
+import { useTranslation } from '@/hooks/useTranslation';
+import Button from '@/ui/Button';
 import Checkbox from '@/ui/Checkbox';
 import CustomSelect from '@/ui/CustomSelect';
+import Input from '@/ui/Input';
+import Typography from '@/ui/Typography';
+import { cn } from '@/utils/utils';
 
 import style from '../style.module.scss';
 
@@ -29,28 +27,26 @@ interface IProps {
 }
 
 interface FormState {
-  isUsed: boolean;
-  usedAmount: number;
-  usedPeriod: UsedPeriod;
-  city: string;
-  metal: string;
-  jewel: string;
-  sample: string;
-  stone: string;
   size: string;
   isJewelry: boolean;
   sex: string[];
   careRecommendations: string;
   requestCategories: string[];
+  requestMaterials: string[];
+  requestStones: string[];
+  requestCity: string[];
+  requestSamples: string[];
   address: string;
 }
 
 const schema = z.object({
-  isUsed: z.boolean(),
-  usedAmount: z.string(),
-  usedPeriod: z.string(),
-  city: z.string(),
+  isJewelry: z.boolean(),
+  requestCity: z.array(z.string()),
   requestCategories: z.array(z.string()),
+  requestMaterials: z.array(z.string()),
+  requestStones: z.array(z.string()),
+  requestSamples: z.array(z.string()),
+  size: z.string(),
   address: z.string(),
 });
 
@@ -67,26 +63,30 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
     formState: { touchedFields },
   } = useForm<FormState>({
     defaultValues: {
-      isUsed: state.isUsed,
       isJewelry: true,
-      usedAmount: state.usedAmount,
-      usedPeriod: state.usedPeriod,
-      metal: state.metal,
       sex: state.sex,
-      jewel: state.jewel,
-      sample: state.sample,
-      stone: state.stone,
       size: state.size,
+      requestCity: state.requestCity,
+      requestSamples: state.requestSamples,
       careRecommendations: state.careRecommendations,
-      city: state.city,
       requestCategories: state.requestCategories,
+      requestMaterials: state.requestMaterials,
+      requestStones: state.requestStones,
       address: state.address,
     },
     resolver: zodResolver(schema),
     mode: 'all',
   });
 
-  const { sex, isUsed, usedPeriod, city, requestCategories } = watch();
+  const {
+    sex,
+    requestCity,
+    size,
+    requestCategories,
+    requestMaterials,
+    requestStones,
+    requestSamples,
+  } = watch();
 
   const handleMove = (direction: number) => () => {
     setState(getValues());
@@ -97,20 +97,25 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
     setValue('requestCategories', [newValue], { shouldTouch: true });
   };
 
+  const handleMetalValue = (newValue: string) => {
+    setValue('requestMaterials', [newValue], { shouldTouch: true });
+  };
+
   const handleCityValue = (newValue: string) => {
-    setValue('metal', newValue, { shouldTouch: true });
+    setValue('requestCity', [newValue], { shouldTouch: true });
   };
 
   const handleSamplesValue = (newValue: string) => {
-    setValue('sample', newValue, { shouldTouch: true });
+    setValue('requestSamples', [newValue], { shouldTouch: true });
   };
   const handleStoneValue = (newValue: string) => {
-    setValue('stone', newValue, { shouldTouch: true });
+    setValue('requestStones', [newValue], { shouldTouch: true });
   };
-  const setIsJewelry = (isActive: boolean) => () => setValue('isJewelry', !isActive);
+  const setIsJewelry = (isActive: boolean) => () =>
+    setValue('isJewelry', !isActive, { shouldTouch: true });
 
   const handleSelectChange = (value: string) => {
-    setValue('sex', [...sex, value]);
+    setValue('sex', [value], { shouldTouch: true });
   };
 
   return (
@@ -143,8 +148,8 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
               withTranslate={true}
               options={metals}
               placeholder={t('inputs.metal')}
-              onSelect={handleCityValue}
-              value={metals.find((el) => requestCategories?.includes(el.value))}
+              onSelect={handleMetalValue}
+              value={metals.find((el) => requestMaterials?.includes(el.value))}
               withoutDialog
             />
           </div>
@@ -154,7 +159,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
               options={samples}
               placeholder={t('inputs.sample')}
               onSelect={handleSamplesValue}
-              value={samples.find((el) => requestCategories?.includes(el.value))}
+              value={samples.find((el) => requestSamples?.includes(el.value))}
               withoutDialog
             />
           </div>
@@ -164,7 +169,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
               options={stones}
               placeholder={t('inputs.stone')}
               onSelect={handleStoneValue}
-              value={stones.find((el) => requestCategories?.includes(el.value))}
+              value={stones.find((el) => requestStones?.includes(el.value))}
               withoutDialog
             />
           </div>
@@ -183,7 +188,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
               options={cities}
               placeholder={t('inputs.city')}
               onSelect={handleCityValue}
-              value={cities.find((el) => requestCategories?.includes(el.value))}
+              value={cities.find((el) => requestCity?.includes(el.value))}
               withoutDialog
             />
           </div>

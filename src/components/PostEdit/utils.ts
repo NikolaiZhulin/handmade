@@ -13,7 +13,6 @@ export interface FormState {
   price: number;
   currency: Currency;
   sex: string[];
-  metal: string;
   jewel: string;
   sample: string;
   stone: string;
@@ -27,6 +26,10 @@ export interface FormState {
   usedPeriod: UsedPeriod;
   city: string;
   requestCategories: string[];
+  requestMaterials: string[];
+  requestStones: string[];
+  requestSamples: string[];
+  requestCity: string[];
   phone: string;
   contactName: string;
   additionalPhone: string;

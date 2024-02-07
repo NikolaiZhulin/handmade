@@ -11,11 +11,10 @@ export interface ICreatePostContext {
   currency: Currency;
   files: File[];
   requestCategories: string[];
-  city: string;
-  metal: string;
-  jewel: string;
-  sample: string;
-  stone: string;
+  requestMaterials: string[];
+  requestStones: string[];
+  requestSamples: string[];
+  requestCity: string[];
   size: string;
   sex: string[];
   careRecommendations: string;
@@ -45,10 +44,6 @@ export const CREATE_POST_CONTEXT_DEFAULT_VALUES: ICreatePostContext = {
   textEn: '',
   textGe: '',
   price: 0,
-  metal: '',
-  jewel: '',
-  sample: '',
-  stone: '',
   size: '',
   sex: [],
   careRecommendations: '',
@@ -56,7 +51,10 @@ export const CREATE_POST_CONTEXT_DEFAULT_VALUES: ICreatePostContext = {
   currency: Currency.GEL,
   files: [],
   requestCategories: [],
-  city: '',
+  requestMaterials: [],
+  requestStones: [],
+  requestSamples: [],
+  requestCity: [],
   isUsed: true,
   usedAmount: undefined,
   usedPeriod: undefined,
