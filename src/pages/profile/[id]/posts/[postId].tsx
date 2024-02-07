@@ -1,14 +1,14 @@
-import Head from 'next/head';
 import { QueryClient, dehydrate, useHydrate } from '@tanstack/react-query';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Head from 'next/head';
 
+import { getPostById } from '@/api/posts/post-by-id';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import ProfilePageLayout from '@/containers/pages/ProfilePageLayout';
-import ProfileLeftBlock from '@/components/Profile/ProfileLeftBlock';
 import PostEdit from '@/components/PostEdit';
-import { getPostById } from '@/api/posts/post-by-id';
+import ProfileLeftBlock from '@/components/Profile/ProfileLeftBlock';
+import ProfilePageLayout from '@/containers/pages/ProfilePageLayout';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { postId } = context.params ?? {};

@@ -6,7 +6,11 @@ import { toast } from 'react-toastify';
 import { useGetPostById } from '@/api/posts/post-by-id';
 import { useUpdatePost } from '@/api/posts/update-post';
 import { cities } from '@/constants/cities';
-import { post as postConfig } from '@/constants/post.common';
+import { metals } from '@/constants/metals';
+import { samples } from '@/constants/sample';
+import { sexes } from '@/constants/sex';
+import { stones } from '@/constants/stones';
+import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { getErrorToast } from '@/helpers/aggregateErrorsMessage';
 import { mergeStyles } from '@/helpers/mergeStyles';
 import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
@@ -15,6 +19,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import FlexContainer from '@/layout/FlexContainer';
 import { IPostContactInfo } from '@/types/posts';
 import Button from '@/ui/Button';
+import Checkbox from '@/ui/Checkbox';
 import Select from '@/ui/CustomSelect';
 import Input from '@/ui/Input';
 import InputImages from '@/ui/InputImages';
@@ -22,25 +27,21 @@ import Switch from '@/ui/Switch';
 import Textarea from '@/ui/Textarea';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
-import { sexes } from '@/constants/sex';
-import Checkbox from '@/ui/Checkbox';
-import { metals } from '@/constants/metals';
-import { samples } from '@/constants/sample';
-import { stones } from '@/constants/stones';
-import { CreatePostContext } from '@/contexts/CreatePostContext';
 
-import { HomeSvgSelector } from '../svg/HomeSvgSelector';
-import SliderButton from '../SliderButton';
 import { CURRENCY_MAP, thirdStepConfig } from '../CreateInfo/config';
+import SliderButton from '../SliderButton';
+import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 
-import { FormState, schema, setDefaultValues } from './utils';
+import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
+import { FormState, schema, setDefaultValues } from './utils';
 
 interface IProps {
   postId: string;
 }
 
 const PostEdit: FC<IProps> = ({ postId }) => {
+  const router = useRouter();
   const { data: post, refetch } = useGetPostById(postId);
   const { mutate: updatePost } = useUpdatePost(() => {
     refetch();
@@ -67,19 +68,15 @@ const PostEdit: FC<IProps> = ({ postId }) => {
 
   const { control, setValue, handleSubmit, watch, reset, formState } = useForm<FormState>({
     defaultValues: {
-      isUsed: state.isUsed,
       isJewelry: true,
-      usedAmount: state.usedAmount,
-      usedPeriod: state.usedPeriod,
-      metal: state.metal,
       sex: state.sex,
-      jewel: state.jewel,
-      sample: state.sample,
-      stone: state.stone,
       size: state.size,
+      requestCity: state.requestCity,
+      requestSamples: state.requestSamples,
       careRecommendations: state.careRecommendations,
-      city: state.city,
       requestCategories: state.requestCategories,
+      requestMaterials: state.requestMaterials,
+      requestStones: state.requestStones,
       address: state.address,
     },
     resolver: zodResolver(schema),
@@ -102,8 +99,17 @@ const PostEdit: FC<IProps> = ({ postId }) => {
     }
   }, [post]);
 
-  const { currency, isJewelry, sex, isUsed, usedPeriod, city, requestCategories, ...formValues } =
-    watch();
+  const {
+    currency,
+    isJewelry,
+    sex,
+    requestCity,
+    requestCategories,
+    requestSamples,
+    requestMaterials,
+    requestStones,
+    ...formValues
+  } = watch();
 
   const handleFilesChange = (files: (File | string)[]) => {
     setFiles(files);
@@ -112,8 +118,6 @@ const PostEdit: FC<IProps> = ({ postId }) => {
 
   const toggleEng = () => setIsEngShown((prev) => !prev);
   const toggleGe = () => setIsGeShown((prev) => !prev);
-  const handleUsedChange = (value: boolean) => () =>
-    setValue('isUsed', !value, { shouldTouch: true, shouldDirty: true });
 
   const handleFieldChange =
     (key: keyof FormState, inArray = false) =>
@@ -124,6 +128,16 @@ const PostEdit: FC<IProps> = ({ postId }) => {
   const handleSave = () => {
     handleSubmit((values) => {
       const {
+        requestCategories,
+        requestCity,
+        requestMaterials,
+        requestSamples,
+        careRecommendations,
+        address,
+        size,
+        sex,
+        isJewelry,
+        requestStones,
         isPhoneActive,
         isViberActive,
         isAdditionalPhoneActive,
@@ -181,29 +195,32 @@ const PostEdit: FC<IProps> = ({ postId }) => {
 
       updatePost({ id: post?.id ?? '', data: formData });
     })();
+    router.push(`/`);
   };
 
   const handleCategoriesValue = (newValue: string) => {
     setValue('requestCategories', [newValue], { shouldTouch: true });
   };
 
+  const handleMetalValue = (newValue: string) => {
+    setValue('requestMaterials', [newValue], { shouldTouch: true });
+  };
+
   const handleCityValue = (newValue: string) => {
-    setValue('metal', newValue, { shouldTouch: true });
+    setValue('requestCity', [newValue], { shouldTouch: true });
   };
 
   const handleSamplesValue = (newValue: string) => {
-    setValue('sample', newValue, { shouldTouch: true });
+    setValue('requestSamples', [newValue], { shouldTouch: true });
   };
   const handleStoneValue = (newValue: string) => {
-    setValue('stone', newValue, { shouldTouch: true });
+    setValue('requestStones', [newValue], { shouldTouch: true });
   };
-  const setIsJewelry = (isActive: boolean) => () => setValue('isJewelry', !isActive);
+  const setIsJewelry = (isActive: boolean) => () =>
+    setValue('isJewelry', !isActive, { shouldTouch: true });
 
-  const handleSelectChange = (value: string[]) => {
-    if (Array.isArray(value)) {
-      setValue('sex', value);
-      return;
-    }
+  const handleSelectChange = (value: string) => {
+    setValue('sex', [value], { shouldTouch: true });
   };
 
   return (
@@ -274,8 +291,8 @@ const PostEdit: FC<IProps> = ({ postId }) => {
                 withTranslate={true}
                 options={metals}
                 placeholder={t('inputs.metal')}
-                onSelect={handleCityValue}
-                value={metals.find((el) => requestCategories?.includes(el.value))}
+                onSelect={handleMetalValue}
+                value={metals.find((el) => requestMaterials?.includes(el.value))}
               />
             </div>
             <div className="pt-2">
@@ -284,7 +301,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
                 options={samples}
                 placeholder={t('inputs.sample')}
                 onSelect={handleSamplesValue}
-                value={samples.find((el) => requestCategories?.includes(el.value))}
+                value={samples.find((el) => requestSamples?.includes(el.value))}
               />
             </div>
             <div className="pt-2">
@@ -293,7 +310,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
                 options={stones}
                 placeholder={t('inputs.stone')}
                 onSelect={handleStoneValue}
-                value={stones.find((el) => requestCategories?.includes(el.value))}
+                value={stones.find((el) => requestStones?.includes(el.value))}
               />
             </div>
             <div className="pt-2">
@@ -311,7 +328,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
                 options={cities}
                 placeholder={t('inputs.city')}
                 onSelect={handleCityValue}
-                value={cities.find((el) => requestCategories?.includes(el.value))}
+                value={cities.find((el) => requestCity?.includes(el.value))}
               />
             </div>
             <div className="pt-2">

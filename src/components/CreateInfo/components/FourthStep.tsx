@@ -1,5 +1,5 @@
-import { FC, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
@@ -8,14 +8,14 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
 // import Swiper from '@/components/Swiper';
-import { CURRENCY_SYMBOLS } from '@/constants/currency';
-import { CategoryBadge } from '@/layout/RightBlockPost/components/CategoryBadge';
-import { PostAddress } from '@/layout/RightBlockPost/components/Address';
-import { Contacts } from '@/layout/RightBlockPost/components/Contacts';
-import Button from '@/ui/Button';
 import { useCreatePost } from '@/api/posts/create-post';
-import { IPostContactInfo } from '@/types/posts';
 import StatusModal from '@/components/modals/StatusModal';
+import { CURRENCY_SYMBOLS } from '@/constants/currency';
+import { PostAddress } from '@/layout/RightBlockPost/components/Address';
+import { CategoryBadge } from '@/layout/RightBlockPost/components/CategoryBadge';
+import { Contacts } from '@/layout/RightBlockPost/components/Contacts';
+import { IPostContactInfo } from '@/types/posts';
+import Button from '@/ui/Button';
 
 import style from '../style.module.scss';
 
@@ -30,7 +30,24 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
   const { push } = useRouter();
   const [errorText, setErrorText] = useState('');
   const [modalType, setModalType] = useState('');
-
+  const {
+    textRu,
+    textEn,
+    textGe,
+    name,
+    price,
+    currency,
+    files,
+    requestCategories,
+    requestCity,
+    requestMaterials,
+    requestSamples,
+    requestStones,
+    careRecommendations,
+    bijouterie,
+    size,
+    sex,
+  } = state;
   const handleBack = () => {
     onStep(-1);
   };
@@ -113,22 +130,22 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
         </button>
       </div>
       <Typography className="2xl:my-[14px]" variant="heading2">
-        Все ли верно?
+        {t('post.isCorrect')}
       </Typography>
-      {/*<Swiper images={[]} keyUpdater={false} swiperHeight={'2xl:h-[637px] xs:h-[295px]'} />*/}
+      {/* <Swiper images={files} keyUpdater={false} swiperHeight={'2xl:h-[637px] xs:h-[295px]'} /> */}
       <div className="2xl:py-[14px] 2xl:!p-0 2xl:mt-[14px]">
-        <Typography variant="heading1" color="brand" className="mt-auto">
+        <Typography variant="heading2" color="brand" className={'mt-auto'}>
           {state.price === 0
             ? t('main.dealPrice')
             : `${state.price} ${CURRENCY_SYMBOLS[state.currency]}`}
         </Typography>
       </div>
-      {state.requestCategories.map((badge) => (
+      {requestCategories.map((badge) => (
         <CategoryBadge value={badge} key={badge} />
       ))}
-      <PostAddress city={state.city} address={state.address} className="2xl:mb-[15px]" />
+      <PostAddress city={state.requestCity[0]} address={state.address} className="2xl:mb-[15px]" />
       <div className="flex flex-col gap-[14px]">
-        {state.textRu && (
+        {textRu && (
           <div>
             <Typography variant="heading2">
               {t('post.descriptionTitle')} {(state.textEn || state.textGe) && t('preview.ru')}
@@ -136,7 +153,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
             <Typography variant="heading3">{state.textRu}</Typography>
           </div>
         )}
-        {state.textGe && (
+        {textGe && (
           <div>
             <Typography variant="heading2">
               {t('post.descriptionTitle')} {(state.textEn || state.textRu) && t('preview.ge')}
@@ -144,7 +161,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
             <Typography variant="heading3">{state.textGe}</Typography>
           </div>
         )}
-        {state.textEn && (
+        {textEn && (
           <div>
             <Typography variant="heading2">
               {t('post.descriptionTitle')} {(state.textGe || state.textRu) && t('preview.en')}
@@ -154,16 +171,61 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
         )}
         <div>
           <Typography variant="heading2">Контакты</Typography>
-          <Contacts
-            contacts={{
-              ...state,
-            }}
-            className="2xl:!py-0"
-            hideButtons={true}
-          />
+          <Contacts contacts={state} className="2xl:!py-0" hideButtons={true} />
         </div>
+        <>
+          <Typography variant="heading2">{t('post.parameters')}</Typography>
+          <div className="flex  w-full justify-between">
+            <div className="flex flex-1 flex-col gap-2 items-start">
+              <Typography className={style.grayText} variant="heading3">
+                {t('post.jewel')}
+              </Typography>
+              <Typography className={style.grayText} variant="heading3">
+                {t('post.material')}
+              </Typography>
+              <Typography className={style.grayText} variant="heading3">
+                {t('inputs.sample')}
+              </Typography>
+              <Typography className={style.grayText} variant="heading3">
+                {t('inputs.stone')}
+              </Typography>
+              <Typography className={style.grayText} variant="heading3">
+                {t('inputs.bijouterie')}
+              </Typography>
+              <Typography className={style.grayText} variant="heading3">
+                {t('inputs.size')}
+              </Typography>
+              <Typography className={style.grayText} variant="heading3">
+                {t('inputs.careRecommendations')}
+              </Typography>
+              <Typography className={style.grayText} variant="heading3">
+                {t('inputs.sex')}
+              </Typography>
+            </div>
+            <div className="flex flex-1 flex-col gap-2 items-start">
+              <Typography variant="heading3">
+                {requestCategories[0] ? requestCategories[0] : 'Отсутствует'}
+              </Typography>
+              <Typography variant="heading3">
+                {requestMaterials[0] ? requestMaterials[0] : 'Отсутствует'}
+              </Typography>
+              <Typography variant="heading3">
+                {requestSamples[0] ? requestSamples[0] : 'Отсутствует'}
+              </Typography>
+              <Typography variant="heading3">
+                {requestStones[0] ? requestStones[0] : 'Отсутствует'}
+              </Typography>
+              <Typography variant="heading3">{bijouterie ? 'post.yes' : 'post.no'}</Typography>
+              <Typography variant="heading3">{size ? size : 'Отсутствует'}</Typography>
+              <Typography variant="heading3">
+                {careRecommendations ? careRecommendations : 'Отсутствует'}
+              </Typography>
+              <Typography variant="heading3">{sex ? sex : 'Отсутствует'}</Typography>
+            </div>
+          </div>
+        </>
         <Button
-          className={cn(style.ButtonNext, '2xl:mt-auto')}
+          className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}
           onClick={handlePost}
           disabled={isLoading}
         >

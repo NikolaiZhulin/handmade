@@ -31,13 +31,12 @@ const CreatePreview: FC<IProps> = ({ step }) => {
     price,
     currency,
     files,
-    city,
     requestCategories,
+    requestCity,
+    requestMaterials,
+    requestSamples,
+    requestStones,
     careRecommendations,
-    sample,
-    stone,
-    metal,
-    jewel,
     bijouterie,
     size,
     sex,
@@ -68,12 +67,12 @@ const CreatePreview: FC<IProps> = ({ step }) => {
               {price} {currency}
             </Typography>
           </div>
-          {city && (
+          {requestCity && (
             <div className={style.flex}>
               <div className={style.flex}>
-                <HomeSvgSelector id="city-placeholder" />
+                <HomeSvgSelector id="geo" />
                 <Typography variant="heading3">
-                  {t(cities.find((el) => el.value === city)?.label ?? '')}
+                  {t(cities.find((el) => el.value === requestCity[0])?.label ?? '')}
                 </Typography>
               </div>
               {!!requestCategories.length &&
@@ -139,10 +138,18 @@ const CreatePreview: FC<IProps> = ({ step }) => {
                   </Typography>
                 </div>
                 <div className="flex flex-1 flex-col gap-2 items-start">
-                  <Typography variant="heading3">{jewel ? jewel : 'Отсутствует'}</Typography>
-                  <Typography variant="heading3">{metal ? metal : 'Отсутствует'}</Typography>
-                  <Typography variant="heading3">{sample ? sample : 'Отсутствует'}</Typography>
-                  <Typography variant="heading3">{stone ? stone : 'Отсутствует'}</Typography>
+                  <Typography variant="heading3">
+                    {requestCategories[0] ? requestCategories[0] : 'Отсутствует'}
+                  </Typography>
+                  <Typography variant="heading3">
+                    {requestMaterials[0] ? requestMaterials[0] : 'Отсутствует'}
+                  </Typography>
+                  <Typography variant="heading3">
+                    {requestSamples[0] ? requestSamples[0] : 'Отсутствует'}
+                  </Typography>
+                  <Typography variant="heading3">
+                    {requestStones[0] ? requestStones[0] : 'Отсутствует'}
+                  </Typography>
                   <Typography variant="heading3">{bijouterie ? 'post.yes' : 'post.no'}</Typography>
                   <Typography variant="heading3">{size ? size : 'Отсутствует'}</Typography>
                   <Typography variant="heading3">

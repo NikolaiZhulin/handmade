@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { FC, useEffect, useState } from 'react';
 
 import { useGetMyPosts } from '@/api/posts/get-my-posts';
+import Announcement from '@/components/Announcement';
+import AnnouncementContainer from '@/components/AnnouncementContainer';
 import { mergeStyles } from '@/helpers/mergeStyles';
 import { useTranslation } from '@/hooks/useTranslation';
 import FlexContainer from '@/layout/FlexContainer';
 import Button from '@/ui/Button';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
-import Announcement from '@/components/Announcement';
-import AnnouncementContainer from '@/components/AnnouncementContainer';
 
 import SliderButton from '../SliderButton';
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
@@ -49,16 +49,14 @@ const MyPosts: FC = () => {
         <>
           {posts.posts.length ? (
             <AnnouncementContainer className="w-full">
-              {[...posts.posts, ...posts.posts, ...posts.posts, ...posts.posts, ...posts.posts].map(
-                (post) => (
-                  <Announcement
-                    key={post.id}
-                    post={post}
-                    isMyAnnouncement
-                    refetchPostsList={refetch}
-                  />
-                ),
-              )}
+              {posts.posts.map((post) => (
+                <Announcement
+                  key={post.id}
+                  post={post}
+                  isMyAnnouncement
+                  refetchPostsList={refetch}
+                />
+              ))}
             </AnnouncementContainer>
           ) : (
             <FlexContainer

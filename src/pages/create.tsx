@@ -10,6 +10,7 @@ import Header from '@/components/Header';
 import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { useCreatePostContext } from '@/hooks/useCreatePostContext/useCreatePostContext';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useTranslation } from '@/hooks/useTranslation';
 import Container from '@/layout/Container';
 import LeftBlock from '@/layout/LeftBlock';
 import Main from '@/layout/Main';
@@ -28,6 +29,10 @@ export default function Home() {
   const context = useCreatePostContext();
   const isLaptop = useMediaQuery('(max-width: 1200px)');
   const [step, setStep] = useState(0);
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
 
   return (
     <>
@@ -39,10 +44,10 @@ export default function Home() {
       </Head>
       <Header isHideSearch={true} />
       <Main>
-        <Container className="2xl:!h-auto 2xl:min-h-[calc(100vh-96px)] xs:p-[0] 2xl:p-[30px]">
+        <Container className="2xl:!h-auto 2xl:min-h-[calc(100vh-96px)] xs:p-[0] 2xl:px-[30px] 2xl:py-0">
           <MainWrapper className="2xl:!mt-0 2xl:h-full 2xl:min-h-[calc(100vh-96px)]">
             <CreatePostContext.Provider value={context}>
-              <LeftBlock className="flex flex-col w-full gap-[18px] py-[30px] bg-white rounded-[6px] !mt-0 2xl:!h-auto 2xl:!static xs:!px-[20px] xs:!py-[14px] xs:!pt-0 xs:gap-0">
+              <LeftBlock className="flex flex-col w-full gap-[18px] py-[30px] bg-white rounded-[6px] !mt-0 2xl:!h-auto 2xl:!static xs:!px-[20px] xs:!py-[14px] 2xl:!py-0 xs:!pt-0 xs:gap-0">
                 <CreateInfo
                   step={step}
                   setStep={(direction) => setStep((prev) => prev + direction)}

@@ -36,7 +36,7 @@
     "descriptionTitle": "Description",
     "parameters": "Parameters",
     "material": "Material",
-
+    "placingAd": "Placing an advertisement",
     "userPosts": "Seller's Other Ads",
     "showAll": "Show All",
     "edditing": "Editing",
@@ -49,6 +49,8 @@
     "no": "No",
     "for_her": "For her",
     "for_him": "For him",
+    "sex": "Gender",
+    "isCorrect": "Preview",
     "contacts": "Contacts",
     "addTitle": "Add Ad",
     "addDescription": "Specify details",
@@ -166,6 +168,17 @@
     "dataUpdated": "Data updated",
     "profileDelete": "Profile has been deleted"
   },
+  "modals": {
+    "post": {
+      "createErrorTitle": "Error occurred while creating the advertisement.",
+      "createSuccessTitle": "The advertisement has been successfully added to the website."
+    },
+    "continue": "Continue",
+    "ok": "Ok",
+    "feedback": "Write about your problem",
+    "send": "Send",
+    "logout": "Would you like to log out of the profile?"
+  },
   "inputs": {
     "phone": "Phone",
     "additionalPhone": "Additional phone",
@@ -204,6 +217,7 @@
   "breadcrumbs": {
     "main": "Main",
     "create": "Подача объявления",
+    "edit": "Edit post",
     "favourite": "Избранные объявления",
     "history": "История просмотров",
     "myPosts": "Мои объявления",
