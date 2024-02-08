@@ -18,6 +18,7 @@ import { IPostContactInfo } from '@/types/posts';
 import Button from '@/ui/Button';
 
 import style from '../style.module.scss';
+import Swiper from "@/components/Swiper";
 
 interface IProps {
   onStep: (direction: number) => void;
@@ -132,7 +133,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
       <Typography className="2xl:my-[14px]" variant="heading2">
         {t('post.isCorrect')}
       </Typography>
-      {/* <Swiper images={files} keyUpdater={false} swiperHeight={'2xl:h-[637px] xs:h-[295px]'} /> */}
+       <Swiper images={files} keyUpdater={false} swiperHeight={'2xl:h-[637px] xs:h-[295px]'} />
       <div className="2xl:py-[14px] 2xl:!p-0 2xl:mt-[14px]">
         <Typography variant="heading2" color="brand" className={'mt-auto'}>
           {state.price === 0

@@ -1,5 +1,5 @@
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
-import { SwiperContainer } from 'swiper/element';
+import { SwiperContainer, register } from 'swiper/element';
 import { SwiperOptions } from 'swiper/types';
 
 import { getImage } from '@/helpers/getImage';
@@ -8,7 +8,7 @@ import { cn } from '@/utils/utils';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface IProps {
-  images: string[];
+  images: string[] | File[];
   activeIndex?: number;
   leftButton?: (onClick: () => void) => ReactNode;
   rightButton?: (onClick: () => void) => ReactNode;
@@ -23,41 +23,68 @@ interface IProps {
 }
 
 const Swiper: FC<IProps> = ({
-  keyUpdater,
-  images,
-  activeIndex,
-  leftButton,
-  rightButton,
-  withCounter,
-  onSliderClick,
-  onIndexChange,
-  swiperHeight,
-  previewBlockClassname,
-  inModal,
-}) => {
-  const swiperRef = useRef<SwiperContainer>(null);
+                              keyUpdater,
+                              images,
+                              activeIndex,
+                              leftButton,
+                              rightButton,
+                              withCounter,
+                              onSliderClick,
+                              onIndexChange,
+                              swiperHeight,
+                              previewBlockClassname,
+                              inModal,
+                            }) => {
+  // const swiperRef = useRef<SwiperContainer>(null);
   const [swiperKey, setSwiperKey] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(activeIndex ?? 0);
   const isLaptop = useMediaQuery('(max-width: 1200px)');
 
+  const swiperRef = useRef<HTMLLinkElement | any>(null);
+
   useEffect(() => {
+    register();
+
     if (swiperRef.current) {
-      swiperRef?.current?.initialize();
-      setCurrentIndex(activeIndex ?? 0);
       const params: SwiperOptions = {
         slidesPerView: 1,
         initialSlide: activeIndex ?? 0,
+        on: {
+          slideChange: (swiper) => {
+            console.log(swiper);
+            setCurrentIndex(swiper.realIndex);
+            onIndexChange?.(swiper.realIndex);
+          },
+          realIndexChange: (swiper) => {
+            console.log(swiper.realIndex);
+          },
+        },
       };
 
-      swiperRef.current.swiper.on('realIndexChange', (swiper) => {
-        setCurrentIndex(swiper.realIndex);
-        onIndexChange?.(swiper.realIndex);
-      });
-
       Object.assign(swiperRef.current, params);
-      swiperRef.current.swiper.slideTo(activeIndex ?? 0);
+      swiperRef.current.initialize();
     }
   }, [swiperKey]);
+
+  //
+  // useEffect(() => {
+  //   if (swiperRef.current) {
+  //     swiperRef?.current?.initialize();
+  //     setCurrentIndex(activeIndex ?? 0);
+  //     const params: SwiperOptions = {
+  //       slidesPerView: 1,
+  //       initialSlide: activeIndex ?? 0,
+  //     };
+  //
+  //     swiperRef.current.swiper.on('realIndexChange', (swiper) => {
+  //       setCurrentIndex(swiper.realIndex);
+  //       onIndexChange?.(swiper.realIndex);
+  //     });
+  //
+  //     Object.assign(swiperRef.current, params);
+  //     swiperRef.current.swiper.slideTo(activeIndex ?? 0);
+  //   }
+  // }, [swiperKey]);
 
   useEffect(() => {
     if (keyUpdater) {
@@ -81,40 +108,30 @@ const Swiper: FC<IProps> = ({
   return (
     <>
       <div className={cn('relative overflow-hidden', swiperHeight)}>
-        {/*{isLaptop && inModal && (*/}
-        {/*  <div className="2xl:py-[10px] 2xl:px-[24px] 2xl:bg-white xs:px-[14px] xs:py-[10px]">*/}
-        {/*    <button className="flex items-center gap-[14px]" onClick={onClose}>*/}
-        {/*      <HomeSvgSelector id="arrow-left" />*/}
-        {/*      <Typography variant="heading3" className="xs:!text-[14px]">*/}
-        {/*        {t('back')}*/}
-        {/*      </Typography>*/}
-        {/*    </button>*/}
-        {/*  </div>*/}
-        {/*)}*/}
         <div className={'relative h-full overflow-hidden'}>
           {leftButton
             ? leftButton(handleButtonClick(0))
             : images.length > 1 && (
-                <button
-                  className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] left-[54px] z-50 rotate-180 2xl:left-0"
-                  onClick={handleButtonClick(0)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="17"
-                    height="28"
-                    viewBox="0 0 17 28"
-                    fill="none"
-                  >
-                    <path
-                      d="M2 2L14 14L2 26"
-                      stroke="white"
-                      stroke-width="3"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </button>
-              )}
+            <button
+              className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] left-[54px] z-50 rotate-180 2xl:left-0"
+              onClick={handleButtonClick(0)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="17"
+                height="28"
+                viewBox="0 0 17 28"
+                fill="none"
+              >
+                <path
+                  d="M2 2L14 14L2 26"
+                  stroke="white"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+          )}
           <swiper-container
             ref={swiperRef}
             init={false}
@@ -123,35 +140,38 @@ const Swiper: FC<IProps> = ({
             initialSlide={activeIndex}
             style={{ backgroundColor: inModal ? 'black gap-[14px]' : '' }}
           >
-            {images.map((img) => (
-              <swiper-slide key={img}>
-                <img src={getImage(img)} />
-              </swiper-slide>
-            ))}
+            {images.map((img) => {
+              const url = typeof img === 'string' ? getImage(img) : URL.createObjectURL(img);
+              return (
+                <swiper-slide key={url}>
+                  <img src={url} />
+                </swiper-slide>
+              );
+            })}
           </swiper-container>
           {rightButton
             ? rightButton(handleButtonClick(1))
             : images.length > 1 && (
-                <button
-                  className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] right-[54px] z-50 2xl:right-0"
-                  onClick={handleButtonClick(1)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="17"
-                    height="28"
-                    viewBox="0 0 17 28"
-                    fill="none"
-                  >
-                    <path
-                      d="M2 2L14 14L2 26"
-                      stroke="white"
-                      stroke-width="3"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </button>
-              )}
+            <button
+              className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] right-[54px] z-50 2xl:right-0"
+              onClick={handleButtonClick(1)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="17"
+                height="28"
+                viewBox="0 0 17 28"
+                fill="none"
+              >
+                <path
+                  d="M2 2L14 14L2 26"
+                  stroke="white"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+          )}
         </div>
         {withCounter && images.length > 1 && (
           <div
@@ -160,8 +180,8 @@ const Swiper: FC<IProps> = ({
               'left-[14px]',
             )}
           >
-            <span className="font-helvetica">{currentIndex + 1}</span>/
-            <span className="font-helvetica">{images.length}</span>
+            <span className="font-montserrat">{currentIndex + 1}</span>/
+            <span className="font-montserrat">{images.length}</span>
           </div>
         )}
       </div>
@@ -187,14 +207,18 @@ const Swiper: FC<IProps> = ({
                     : '',
               }}
             >
-              {images.map((img, i) => (
-                <ImagesPrewiev
-                  image={img}
-                  key={img}
-                  isActive={i === currentIndex}
-                  onClick={previewClickHandler(i)}
-                />
-              ))}
+              {images.map((img, i) => {
+                const url = typeof img === 'string' ? img : URL.createObjectURL(img);
+
+                return (
+                  <ImagesPrewiev
+                    image={url}
+                    key={url}
+                    isActive={i === currentIndex}
+                    onClick={() => previewClickHandler(i)}
+                  />
+                );
+              })}
             </div>
           </div>
         </>
