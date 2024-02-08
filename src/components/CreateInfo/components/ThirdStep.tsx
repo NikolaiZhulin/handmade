@@ -123,7 +123,7 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
       clearErrors('phone');
       setValue('phone', '');
     }
-  }, [formValues.isAdditionalPhoneActive, formValues.isPhoneActive]);
+  }, [clearErrors, formValues.isAdditionalPhoneActive, formValues.isPhoneActive, setValue]);
 
   const handlePost = () => {
     handleSubmit((values) => {
@@ -211,7 +211,6 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
         <div className={style.switchInput}>
           <Input
             controllerProps={{ name: 'phone', control }}
-            leftElem={<HomeSvgSelector id="tube" />}
             className={cn(style.w100, '2xl:!w-full')}
             placeholder={t('inputs.phone')}
             disabled={!formValues.isPhoneActive}
@@ -222,7 +221,6 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
         <div className={style.switchInput}>
           <Input
             controllerProps={{ name: thirdStepConfig[0].controller, control }}
-            leftElem={<HomeSvgSelector id={thirdStepConfig[0].icon} />}
             className={mergeStyles(style.w100)}
             placeholder={t(thirdStepConfig[0].placeholder)}
             disabled={formValues[thirdStepConfig[0].switch]}

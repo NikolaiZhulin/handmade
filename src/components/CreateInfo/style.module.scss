@@ -117,3 +117,29 @@
     transform: translateY(35%);
   }
 }
+.SliderButton {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  z-index: 2;
+  width: 60px;
+  height: 60px;
+  background: transparent;
+  left: 12px;
+  opacity: 0.4;
+  transform: rotate(180deg) translateY(50%);
+  transition:
+    0.25s ease-out opacity,
+    0.25s ease-out filter;
+  &.right {
+    left: auto;
+    right: 14px;
+    transform: rotate(0deg) translateY(-50%);
+  }
+  &:hover {
+    background: black;
+    opacity: 0.7;
+  }
+}

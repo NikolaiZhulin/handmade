@@ -7,7 +7,7 @@ export interface ICreatePostContext {
   textRu: string;
   textEn: string;
   textGe: string;
-  price: number;
+  price: number | undefined;
   currency: Currency;
   files: File[];
   requestCategories: string[];
@@ -43,7 +43,7 @@ export const CREATE_POST_CONTEXT_DEFAULT_VALUES: ICreatePostContext = {
   textRu: '',
   textEn: '',
   textGe: '',
-  price: 0,
+  price: undefined,
   size: '',
   sex: [],
   careRecommendations: '',

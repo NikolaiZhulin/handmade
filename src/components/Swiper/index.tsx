@@ -1,11 +1,11 @@
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
-import { SwiperContainer, register } from 'swiper/element';
+import { register } from 'swiper/element';
 import { SwiperOptions } from 'swiper/types';
 
 import { getImage } from '@/helpers/getImage';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ImagesPrewiev from '@/ui/ImagesPreview';
 import { cn } from '@/utils/utils';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface IProps {
   images: string[] | File[];
@@ -23,18 +23,18 @@ interface IProps {
 }
 
 const Swiper: FC<IProps> = ({
-                              keyUpdater,
-                              images,
-                              activeIndex,
-                              leftButton,
-                              rightButton,
-                              withCounter,
-                              onSliderClick,
-                              onIndexChange,
-                              swiperHeight,
-                              previewBlockClassname,
-                              inModal,
-                            }) => {
+  keyUpdater,
+  images,
+  activeIndex,
+  leftButton,
+  rightButton,
+  withCounter,
+  onSliderClick,
+  onIndexChange,
+  swiperHeight,
+  previewBlockClassname,
+  inModal,
+}) => {
   // const swiperRef = useRef<SwiperContainer>(null);
   const [swiperKey, setSwiperKey] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(activeIndex ?? 0);
@@ -51,40 +51,18 @@ const Swiper: FC<IProps> = ({
         initialSlide: activeIndex ?? 0,
         on: {
           slideChange: (swiper) => {
-            console.log(swiper);
             setCurrentIndex(swiper.realIndex);
             onIndexChange?.(swiper.realIndex);
           },
-          realIndexChange: (swiper) => {
-            console.log(swiper.realIndex);
-          },
+          realIndexChange: (swiper) => {},
         },
       };
 
       Object.assign(swiperRef.current, params);
       swiperRef.current.initialize();
+      swiperRef.current.swiper.slideTo(activeIndex ?? 0);
     }
-  }, [swiperKey]);
-
-  //
-  // useEffect(() => {
-  //   if (swiperRef.current) {
-  //     swiperRef?.current?.initialize();
-  //     setCurrentIndex(activeIndex ?? 0);
-  //     const params: SwiperOptions = {
-  //       slidesPerView: 1,
-  //       initialSlide: activeIndex ?? 0,
-  //     };
-  //
-  //     swiperRef.current.swiper.on('realIndexChange', (swiper) => {
-  //       setCurrentIndex(swiper.realIndex);
-  //       onIndexChange?.(swiper.realIndex);
-  //     });
-  //
-  //     Object.assign(swiperRef.current, params);
-  //     swiperRef.current.swiper.slideTo(activeIndex ?? 0);
-  //   }
-  // }, [swiperKey]);
+  }, [activeIndex, onIndexChange, swiperKey]);
 
   useEffect(() => {
     if (keyUpdater) {
@@ -112,26 +90,26 @@ const Swiper: FC<IProps> = ({
           {leftButton
             ? leftButton(handleButtonClick(0))
             : images.length > 1 && (
-            <button
-              className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] left-[54px] z-50 rotate-180 2xl:left-0"
-              onClick={handleButtonClick(0)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="17"
-                height="28"
-                viewBox="0 0 17 28"
-                fill="none"
-              >
-                <path
-                  d="M2 2L14 14L2 26"
-                  stroke="white"
-                  stroke-width="3"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </button>
-          )}
+                <button
+                  className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] left-[54px] z-50 rotate-180 2xl:left-0"
+                  onClick={handleButtonClick(0)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="17"
+                    height="28"
+                    viewBox="0 0 17 28"
+                    fill="none"
+                  >
+                    <path
+                      d="M2 2L14 14L2 26"
+                      stroke="white"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              )}
           <swiper-container
             ref={swiperRef}
             init={false}
@@ -152,26 +130,26 @@ const Swiper: FC<IProps> = ({
           {rightButton
             ? rightButton(handleButtonClick(1))
             : images.length > 1 && (
-            <button
-              className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] right-[54px] z-50 2xl:right-0"
-              onClick={handleButtonClick(1)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="17"
-                height="28"
-                viewBox="0 0 17 28"
-                fill="none"
-              >
-                <path
-                  d="M2 2L14 14L2 26"
-                  stroke="white"
-                  stroke-width="3"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </button>
-          )}
+                <button
+                  className="absolute top-1/2 flex items-center justify-center w-[60px] h-[60px] right-[54px] z-50 2xl:right-0"
+                  onClick={handleButtonClick(1)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="17"
+                    height="28"
+                    viewBox="0 0 17 28"
+                    fill="none"
+                  >
+                    <path
+                      d="M2 2L14 14L2 26"
+                      stroke="white"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </button>
+              )}
         </div>
         {withCounter && images.length > 1 && (
           <div

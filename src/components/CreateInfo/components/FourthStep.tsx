@@ -17,8 +17,9 @@ import { Contacts } from '@/layout/RightBlockPost/components/Contacts';
 import { IPostContactInfo } from '@/types/posts';
 import Button from '@/ui/Button';
 
+import Swiper from '@/components/Swiper';
+import { mergeStyles } from '@/helpers/mergeStyles';
 import style from '../style.module.scss';
-import Swiper from "@/components/Swiper";
 
 interface IProps {
   onStep: (direction: number) => void;
@@ -31,6 +32,8 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
   const { push } = useRouter();
   const [errorText, setErrorText] = useState('');
   const [modalType, setModalType] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const {
     textRu,
     textEn,
@@ -133,7 +136,57 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
       <Typography className="2xl:my-[14px]" variant="heading2">
         {t('post.isCorrect')}
       </Typography>
-       <Swiper images={files} keyUpdater={false} swiperHeight={'2xl:h-[637px] xs:h-[295px]'} />
+      <Swiper
+        images={files}
+        keyUpdater={false}
+        swiperHeight={'2xl:h-[637px] xs:h-[295px]'}
+        activeIndex={currentIndex}
+        onIndexChange={(index) => setCurrentIndex(index)}
+        leftButton={(onClick) => (
+          <>
+            {files.length > 1 && (
+              <button className={style.SliderButton} onClick={onClick}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="17"
+                  height="28"
+                  viewBox="0 0 17 28"
+                  fill="none"
+                >
+                  <path
+                    d="M2 2L14 14L2 26"
+                    stroke="white"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+            )}
+          </>
+        )}
+        rightButton={(onClick) => (
+          <>
+            {files.length > 1 && (
+              <button onClick={onClick} className={mergeStyles(style.SliderButton, style.right)}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="17"
+                  height="28"
+                  viewBox="0 0 17 28"
+                  fill="none"
+                >
+                  <path
+                    d="M2 2L14 14L2 26"
+                    stroke="white"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+            )}
+          </>
+        )}
+      />
       <div className="2xl:py-[14px] 2xl:!p-0 2xl:mt-[14px]">
         <Typography variant="heading2" color="brand" className={'mt-auto'}>
           {state.price === 0

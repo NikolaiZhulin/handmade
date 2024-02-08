@@ -67,7 +67,7 @@ const CreatePreview: FC<IProps> = ({ step }) => {
               {price} {currency}
             </Typography>
           </div>
-          {requestCity && (
+          {!!requestCity.length && (
             <div className={style.flex}>
               <div className={style.flex}>
                 <HomeSvgSelector id="geo" />

@@ -45,7 +45,6 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
     t,
     i18n: { language },
   } = useTranslation();
-  console.log('files', files);
 
   const schema = z
     .object({
@@ -88,7 +87,7 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
     setFiles(files);
   };
 
-  const handleCurrencyChnage = (newValue: string) => setValue('currency', newValue as Currency);
+  const handleCurrencyChange = (newValue: string) => setValue('currency', newValue as Currency);
 
   const toggleEng = () => setIsEngShown((prev) => !prev);
   const toggleGe = () => setIsGeShown((prev) => !prev);
@@ -189,7 +188,7 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
               containerClassname="w-[100px]"
               options={CURRENCY_MAP}
               placeholder={t('currency')}
-              onSelect={handleCurrencyChnage}
+              onSelect={handleCurrencyChange}
               showOnlyIcon={true}
               valueWithIcon={true}
               defaultValue={CURRENCY_MAP.find((el) => el.value === currency)}
