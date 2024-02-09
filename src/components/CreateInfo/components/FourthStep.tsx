@@ -14,11 +14,11 @@ import { CURRENCY_SYMBOLS } from '@/constants/currency';
 import { PostAddress } from '@/layout/RightBlockPost/components/Address';
 import { CategoryBadge } from '@/layout/RightBlockPost/components/CategoryBadge';
 import { Contacts } from '@/layout/RightBlockPost/components/Contacts';
-import { IPostContactInfo } from '@/types/posts';
 import Button from '@/ui/Button';
 
 import Swiper from '@/components/Swiper';
 import { mergeStyles } from '@/helpers/mergeStyles';
+import type { IPostContactInfo } from '@/types/posts';
 import style from '../style.module.scss';
 
 interface IProps {
@@ -38,6 +38,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
     textRu,
     textEn,
     textGe,
+    contacts,
     name,
     price,
     currency,
@@ -55,6 +56,8 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
   const handleBack = () => {
     onStep(-1);
   };
+  console.log('state', state);
+  console.log('contacts', contacts);
 
   const handlePost = () => {
     const payload = new FormData();
@@ -139,7 +142,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
       <Swiper
         images={files}
         keyUpdater={false}
-        swiperHeight={'2xl:h-[637px] xs:h-[295px]'}
+        swiperHeight={'2xl:h-[542px] xs:h-[300px]'}
         activeIndex={currentIndex}
         onIndexChange={(index) => setCurrentIndex(index)}
         leftButton={(onClick) => (
@@ -187,17 +190,21 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
           </>
         )}
       />
-      <div className="2xl:py-[14px] 2xl:!p-0 2xl:mt-[14px]">
-        <Typography variant="heading2" color="brand" className={'mt-auto'}>
+      <div className="2xl:py-[14px] 2xl:mt-[14px] gap-2">
+        <Typography variant="heading2">{state.name}</Typography>
+        <Typography variant="heading2" className={cn(style.price, 'mt-auto')}>
           {state.price === 0
             ? t('main.dealPrice')
             : `${state.price} ${CURRENCY_SYMBOLS[state.currency]}`}
         </Typography>
+        <div className="flex items-center gap-[14px]">
+          <PostAddress city={state.requestCity[0]} address={state.address} className="!p-0" />
+          {requestCategories.map((badge) => (
+            <CategoryBadge value={badge} key={badge} className="!p-0" />
+          ))}
+        </div>
       </div>
-      {requestCategories.map((badge) => (
-        <CategoryBadge value={badge} key={badge} />
-      ))}
-      <PostAddress city={state.requestCity[0]} address={state.address} className="2xl:mb-[15px]" />
+
       <div className="flex flex-col gap-[14px]">
         {textRu && (
           <div>
@@ -223,10 +230,6 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
             <Typography variant="heading3">{state.textEn}</Typography>
           </div>
         )}
-        <div>
-          <Typography variant="heading2">Контакты</Typography>
-          <Contacts contacts={state} className="2xl:!py-0" hideButtons={true} />
-        </div>
         <>
           <Typography variant="heading2">{t('post.parameters')}</Typography>
           <div className="flex  w-full justify-between">
@@ -278,6 +281,10 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
             </div>
           </div>
         </>
+        <div>
+          <Typography variant="heading2">Контакты</Typography>
+          <Contacts contacts={contacts} className="2xl:!py-0" hideButtons={true} />
+        </div>
         <Button
           className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}
           onClick={handlePost}

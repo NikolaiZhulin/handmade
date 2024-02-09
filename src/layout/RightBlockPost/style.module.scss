@@ -3,7 +3,6 @@
 
 .RightBlockPost {
   max-width: 285px;
-  border-radius: 6px;
   background-color: $white;
   height: min-content;
   width: 100%;
@@ -22,8 +21,8 @@
     }
     .share {
       padding: 0;
-      svg{
-        path{
+      svg {
+        path {
           transition: 0.25s ease-out all;
           fill: #ffffff00;
         }
@@ -59,13 +58,13 @@
       }
     }
     .active {
-        svg {
-          path {
-            fill: $accent;
-            stroke: $accent;
-          }
+      svg {
+        path {
+          fill: $accent;
+          stroke: $accent;
         }
       }
+    }
   }
   .badge {
     display: flex;

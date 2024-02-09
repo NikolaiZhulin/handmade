@@ -1,15 +1,14 @@
-@import "../../styles/variables.scss";
-@import "../../styles/mixin.scss";
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
 
 .RightBlock {
   width: 100%;
   padding-top: 30px;
   background: $white;
   overflow: hidden;
-  border-radius: 6px;
   height: max-content;
 
-  @media (max-width: 1200px){
+  @media (max-width: 1200px) {
     padding: 30px;
   }
 }

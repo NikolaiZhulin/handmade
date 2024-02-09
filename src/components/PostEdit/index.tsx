@@ -395,7 +395,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
           <FlexContainer gap={8} className={styles.w100}>
             <Input
               controllerProps={{ name: 'phone', control }}
-              leftElem={<HomeSvgSelector id="tube" />}
+              leftElem={<HomeSvgSelector id="phone-icon" />}
               className={mergeStyles(styles.w100)}
               placeholder={t('inputs.phone')}
               disabled={!formValues.isPhoneActive}
@@ -414,7 +414,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
                 leftElem={<HomeSvgSelector id={item.icon} />}
                 className={mergeStyles(styles.w100)}
                 placeholder={t(item.placeholder)}
-                disabled={!formValues[item.switch] && !!formValues[item.controller]}
+                // disabled={!formValues[item.switch] && !!formValues[item.controller]}
               />
             </FlexContainer>
           ))}

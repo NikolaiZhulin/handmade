@@ -2,7 +2,7 @@ import { Currency } from '@/constants/enums';
 
 export const thirdStepConfig = [
   {
-    icon: 'tube',
+    icon: 'phone-icon',
     controller: 'additionalPhone',
     placeholder: 'inputs.additionalPhone',
     switch: 'isAdditionalPhoneActive',

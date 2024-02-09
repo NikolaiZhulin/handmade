@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
 import { Currency, UsedPeriod } from '@/constants/enums';
+import type { IPostContactInfo } from '@/types/posts';
 
 export interface ICreatePostContext {
   name: string;
@@ -10,6 +11,7 @@ export interface ICreatePostContext {
   price: number | undefined;
   currency: Currency;
   files: File[];
+  contacts: IPostContactInfo;
   requestCategories: string[];
   requestMaterials: string[];
   requestStones: string[];
@@ -46,6 +48,21 @@ export const CREATE_POST_CONTEXT_DEFAULT_VALUES: ICreatePostContext = {
   price: undefined,
   size: '',
   sex: [],
+  contacts: {
+    phone: '',
+    additionalPhone: undefined,
+    telegram: undefined,
+    whatsApp: undefined,
+    viber: undefined,
+    facebook: undefined,
+    name: undefined,
+    isPhoneActive: undefined,
+    isViberActive: undefined,
+    isAdditionalPhoneActive: undefined,
+    isFacebookActive: undefined,
+    isTelegramActive: undefined,
+    isWhatsappActive: undefined,
+  },
   careRecommendations: '',
   bijouterie: true,
   currency: Currency.GEL,

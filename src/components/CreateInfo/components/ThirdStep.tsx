@@ -26,7 +26,7 @@ interface IProps {
 }
 
 const ThirdStep: FC<IProps> = ({ onStep }) => {
-  const [state] = useContext(CreatePostContext);
+  const [state, setState] = useContext(CreatePostContext);
   const [modalType, setModalType] = useState('');
   const [errorText, setErrorText] = useState('');
   const { mutate: createPost, isLoading } = useCreatePost();
@@ -36,7 +36,7 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
 
   const schema = z
     .object({
-      phone: z.string().optional(),
+      phone: z.string({ required_error: t('error.required') }),
       contactName: z.string({ required_error: t('error.required') }),
       additionalPhone: z.string().optional(),
       telegram: z.string().optional(),
@@ -87,7 +87,7 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
       }
     });
 
-  const { control, watch, handleSubmit, clearErrors, setValue } = useForm({
+  const { control, watch, getValues, handleSubmit, clearErrors, setValue } = useForm({
     defaultValues: {
       phone: state.phone,
       contactName: state.contactName,
@@ -109,6 +109,7 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
   });
 
   const formValues = watch();
+  console.log('formValues', formValues);
 
   const handleBack = () => {
     onStep(-1);
@@ -166,7 +167,6 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
         isTelegramActive: !values.telegram ? false : values.isTelegramActive,
         isWhatsappActive: !values.whatsapp ? false : values.isWhatsappActive,
       };
-
       payload.append('contacts', JSON.stringify(contacts));
       payload.append('source', 'web');
 
@@ -243,7 +243,14 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
         ))}
         <Button
           className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}
-          onClick={isLaptop ? () => onStep(1) : handlePost}
+          onClick={
+            isLaptop
+              ? () => {
+                  setState(formValues);
+                  onStep(1);
+                }
+              : handlePost
+          }
           disabled={isLoading}
         >
           {isLaptop ? 'Продолжить' : t('post.post')}

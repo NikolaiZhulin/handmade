@@ -44,7 +44,7 @@ export interface IFullPost extends IMainPagePost {
 }
 
 export interface IPostContactInfo {
-  phone?: string;
+  phone: string;
   additionalPhone?: string;
   telegram?: string;
   whatsApp?: string;
