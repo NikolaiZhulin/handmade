@@ -122,7 +122,7 @@ const Swiper: FC<IProps> = ({
               const url = typeof img === 'string' ? getImage(img) : URL.createObjectURL(img);
               return (
                 <swiper-slide key={url}>
-                  <img src={url} />
+                  <img src={url} alt="" />
                 </swiper-slide>
               );
             })}

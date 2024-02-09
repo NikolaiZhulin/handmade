@@ -133,7 +133,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
             {t('post.willFaster')}
           </Typography>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 px-[2px]">
           <div className="pt-2">
             <CustomSelect
               options={categories}

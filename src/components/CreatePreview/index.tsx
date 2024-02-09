@@ -42,10 +42,11 @@ const CreatePreview: FC<IProps> = ({ step }) => {
     sex,
   } = state;
   const { formState } = useForm<FormState>();
+  const hasAllRequiredFields = name && currency && (price || price === 0);
 
   return (
     <>
-      {[name, price, currency].every((el) => el) ? (
+      {hasAllRequiredFields ? (
         <div className={style.wrapper}>
           <Typography variant="heading3" className={style.grayText}>
             {t('preview.title')}

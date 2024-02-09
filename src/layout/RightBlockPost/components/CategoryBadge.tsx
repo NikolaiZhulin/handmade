@@ -8,13 +8,14 @@ import Typography from '@/ui/Typography';
 interface IProps {
   value: string;
   time?: string;
+  className?: string;
 }
 
-export const CategoryBadge: FC<IProps> = ({ value, time }) => {
+export const CategoryBadge: FC<IProps> = ({ value, time, className }) => {
   const { t } = useTranslation();
 
   return (
-    <div className={cn('flex items-center justify-between py-[8px]')}>
+    <div className={cn('flex items-center justify-between py-[8px]', className)}>
       <Typography
         variant="text2"
         className={cn('px-[10px] py-[4px] bg-light-gray overflow-hidden')}
