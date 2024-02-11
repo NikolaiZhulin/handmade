@@ -130,13 +130,13 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
           action={() => (modalType === 'error' ? setModalType('') : push('/'))}
         />
       )}
-      <div className={style.back}>
+      <div className={cn(style.back, 'xs:!py-[10px]  2xl:!py-[10px] xs:!px-[15px] 2xl:!px-[30px]')}>
         <button onClick={handleBack} className={cn(style['back-btn'], '2xl:!gap-[14px]')}>
           <HomeSvgSelector id="arrow-left" />
           <Typography variant="heading3">{t('back')}</Typography>
         </button>
       </div>
-      <Typography className="2xl:my-[14px]" variant="heading2">
+      <Typography className="2xl:py-[14px] xs:!px-[15px] 2xl:!px-[30px]" variant="heading2">
         {t('post.isCorrect')}
       </Typography>
       <Swiper
@@ -190,108 +190,112 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
           </>
         )}
       />
-      <div className="2xl:py-[14px] 2xl:mt-[14px] gap-2">
-        <Typography variant="heading2">{state.name}</Typography>
-        <Typography variant="heading2" className={cn(style.price, 'mt-auto')}>
-          {state.price === 0
-            ? t('main.dealPrice')
-            : `${state.price} ${CURRENCY_SYMBOLS[state.currency]}`}
-        </Typography>
-        <div className="flex items-center gap-[14px]">
-          <PostAddress city={state.requestCity[0]} address={state.address} className="!p-0" />
-          {requestCategories.map((badge) => (
-            <CategoryBadge value={badge} key={badge} className="!p-0" />
-          ))}
+      <div className="xs:!px-[15px] 2xl:!px-[30px]">
+        <div className="flex flex-col 2xl:py-[14px] 2xl:mt-[14px] gap-[4px]">
+          <Typography variant="heading2">{state.name}</Typography>
+          <Typography variant="heading2" className={cn(style.price, 'mt-auto')}>
+            {state.price === 0
+              ? t('main.dealPrice')
+              : `${state.price} ${CURRENCY_SYMBOLS[state.currency]}`}
+          </Typography>
+          <div className="flex items-center gap-[14px]">
+            <PostAddress city={state.requestCity[0]} address={state.address} className="!p-0" />
+            {requestCategories.map((badge) => (
+              <CategoryBadge value={badge} key={badge} className="!p-0" />
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="flex flex-col gap-[14px]">
-        {textRu && (
-          <div>
-            <Typography variant="heading2">
-              {t('post.descriptionTitle')} {(state.textEn || state.textGe) && t('preview.ru')}
-            </Typography>
-            <Typography variant="heading3">{state.textRu}</Typography>
-          </div>
-        )}
-        {textGe && (
-          <div>
-            <Typography variant="heading2">
-              {t('post.descriptionTitle')} {(state.textEn || state.textRu) && t('preview.ge')}
-            </Typography>
-            <Typography variant="heading3">{state.textGe}</Typography>
-          </div>
-        )}
-        {textEn && (
-          <div>
-            <Typography variant="heading2">
-              {t('post.descriptionTitle')} {(state.textGe || state.textRu) && t('preview.en')}
-            </Typography>
-            <Typography variant="heading3">{state.textEn}</Typography>
-          </div>
-        )}
-        <>
-          <Typography variant="heading2">{t('post.parameters')}</Typography>
-          <div className="flex  w-full justify-between">
-            <div className="flex flex-1 flex-col gap-2 items-start">
-              <Typography className={style.grayText} variant="heading3">
-                {t('post.jewel')}
+        <div className="flex flex-col gap-[14px]">
+          {textRu && (
+            <div className="py-[4px] gap-[8px]">
+              <Typography variant="heading2">
+                {t('post.descriptionTitle')} {(state.textEn || state.textGe) && t('preview.ru')}
               </Typography>
-              <Typography className={style.grayText} variant="heading3">
-                {t('post.material')}
-              </Typography>
-              <Typography className={style.grayText} variant="heading3">
-                {t('inputs.sample')}
-              </Typography>
-              <Typography className={style.grayText} variant="heading3">
-                {t('inputs.stone')}
-              </Typography>
-              <Typography className={style.grayText} variant="heading3">
-                {t('inputs.bijouterie')}
-              </Typography>
-              <Typography className={style.grayText} variant="heading3">
-                {t('inputs.size')}
-              </Typography>
-              <Typography className={style.grayText} variant="heading3">
-                {t('inputs.careRecommendations')}
-              </Typography>
-              <Typography className={style.grayText} variant="heading3">
-                {t('inputs.sex')}
-              </Typography>
+              <Typography variant="heading3">{state.textRu}</Typography>
             </div>
-            <div className="flex flex-1 flex-col gap-2 items-start">
-              <Typography variant="heading3">
-                {requestCategories[0] ? requestCategories[0] : 'Отсутствует'}
+          )}
+          {textGe && (
+            <div className="py-[4px] gap-[8px]">
+              <Typography variant="heading2">
+                {t('post.descriptionTitle')} {(state.textEn || state.textRu) && t('preview.ge')}
               </Typography>
-              <Typography variant="heading3">
-                {requestMaterials[0] ? requestMaterials[0] : 'Отсутствует'}
+              <Typography variant="heading3">{state.textGe}</Typography>
+            </div>
+          )}
+          {textEn && (
+            <div className="py-[4px] gap-[8px]">
+              <Typography variant="heading2">
+                {t('post.descriptionTitle')} {(state.textGe || state.textRu) && t('preview.en')}
               </Typography>
-              <Typography variant="heading3">
-                {requestSamples[0] ? requestSamples[0] : 'Отсутствует'}
-              </Typography>
-              <Typography variant="heading3">
-                {requestStones[0] ? requestStones[0] : 'Отсутствует'}
-              </Typography>
-              <Typography variant="heading3">{bijouterie ? 'post.yes' : 'post.no'}</Typography>
-              <Typography variant="heading3">{size ? size : 'Отсутствует'}</Typography>
-              <Typography variant="heading3">
-                {careRecommendations ? careRecommendations : 'Отсутствует'}
-              </Typography>
-              <Typography variant="heading3">{sex ? sex : 'Отсутствует'}</Typography>
+              <Typography variant="heading3">{state.textEn}</Typography>
+            </div>
+          )}
+          <div className="flex flex-col gap-[14px]">
+            <Typography variant="heading2" className="py-[4px]">
+              {t('post.parameters')}
+            </Typography>
+            <div className="flex  w-full justify-between">
+              <div className="flex flex-1 flex-col gap-2 items-start">
+                <Typography className={style.grayText} variant="heading3">
+                  {t('post.jewel')}
+                </Typography>
+                <Typography className={style.grayText} variant="heading3">
+                  {t('post.material')}
+                </Typography>
+                <Typography className={style.grayText} variant="heading3">
+                  {t('inputs.sample')}
+                </Typography>
+                <Typography className={style.grayText} variant="heading3">
+                  {t('inputs.stone')}
+                </Typography>
+                <Typography className={style.grayText} variant="heading3">
+                  {t('inputs.bijouterie')}
+                </Typography>
+                <Typography className={style.grayText} variant="heading3">
+                  {t('inputs.size')}
+                </Typography>
+                <Typography className={style.grayText} variant="heading3">
+                  {t('inputs.careRecommendations')}
+                </Typography>
+                <Typography className={style.grayText} variant="heading3">
+                  {t('inputs.sex')}
+                </Typography>
+              </div>
+              <div className="flex flex-1 flex-col gap-2 items-start">
+                <Typography variant="heading3">
+                  {requestCategories[0] ? requestCategories[0] : 'Отсутствует'}
+                </Typography>
+                <Typography variant="heading3">
+                  {requestMaterials[0] ? requestMaterials[0] : 'Отсутствует'}
+                </Typography>
+                <Typography variant="heading3">
+                  {requestSamples[0] ? requestSamples[0] : 'Отсутствует'}
+                </Typography>
+                <Typography variant="heading3">
+                  {requestStones[0] ? requestStones[0] : 'Отсутствует'}
+                </Typography>
+                <Typography variant="heading3">{bijouterie ? 'post.yes' : 'post.no'}</Typography>
+                <Typography variant="heading3">{size ? size : 'Отсутствует'}</Typography>
+                <Typography variant="heading3">
+                  {careRecommendations ? careRecommendations : 'Отсутствует'}
+                </Typography>
+                <Typography variant="heading3">{sex ? sex : 'Отсутствует'}</Typography>
+              </div>
             </div>
           </div>
-        </>
-        <div>
-          <Typography variant="heading2">Контакты</Typography>
-          <Contacts contacts={contacts} className="2xl:!py-0" hideButtons={true} />
+          <div>
+            <Typography variant="heading2">Контакты</Typography>
+            <Contacts contacts={contacts} className="2xl:!py-0" hideButtons={true} />
+          </div>
+          <Button
+            className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}
+            onClick={handlePost}
+            disabled={isLoading}
+          >
+            {t('post.post')}
+          </Button>
         </div>
-        <Button
-          className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}
-          onClick={handlePost}
-          disabled={isLoading}
-        >
-          {t('post.post')}
-        </Button>
       </div>
     </div>
   );
