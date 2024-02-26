@@ -33,6 +33,13 @@
   }
 }
 
+.gray {
+  background-color: $light-gray;
+  &:hover:not(:disabled) {
+    background-color: $dark-gray;
+  }
+}
+
 .blue {
   background-color: $blue;
   &:hover:not(:disabled) {
@@ -105,7 +112,6 @@
     0.25s ease-out background,
     0.25s ease-out color;
   width: max-content;
-  //@include Heading4();
   &:hover:not(:disabled) {
     background-color: $hover-gray;
   }

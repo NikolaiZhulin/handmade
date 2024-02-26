@@ -55,7 +55,7 @@ export const CREATE_POST_CONTEXT_DEFAULT_VALUES: ICreatePostContext = {
     whatsApp: undefined,
     viber: undefined,
     facebook: undefined,
-    name: undefined,
+    contactName: undefined,
     isPhoneActive: undefined,
     isViberActive: undefined,
     isAdditionalPhoneActive: undefined,

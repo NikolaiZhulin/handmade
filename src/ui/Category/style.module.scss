@@ -25,11 +25,11 @@
 
   &.active {
     border: none;
-    background-color: $green-light;
-    color: $white;
+    color: $main-green;
+    font-weight: 700;
 
     svg path{
-      fill: $white;
+      fill: $main-green;
     }
   }
 

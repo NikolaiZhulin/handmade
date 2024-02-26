@@ -27,7 +27,7 @@ export default function Home() {
       </Head>
       <Header />
       <ProfilePageLayout left={<ProfileLeftBlock />} right={<MyPosts />} />
-      <Footer />
+      <Footer withMenu />
     </>
   );
 }

@@ -20,7 +20,6 @@ import MainPagePostSkeleton from '@/components/Skeletons/MainPagePostSkeleton';
 import { useTranslation } from '@/hooks/useTranslation';
 import Typography from '@/ui/Typography';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import UpperArrowBlock from '@/components/UpperArrowBlock';
 import CategoriesBar from '@/components/CategoriesBar';
 
 const MainPage = () => {
@@ -82,7 +81,7 @@ const MainPage = () => {
                 />
               </div>
             </FlexContainer>
-            <AnnouncementContainer isGrid={view}>
+            <AnnouncementContainer>
               {data && data.pages
                 ? data.pages.map((page, i) => (
                     <Fragment key={i}>
@@ -98,7 +97,6 @@ const MainPage = () => {
           </RightBlock>
         </MainWrapper>
       </Container>
-      <UpperArrowBlock />
     </Main>
   );
 };

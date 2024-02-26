@@ -1,5 +1,6 @@
 import { FC, useContext } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { UserContext } from '@/contexts/UserContext';
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
@@ -7,14 +8,12 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { useGetMe } from '@/api/auth/get-me';
 import { PROFILE_SIDE_LINKS } from '@/components/Profile/ProfileLeftBlock/config';
 import Category from '@/ui/Category';
-import { useGetFavouritePosts } from '@/api/posts/get-favourite';
-import Typography from '@/ui/Typography';
-import Badge from '@/components/Profile/components/Badge';
 import { cn } from '@/utils/utils';
 import { mergeStyles } from '@/helpers/mergeStyles';
-import Select from '@/ui/CustomSelect';
 import { MODAL_CONTEXT_VALUES, ModalContext } from '@/contexts/ModalContext';
 import { getImage } from '@/helpers/getImage';
+import { ImageService } from '@/constants/enums';
+import CustomSelect from '@/ui/CustomSelect';
 
 import styles from './styles.module.scss';
 
@@ -24,10 +23,11 @@ interface IProps {
 
 const HeaderAccount: FC<IProps> = ({ id }) => {
   const [state, setState] = useContext(UserContext);
+  const { pathname } = useRouter();
   const [modals, setModal] = useContext(ModalContext);
   const { t } = useTranslation();
-  const { data } = useGetFavouritePosts();
   const { data: me } = useGetMe();
+  const [{ feedbackModal }, setFeedBackModal] = useContext(ModalContext);
 
   return (
     <div className="flex gap-[10px] items-center">
@@ -36,7 +36,11 @@ const HeaderAccount: FC<IProps> = ({ id }) => {
           {me?.image ? (
             <img
               className="w-full h-full object-cover"
-              src={me.image.startsWith('http') ? me.image : getImage(me?.image, 'profiles')}
+              src={
+                me.image.startsWith('http')
+                  ? me.image
+                  : getImage(ImageService.AUTH, me?.image, 'profiles')
+              }
               alt="profile image"
               title="profile image"
             />
@@ -45,7 +49,7 @@ const HeaderAccount: FC<IProps> = ({ id }) => {
           )}
         </div>
       </Link>
-      <Select
+      <CustomSelect
         keepOpen={true}
         asDropdown={true}
         trigger={({ isOpen, toggleOpen, triggerRef }) => (
@@ -78,26 +82,14 @@ const HeaderAccount: FC<IProps> = ({ id }) => {
           </button>
         )}
         dropdownClassname={cn(
-          'p-[14px] min-w-[296px] top-[45px] right-0 left-[-60px] !rounded-t-none [clip-path:inset(0px_-35px_-35px_-35px)]',
+          'p-[14px] min-w-[306px] top-[45px] right-0 left-[-60px] !rounded-t-none [clip-path:inset(0px_-35px_-35px_-35px)]',
           '2xl:w-full',
         )}
         options={({ close }) => [
           PROFILE_SIDE_LINKS.map((link, i) =>
             link.render ? (
               link.render(
-                <Category
-                  withBorder={i !== PROFILE_SIDE_LINKS.length - 1}
-                  key={link.title}
-                  rightItem={
-                    link.badge &&
-                    data &&
-                    !!data.length && (
-                      <Badge>
-                        <Typography variant="heading3">{data.length}</Typography>
-                      </Badge>
-                    )
-                  }
-                >
+                <Category withBorder={i !== PROFILE_SIDE_LINKS.length - 1} key={link.title}>
                   <HomeSvgSelector id={link.icon} />
                   {t(link.title)}
                 </Category>,
@@ -108,6 +100,17 @@ const HeaderAccount: FC<IProps> = ({ id }) => {
                   close();
                 },
                 close,
+              )
+            ) : link.component ? (
+              link.component(
+                <Category
+                  onClick={() => setFeedBackModal({ feedbackModal: true })}
+                  withBorder={i !== PROFILE_SIDE_LINKS.length - 1}
+                >
+                  <HomeSvgSelector id={link.icon} />
+                  {t(link.title)}
+                </Category>,
+                feedbackModal,
               )
             ) : (
               <Link
@@ -120,16 +123,8 @@ const HeaderAccount: FC<IProps> = ({ id }) => {
                 onClick={close}
               >
                 <Category
+                  isActive={link.regexp && link.regexp.test(pathname)}
                   withBorder={i !== PROFILE_SIDE_LINKS.length - 1}
-                  rightItem={
-                    link.badge &&
-                    data &&
-                    !!data.length && (
-                      <Badge>
-                        <Typography variant="text2">{data.length}</Typography>
-                      </Badge>
-                    )
-                  }
                   className={'[&>svg]:min-w-[24px]'}
                 >
                   <HomeSvgSelector id={link.icon} />

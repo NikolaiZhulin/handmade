@@ -16,7 +16,6 @@ import { getErrorToast } from '@/helpers/aggregateErrorsMessage';
 import { useDeleteProfile } from '@/api/profile/delete-profile';
 import { accessTokenCookie, refreshTokenCookie } from '@/helpers/tokens/tokens';
 import { useTranslation } from '@/hooks/useTranslation';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/utils';
 import { getCreatedAtDatePhrase } from '@/helpers/getTime';
 import Button from '@/ui/Button';
@@ -33,7 +32,6 @@ const ProfileRightBlock: FC = () => {
   const queryClient = useQueryClient();
   const [preview, setPreview] = useState('');
   const { t } = useTranslation();
-  const isLaptop = useMediaQuery('(max-width: 1200px)');
 
   const schema = z
     .object({
@@ -90,7 +88,7 @@ const ProfileRightBlock: FC = () => {
       repeatPassword: '',
       additionalPhone: me?.additionalPhone ?? '',
       telegram: me?.telegram ?? '',
-      whatsapp: me?.whatsApp ?? '',
+      whatsApp: me?.whatsApp ?? '',
       viber: me?.viber ?? '',
       facebook: me?.facebook ?? '',
     },

@@ -21,8 +21,8 @@ const Counter: FC<IProps> = ({ isHideCounter }) => {
 
   return (
     <div className={cn(style.Counter, isHideCounter && '2xl:!hidden')}>
-      <Typography variant="heading5">{data}</Typography>
-      <Typography variant="heading5">{t('totalPostsCount')}</Typography>
+      <Typography variant="heading3">{data}</Typography>
+      <Typography variant="heading3">{t('totalPostsCount')}</Typography>
     </div>
   );
 };

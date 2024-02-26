@@ -25,7 +25,7 @@ export const Contacts: FC<IProps> = ({ contacts, className, hideButtons }) => {
       {
         isVisible: contacts.isPhoneActive,
         value: contacts.phone,
-        key: 'phone-icon',
+        key: 'phone',
       },
       {
         isVisible: contacts.isAdditionalPhoneActive,
@@ -62,9 +62,9 @@ export const Contacts: FC<IProps> = ({ contacts, className, hideButtons }) => {
 
   return (
     <div className={cn(style.contacts, className)}>
-      {contacts.name && (
+      {contacts.contactName && (
         <div className={style.contactItem}>
-          <Typography variant="heading3">{contacts.name}</Typography>{' '}
+          <Typography variant="heading3">{contacts.contactName}</Typography>{' '}
         </div>
       )}
       {mappedContacts.map((el) => {

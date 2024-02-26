@@ -26,7 +26,7 @@ const CategoriesBar: FC<PropsWithChildren<IProps>> = () => {
           const isCategoryItemActive = item.value === query.category;
           return (
             <div className="flex gap-[14px]" key={item.value}>
-              <Link href={`/search?category=${item.value}`} key={item.value}>
+              <Link href={`/?category=${item.value}`} key={item.value}>
                 <div
                   className={cn(
                     'flex justify-center items-center w-[100px] h-[100px] px-[7px] py-[45px] [&>span]:text-main-green',

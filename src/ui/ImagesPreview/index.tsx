@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { getImage } from '@/helpers/getImage';
 import { mergeStyles } from '@/helpers/mergeStyles';
+import { ImageService } from '@/constants/enums';
 
 import style from './style.module.scss';
 
@@ -21,7 +22,7 @@ const ImagesPrewiev: FC<IProps> = ({ image, isActive, onClick }) => {
       )}
       onClick={onClick}
     >
-      <img className={style.Images} src={getImage(image)} alt="" />
+      <img className={style.Images} src={getImage(ImageService.POSTS, image)} alt="" />
     </div>
   );
 };

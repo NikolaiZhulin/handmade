@@ -1,14 +1,7 @@
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect, useState } from 'react';
-// import { useInView } from 'react-intersection-observer';
 
-import {
-  GetPostsVariables,
-  SortBy,
-  sortAt,
-  useGetPosts,
-  // useGetPostsWithPagination,
-} from '@/api/posts/get-posts';
+import { GetPostsVariables, SortBy, sortAt, useGetPosts } from '@/api/posts/get-posts';
 import Announcement from '@/components/Announcement';
 import AnnouncementContainer from '@/components/AnnouncementContainer';
 import SearchFilters from '@/components/SearchFilters';
@@ -29,13 +22,8 @@ import { cn } from '@/utils/utils';
 import Select from '@/ui/CustomSelect';
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-// import Drawer from '@/ui/Drawer';
-// import Button from '@/ui/Button';
 import CategoriesBar from '@/components/CategoriesBar';
 import Pagination from '@/components/Pagination';
-// import { IGetWordsVariables } from '@/api/admin/key-words/get-words';
-// import Modal from '@/containers/Modal';
-// import AuthWrapper from '@/containers/AuthWrapper';
 import { FiltersRow } from '@/components/FiltersRow';
 import { ActiveFilterItem } from '@/ui/ActiveFilterItem';
 
@@ -44,10 +32,6 @@ import { ORDER_OPTIONS } from './config';
 interface IProps {}
 
 const SearchPage: FC<IProps> = ({}) => {
-  // const [isGrid, setIsGrid] = useState(true);
-
-  // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  // const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isUsdPrice, setIsUsdPrice] = useState(false);
   const [initial, setInitial] = useState(true);
   const { query, push } = useRouter();
@@ -68,19 +52,6 @@ const SearchPage: FC<IProps> = ({}) => {
   });
 
   const { data, isLoading, isFetching, refetch } = useGetPosts(filters);
-  // const { data, isLoading, isFetching, refetch } = useGetPostsWithPagination(filters);
-
-  // const { ref } = useInView({
-  //   onChange: (inView) => {
-  //     const posts = (data?.pages ?? []).reduce((acc, item) => {
-  //       return (acc += item.data.posts.length);
-  //     }, 0);
-  //
-  //     if (data && !isLoading && inView && posts % 16 === 0 && hasNextPage && !isFetching) {
-  //       fetchNextPage();
-  //     }
-  //   },
-  // });
 
   useEffect(() => {
     if (!initial) {
@@ -91,7 +62,6 @@ const SearchPage: FC<IProps> = ({}) => {
 
   const onApplyFilters = (data: GetPostsVariables['filter']) => {
     const newQuery: Record<string, string> = {};
-
     if (data.search) {
       newQuery.search = data.search;
     }
@@ -111,13 +81,10 @@ const SearchPage: FC<IProps> = ({}) => {
       },
       page: { page: 1 },
     }));
-    if (isLaptop) {
-      // setIsDrawerOpen(false);
-    }
   };
 
   const resetFilters = () => {
-    setFilters({ filter: { category: 'all', withPhoto: false, isUsed: true }, page: { page: 1 } });
+    setFilters({ filter: { category: 'all', withPhoto: false }, page: { page: 1 } });
     push({ query: { category: 'all' } }, undefined, { shallow: true });
   };
 
@@ -138,10 +105,10 @@ const SearchPage: FC<IProps> = ({}) => {
           )}
           <RightBlock className="xs:!p-[14px]">
             <CategoriesBar />
-            <FiltersRow onApplyFilters={onApplyFilters} className="hidden 2xl:flex mt-[20px]" />
+            <FiltersRow onApplyFilters={onApplyFilters} className="hidden 2xl:flex pt-[20px]" />
             <>
               <FlexContainer className="mt-[30px] !justify-start xs:!grid xs:grid-cols-2 xs:grid-rows-2 gap-[14px]">
-                {data ? <Typography variant="heading2">Последние</Typography> : <div />}
+                {data ? <Typography variant="heading2">{t('last_ads')}</Typography> : <div />}
                 <FlexContainer gap={14} className="ml-auto mr-[14px] xs:mr-[0]">
                   <Select
                     trigger={({ isOpen, toggleOpen, triggerRef, currentOption }) => (
@@ -191,9 +158,19 @@ const SearchPage: FC<IProps> = ({}) => {
               </FlexContainer>
             </>
             <div className="flex items-center gap-[14px] flex-wrap mt-[14px]">
-              <ActiveFilterItem onClick={() => console.log(1)} filterText={'Серебро'} />
-              <ActiveFilterItem onClick={() => console.log(1)} filterText={'Серебро'} />
-              <ActiveFilterItem onClick={() => console.log(1)} filterText={'Серебро'} />
+              {Object.values(filters.filter).map((filter, index) =>
+                typeof filter === 'string' ? (
+                  <ActiveFilterItem
+                    key={filter + index}
+                    onClick={() => console.log(1)}
+                    filterText={filter}
+                  />
+                ) : Array.isArray(filter) ? (
+                  filter.map((f, i) => (
+                    <ActiveFilterItem key={f + i} onClick={() => console.log(1)} filterText={f} />
+                  ))
+                ) : null,
+              )}
             </div>
             {data && data.pages?.[0].data.posts.length ? (
               <AnnouncementContainer>
@@ -206,13 +183,12 @@ const SearchPage: FC<IProps> = ({}) => {
                       ))}
                     </Fragment>
                   ))}
-                {/*<div ref={ref} />*/}
               </AnnouncementContainer>
             ) : isLoading ? (
-              <div className={cn('flex flex-col gap-[14px] mt-[18px]')}>
+              <AnnouncementContainer>
                 {(!data || isLoading) &&
-                  new Array(7).fill(0).map((_, i) => <MainPagePostSkeleton key={i} />)}
-              </div>
+                  new Array(6).fill(0).map((_, i) => <MainPagePostSkeleton key={i} />)}
+              </AnnouncementContainer>
             ) : (
               <PostsEmpty onClick={resetFilters} />
             )}

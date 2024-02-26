@@ -7,7 +7,7 @@ import { IApiError } from '@/types/axios';
 const deleteWord = (id: string) => {
   return axiosRequest<string, void>({
     method: 'DELETE',
-    url: `/api/v1/admin/key-words/${id}`,
+    url: `/api/admin/key-words/${id}`,
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL || '',
   });
 };

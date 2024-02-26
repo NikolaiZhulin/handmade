@@ -1,7 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 import { useGetPostById } from '@/api/posts/post-by-id';
 import { useUpdatePost } from '@/api/posts/update-post';
@@ -10,7 +11,6 @@ import { metals } from '@/constants/metals';
 import { samples } from '@/constants/sample';
 import { sexes } from '@/constants/sex';
 import { stones } from '@/constants/stones';
-import { CreatePostContext } from '@/contexts/CreatePostContext';
 import { getErrorToast } from '@/helpers/aggregateErrorsMessage';
 import { mergeStyles } from '@/helpers/mergeStyles';
 import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
@@ -32,7 +32,6 @@ import { CURRENCY_MAP, thirdStepConfig } from '../CreateInfo/config';
 import SliderButton from '../SliderButton';
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 
-import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
 import { FormState, schema, setDefaultValues } from './utils';
 
@@ -52,7 +51,6 @@ const PostEdit: FC<IProps> = ({ postId }) => {
     i18n: { language },
   } = useTranslation();
   const categories = useGetCategoriesForSelect('leftIcon');
-  const [state, setState] = useContext(CreatePostContext);
 
   const [isEngShown, setIsEngShown] = useState(!!post?.textEn);
   const [isGeShown, setIsGeShown] = useState(!!post?.textGe);
@@ -69,15 +67,15 @@ const PostEdit: FC<IProps> = ({ postId }) => {
   const { control, setValue, handleSubmit, watch, reset, formState } = useForm<FormState>({
     defaultValues: {
       isJewelry: true,
-      sex: state.sex,
-      size: state.size,
-      requestCity: state.requestCity,
-      requestSamples: state.requestSamples,
-      careRecommendations: state.careRecommendations,
-      requestCategories: state.requestCategories,
-      requestMaterials: state.requestMaterials,
-      requestStones: state.requestStones,
-      address: state.address,
+      sex: post?.characteristics?.sex,
+      size: post?.characteristics?.size,
+      city: post?.city,
+      sample: post?.characteristics?.sample,
+      recommendations: post?.characteristics?.recommendations,
+      requestCategories: post?.categories,
+      material: post?.characteristics?.material,
+      stone: post?.characteristics?.stone,
+      address: post?.address,
     },
     resolver: zodResolver(schema),
     mode: 'all',
@@ -99,17 +97,8 @@ const PostEdit: FC<IProps> = ({ postId }) => {
     }
   }, [post]);
 
-  const {
-    currency,
-    isJewelry,
-    sex,
-    requestCity,
-    requestCategories,
-    requestSamples,
-    requestMaterials,
-    requestStones,
-    ...formValues
-  } = watch();
+  const { currency, sex, stone, requestCategories, sample, material, city, ...formValues } =
+    watch();
 
   const handleFilesChange = (files: (File | string)[]) => {
     setFiles(files);
@@ -128,16 +117,6 @@ const PostEdit: FC<IProps> = ({ postId }) => {
   const handleSave = () => {
     handleSubmit((values) => {
       const {
-        requestCategories,
-        requestCity,
-        requestMaterials,
-        requestSamples,
-        careRecommendations,
-        address,
-        size,
-        sex,
-        isJewelry,
-        requestStones,
         isPhoneActive,
         isViberActive,
         isAdditionalPhoneActive,
@@ -148,7 +127,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
         phone,
         additionalPhone,
         viber,
-        whatsapp,
+        whatsApp,
         telegram,
         facebook,
         ...rest
@@ -159,19 +138,18 @@ const PostEdit: FC<IProps> = ({ postId }) => {
         additionalPhone,
         telegram,
         viber,
-        whatsApp: whatsapp,
+        whatsApp: whatsApp,
         facebook,
-        name: contactName,
+        contactName: contactName,
         isPhoneActive: !phone ? false : isPhoneActive,
         isViberActive: !viber ? false : isViberActive,
         isAdditionalPhoneActive: !additionalPhone ? false : isAdditionalPhoneActive,
         isFacebookActive: !facebook ? false : isFacebookActive,
         isTelegramActive: !telegram ? false : isTelegramActive,
-        isWhatsappActive: !whatsapp ? false : isWhatsappActive,
+        isWhatsappActive: !whatsApp ? false : isWhatsappActive,
       };
 
       const formData = new FormData();
-      console.log('formData', formData);
 
       Object.entries(rest).forEach(([key, value]) => {
         if (value !== undefined && formState.dirtyFields[key as keyof FormState]) {
@@ -195,7 +173,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
 
       updatePost({ id: post?.id ?? '', data: formData });
     })();
-    router.push(`/`);
+    router.push('/');
   };
 
   const handleCategoriesValue = (newValue: string) => {
@@ -203,24 +181,24 @@ const PostEdit: FC<IProps> = ({ postId }) => {
   };
 
   const handleMetalValue = (newValue: string) => {
-    setValue('requestMaterials', [newValue], { shouldTouch: true });
+    setValue('material', newValue, { shouldTouch: true });
   };
 
   const handleCityValue = (newValue: string) => {
-    setValue('requestCity', [newValue], { shouldTouch: true });
+    setValue('city', newValue, { shouldTouch: true });
   };
 
   const handleSamplesValue = (newValue: string) => {
-    setValue('requestSamples', [newValue], { shouldTouch: true });
+    setValue('sample', newValue, { shouldTouch: true });
   };
   const handleStoneValue = (newValue: string) => {
-    setValue('requestStones', [newValue], { shouldTouch: true });
+    setValue('stone', newValue, { shouldTouch: true });
   };
   const setIsJewelry = (isActive: boolean) => () =>
     setValue('isJewelry', !isActive, { shouldTouch: true });
 
   const handleSelectChange = (value: string) => {
-    setValue('sex', [value], { shouldTouch: true });
+    setValue('sex', value, { shouldTouch: true });
   };
 
   return (
@@ -281,7 +259,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
             <div className="pt-2">
               <Select
                 options={categories}
-                placeholder={t('inputs.jewel')}
+                placeholder={t('inputs.products')}
                 onSelect={handleCategoriesValue}
                 value={categories.find((el) => requestCategories?.includes(el.value))}
               />
@@ -292,34 +270,34 @@ const PostEdit: FC<IProps> = ({ postId }) => {
                 options={metals}
                 placeholder={t('inputs.metal')}
                 onSelect={handleMetalValue}
-                value={metals.find((el) => requestMaterials?.includes(el.value))}
+                value={metals.find((el) => material?.includes(el.value))}
               />
             </div>
             <div className="pt-2">
               <Select
                 withTranslate={true}
                 options={samples}
-                placeholder={t('inputs.sample')}
+                placeholder={t('sample')}
                 onSelect={handleSamplesValue}
-                value={samples.find((el) => requestSamples?.includes(el.value))}
+                value={samples.find((el) => sample?.includes(el.value))}
               />
             </div>
             <div className="pt-2">
               <Select
                 withTranslate={true}
                 options={stones}
-                placeholder={t('inputs.stone')}
+                placeholder={t('stone')}
                 onSelect={handleStoneValue}
-                value={stones.find((el) => requestStones?.includes(el.value))}
+                value={stones.find((el) => stone?.includes(el.value))}
               />
             </div>
             <div className="pt-2">
-              <Input controllerProps={{ control, name: 'size' }} placeholder={t('inputs.size')} />
+              <Input controllerProps={{ control, name: 'size' }} placeholder={t('size')} />
             </div>
             <div className="pt-2">
               <Input
-                controllerProps={{ control, name: 'careRecommendations' }}
-                placeholder={t('inputs.careRecommendations')}
+                controllerProps={{ control, name: 'recommendations' }}
+                placeholder={t('careRecommendations')}
               />
             </div>
             <div className="pt-2">
@@ -328,7 +306,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
                 options={cities}
                 placeholder={t('inputs.city')}
                 onSelect={handleCityValue}
-                value={cities.find((el) => requestCity?.includes(el.value))}
+                value={cities.find((el) => city?.includes(el.value))}
               />
             </div>
             <div className="pt-2">
@@ -351,7 +329,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
             defaultValue={true}
           />
           <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
-            <Typography variant="heading2">{t('post.sex')}</Typography>
+            <Typography variant="heading2">{t('sex')}</Typography>
           </div>
           <div className=" min-h-[0px] flex flex-col gap-[14px]">
             {sexes.map(({ label, value }) => (

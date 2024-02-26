@@ -8,7 +8,7 @@ export const config = [
     {
       icon: 'search',
       title: 'main.sideMenu.search',
-      link: () => '/search',
+      link: () => '/',
       badge: false,
     },
   ],
@@ -16,7 +16,7 @@ export const config = [
     {
       icon: 'search',
       title: 'main.sideMenu.search',
-      link: () => '/search',
+      link: () => '/',
       badge: false,
     },
     {

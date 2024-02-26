@@ -35,9 +35,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageWrapper>
-        <Header isHideSearch={true} />
+        <Header />
         <ProfilePageLayout left={<ProfileLeftBlock />} right={<ProfileRightBlock />} />
-        <Footer />
+        <Footer withMenu />
       </PageWrapper>
     </>
   );

@@ -7,7 +7,7 @@ export const MY_FAVOURITE_POSTS = 'myFavouritePosts';
 export const getFavouritePosts = () => {
   return axiosRequest<never, string[]>({
     method: 'GET',
-    url: '/api/v1/posts/favourite',
+    url: '/api/posts/favourite',
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
   });

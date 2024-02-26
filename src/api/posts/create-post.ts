@@ -7,7 +7,7 @@ import { IApiError } from '@/types/axios';
 export const createPost = (data: FormData) => {
   return axiosRequest<FormData, number>({
     method: 'POST',
-    url: '/api/v1/posts/create',
+    url: '/api/posts/create',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
     data,
   });

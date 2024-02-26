@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 
 import ConfirmBeforeClick from '@/components/ConfirmBeforeClick';
 import { accessTokenCookie, refreshTokenCookie } from '@/helpers/tokens/tokens';
+import FeedbackModal from '@/components/modals/FeedbackModal';
 
 export const PROFILE_SIDE_LINKS = [
   {
@@ -18,19 +19,22 @@ export const PROFILE_SIDE_LINKS = [
     badge: true,
     regexp: /\/profile\/\[id\]\/favourite/,
   },
-  {
-    title: 'breadcrumbs.history',
-    link: (id: string) => `/profile/${id}/favourite`, //TODO: link
-    icon: 'history-icon',
-    badge: true,
-    regexp: /\/profile\/\[id\]\/favourite/, //TODO: reg
-  },
+  // {
+  //   title: 'breadcrumbs.history',
+  //   link: (id: string) => `/profile/${id}/history`,
+  //   icon: 'history-icon',
+  //   badge: true,
+  //   regexp: /\/profile\/\[id\]\/history/,
+  // },
   {
     title: 'header.help',
-    link: (id: string) => `/profile/${id}/favourite`, //TODO: link
+    link: '/',
     icon: 'help-icon',
     badge: true,
-    regexp: /\/profile\/\[id\]\/favourite/, //TODO: reg
+    openModal: true,
+    component: (trigger: ReactNode, isOpen: boolean) => (
+      <FeedbackModal trigger={trigger} isOpen={isOpen} />
+    ),
   },
   {
     title: 'profile.logout',

@@ -7,7 +7,7 @@ import { IApiError } from '@/types/axios';
 export const makeFavourite = (postId: string) => {
   return axiosRequest({
     method: 'POST',
-    url: `/api/v1/posts/${postId}/favourite`,
+    url: `/api/posts/${postId}/favourite`,
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
   });

@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
 import { useGetCategories } from '@/api/posts/get-categories';
-import AdminHeader from '@/components/AdminHeader';
 import Table from '@/components/Table';
 import TableCategoryRow from '@/components/Table/components/TableCategoryRow';
 import AdminLeftBlock from '@/layout/AdminLeftBlock';
@@ -20,7 +19,6 @@ const CategoriesPage: FC<IProps> = ({}) => {
 
   return (
     <Container>
-      <AdminHeader />
       <Main className="!pt-[62px]">
         <MainWrapper>
           <AdminLeftBlock />

@@ -14,7 +14,7 @@ export interface ICreateReportVariables {
 export const createReport = (data: ICreateReportVariables) => {
   return axiosRequest<ICreateReportVariables, number>({
     method: 'POST',
-    url: `/api/v1/posts/reports/${data.postId}`,
+    url: `/api/posts/reports/${data.postId}`,
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
     data,
   });

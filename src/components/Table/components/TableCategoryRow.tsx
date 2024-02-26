@@ -10,6 +10,7 @@ import AddCategoryModal from '@/components/modals/AddCategoryModal';
 import { useDeleteCategory } from '@/api/admin/categories/delete-category';
 import { CATEGORIES_KEY } from '@/api/posts/get-categories';
 import { ICategoryItem } from '@/types/posts';
+import { ImageService } from '@/constants/enums';
 
 import style from '../style.module.scss';
 
@@ -30,7 +31,7 @@ const TableCategoryRow: FC<IProps> = ({ category, itemsStyles }) => {
   return (
     <div className={style.TableItem}>
       <div className={cn(style.Item, itemsStyles?.[0])}>
-        <img src={getImage(category.icon)} className="w-[24px] h-[24px]" />
+        <img src={getImage(ImageService.POSTS, category.icon)} className="w-[24px] h-[24px]" />
       </div>
       <div className={cn(style.Item, itemsStyles?.[1])}>
         <p>{category.nameRu}</p>

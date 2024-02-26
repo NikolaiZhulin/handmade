@@ -24,19 +24,4 @@ export const stones = [
     value: 'amethyst',
     icon: '',
   },
-  {
-    label: 'stones.aquamarine',
-    value: 'aquamarine',
-    icon: '',
-  },
-  {
-    label: 'stones.alpanite',
-    value: 'alpanite',
-    icon: '',
-  },
-  {
-    label: 'stones.amethyst',
-    value: 'amethyst',
-    icon: '',
-  },
 ];

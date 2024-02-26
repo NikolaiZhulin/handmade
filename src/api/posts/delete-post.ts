@@ -7,7 +7,7 @@ import { IApiError } from '@/types/axios';
 export const deletePost = (id: string) => {
   return axiosRequest({
     method: 'DELETE',
-    url: `/api/v1/posts/post/${id}`,
+    url: `/api/posts/post/${id}`,
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL,
   });
 };

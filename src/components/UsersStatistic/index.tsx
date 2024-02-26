@@ -17,7 +17,7 @@ const UsersStatistic = () => {
               {conf.sign}
               {data[conf.key as keyof typeof data]}
             </Typography>
-            <Typography variant="heading4" color="gray">
+            <Typography variant="heading3" color="gray">
               {t(conf.label)}
             </Typography>
           </div>

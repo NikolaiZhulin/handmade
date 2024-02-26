@@ -72,7 +72,7 @@ const Dropdown = forwardRef<HTMLDivElement, IProps>(
                   key={i}
                   className={cn(
                     'group w-full flex items-center gap-[8px] cursor-pointer font-[500] h-[34px] pl-[6px] font-montserrat',
-                    'hover:font-[500] transition-all ease-out font-helvetica hover:bg-green-light',
+                    'hover:font-[500] transition-all ease-out font-montserrat hover:bg-green-light',
                     '[&:not(:last-child)]:border-b-[1px] border-solid border-light-gray hover:text-white',
                     options.some((el) => el.leftIcon) &&
                       withIcon &&

@@ -7,7 +7,6 @@ import * as z from 'zod';
 import { useCreateKeyWord } from '@/api/admin/key-words/create-word';
 import { useDeleteWord } from '@/api/admin/key-words/delete-word';
 import { IGetWordsVariables, useGetWords } from '@/api/admin/key-words/get-words';
-import AdminHeader from '@/components/AdminHeader';
 import Table from '@/components/Table';
 import TableWordRow from '@/components/Table/components/TableWordRow';
 import { categories } from '@/constants/categories';
@@ -85,7 +84,6 @@ const KeyWordsPage = ({}) => {
 
   return (
     <Container>
-      <AdminHeader />
       <Main className="!pt-[62px]">
         <MainWrapper>
           <AdminLeftBlock />

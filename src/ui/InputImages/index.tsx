@@ -15,11 +15,12 @@ import { mergeStyles } from '@/helpers/mergeStyles';
 import { validateFilesExtensions } from '@/helpers/validateFilesExtensions';
 import { useTranslation } from '@/hooks/useTranslation';
 import { cn } from '@/utils/utils';
+import { ImageService } from '@/constants/enums';
 
 import ButtonDelete from '../ButtonDelete';
 import Typography from '../Typography';
-
 import Button from '../Button';
+
 import style from './style.module.scss';
 
 interface IProps {
@@ -115,7 +116,10 @@ const InputImages: FC<PropsWithChildren<IProps>> = ({
             )}
           >
             {files.map((file, i) => {
-              const url = file instanceof File ? URL.createObjectURL(file) : getImage(file);
+              const url =
+                file instanceof File
+                  ? URL.createObjectURL(file)
+                  : getImage(ImageService.POSTS, file);
               const isFirstImage = i === 0;
 
               const gridRowStyle = files.length > 1 && isFirstImage ? '1 / 3' : undefined;
@@ -147,7 +151,7 @@ const InputImages: FC<PropsWithChildren<IProps>> = ({
       {files.length <= 5 && (
         <label className={style.label} htmlFor="file">
           <Button
-            className={cn(style.ButtonNext, '!w-full !gap-2')}
+            className={cn('!w-full !gap-2')}
             disabled={disabled}
             onClick={() => inputRef.current?.click()}
           >

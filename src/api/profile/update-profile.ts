@@ -7,7 +7,7 @@ import { IApiError } from '@/types/axios';
 export const updateProfile = (data: FormData) => {
   return axiosRequest({
     method: 'PUT',
-    url: '/api/v1/auth/profile',
+    url: '/api/profile',
     baseURL: process.env.NEXT_AUTH_API_URL,
     data,
   });

@@ -6,7 +6,7 @@ import { ICategoriesResponse } from '@/types/posts';
 export const getCategories = () => {
   return axiosRequest<never, ICategoriesResponse>({
     method: 'GET',
-    url: '/api/v1/posts/categories',
+    url: '/api/categories',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
   });
 };

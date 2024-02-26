@@ -15,9 +15,7 @@
       height: 32px;
       overflow: hidden;
       background: $light-gray;
-      border-radius: 6px;
       transition: .25s ease-in-out background;
-      //@include Heading4();
       a {
         display: flex;
         align-items: center;

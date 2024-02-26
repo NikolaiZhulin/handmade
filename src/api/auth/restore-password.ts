@@ -14,7 +14,7 @@ export interface PasswordRestoreVariables {
 export const passwordRecovery = (data: PasswordRestoreVariables) => {
   return axiosRequest<PasswordRestoreVariables, AuthResponse>({
     method: 'POST',
-    url: '/api/v1/auth/password/recovery',
+    url: '/api/auth/password/recovery',
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
     data,

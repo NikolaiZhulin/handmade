@@ -8,7 +8,7 @@ const POSTS_TOTAL_COUNT = 'postsTotalCount';
 export const getTotalCount = () => {
   return axiosRequest({
     method: 'GET',
-    url: '/api/v1/posts/count',
+    url: '/api/posts/count',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
   });
 };

@@ -21,7 +21,6 @@
   margin-top: 14px;
   button{
     transition: .25s ease-out  color;
-    //@include Heading5();
     color: $grey-text ;
     &:hover{
       color: $light-blue;

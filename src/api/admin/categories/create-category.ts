@@ -7,7 +7,7 @@ import { IApiError } from '@/types/axios';
 export const createCategory = (data: FormData) => {
   return axiosRequest({
     method: 'POST',
-    url: '/api/v1/admin/categories',
+    url: '/api/admin/categories',
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL || '',
     data,
   });

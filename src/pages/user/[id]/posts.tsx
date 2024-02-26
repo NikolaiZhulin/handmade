@@ -72,7 +72,7 @@ const PostPage = ({ posts, user }: InferGetServerSidePropsType<typeof getServerS
                 {Object.entries({
                   tube: user.additionalPhone,
                   telegram: user.telegram,
-                  whatsapp: user.whatsApp,
+                  whatsApp: user.whatsApp,
                   viber: user.viber,
                   facebook: user.facebook,
                 }).map(([key, value]) =>

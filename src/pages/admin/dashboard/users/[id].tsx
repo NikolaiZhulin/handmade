@@ -11,7 +11,6 @@ import MainWrapper from '@/layout/MainWrapper';
 import RightBlock from '@/layout/RightBlock';
 import ContactsBlock from '@/components/UserPosts/ContactsBlock';
 import PostsBlock from '@/components/UserPosts/PostsBlock';
-import AdminHeader from '@/components/AdminHeader';
 import AdminLeftBlock from '@/layout/AdminLeftBlock';
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
 import Typography from '@/ui/Typography';
@@ -42,7 +41,6 @@ export default function User({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <AdminHeader />
         <Main className="!pt-[62px]">
           <MainWrapper>
             <AdminLeftBlock />

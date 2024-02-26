@@ -33,7 +33,7 @@ const CategoryContainer: FC<PropsWithChildren<IProps>> = () => {
         {categories
           .slice(0, !isLaptop ? categories.length : isShowAll ? categories.length : 5)
           .map((item) => (
-            <Link href={`/search?category=${item.value}`} key={item.value}>
+            <Link href={`/?category=${item.value}`} key={item.value}>
               <Category>
                 {item.icon}
                 <span className="relative top-[1px]">{item.label}</span>
@@ -48,7 +48,7 @@ const CategoryContainer: FC<PropsWithChildren<IProps>> = () => {
           className="!h-[32px]"
           fullWidth={true}
         >
-          <Typography variant="heading4" weight={700}>
+          <Typography variant="heading3" weight={700}>
             {isShowAll ? 'Скрыть' : 'Все категории'}
           </Typography>
         </Button>

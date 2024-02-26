@@ -60,7 +60,7 @@ const createAxiosResponseInterceptor = () => {
         const unintercepted = axios.create();
         return new Promise((res, rej) => {
           unintercepted
-            .get(`${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/v1/auth/tokens/refresh`, {
+            .get(`${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/auth/tokens/refresh`, {
               headers: {
                 Authorization: `Bearer ${refreshTokenCookie.value()}`,
               },

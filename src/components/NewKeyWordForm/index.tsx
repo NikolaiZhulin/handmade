@@ -44,7 +44,7 @@ const NewKeyWordForm: FC<IProps> = ({ defaultValue }) => {
       />
       <Select
         options={categories}
-        placeholder={t('inputs.category')}
+        placeholder={t('inputs.product')}
         defaultValue={categories.find((el) => el.value === defaultValue)}
         withIcon={false}
         onChange={handleSelect}

@@ -43,7 +43,7 @@ const NotLogged: FC<IProps> = ({}) => {
             className="!bg-light-branded hover:!bg-dark-branded xs:!h-[32px]"
             fullWidth={true}
           >
-            <Typography variant="heading4" color="white" weight={700}>
+            <Typography variant="heading3" color="white" weight={700}>
               {t('auth.signIn')}
             </Typography>
           </Button>
@@ -53,7 +53,7 @@ const NotLogged: FC<IProps> = ({}) => {
             fullWidth={true}
             color="yellow"
           >
-            <Typography variant="heading4" weight={700}>
+            <Typography variant="heading3" weight={700}>
               {t('auth.signUp')}
             </Typography>
           </Button>
@@ -69,7 +69,7 @@ const NotLogged: FC<IProps> = ({}) => {
                 )}
               >
                 <HomeSvgSelector id={link.icon} />
-                <Typography variant="heading4" color="white" weight={550}>
+                <Typography variant="heading3" color="white" weight={500}>
                   {t(link.title)}
                 </Typography>
               </Category>

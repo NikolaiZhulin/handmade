@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -12,23 +12,16 @@ import Modal from '@/containers/Modal';
 import { UserContext } from '@/contexts/UserContext';
 import AuthWrapper from '@/containers/AuthWrapper';
 import { useGetMe } from '@/api/auth/get-me';
-import Typography from '@/ui/Typography';
-import { mergeStyles } from '@/helpers/mergeStyles';
 import { useTranslation } from '@/hooks/useTranslation';
-import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
-import Select from '@/ui/CustomSelect';
 import { cn } from '@/utils/utils';
 import { MODAL_CONTEXT_VALUES, ModalContext } from '@/contexts/ModalContext';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Categories from '@/components/Header/components/Categories';
 
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
-import Counter from '../Counter';
-import { DropdownMenuSeparator } from '../ui/dropdown-menu';
 
 import HeaderAccount from './components/HeaderAccount';
 import style from './style.module.scss';
-import MenuDrawer from './components/MenuDrawer';
 
 interface IProps {
   isHideSearch?: boolean;
@@ -36,14 +29,12 @@ interface IProps {
   className?: string;
 }
 
-const Header: FC<IProps> = ({ isHideSearch, isHideCounter, className }) => {
+const Header: FC<IProps> = ({ isHideSearch, className }) => {
   const [state, setState] = useContext(UserContext);
   const [modals, setModal] = useContext(ModalContext);
   const { t } = useTranslation();
-  const categories = useGetCategoriesForSelect();
   const isLaptop = useMediaQuery('(max-width: 1200px)');
   const isMobile = useMediaQuery('(max-width: 600px)');
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { push, query } = useRouter();
 
   const { data: me, refetch } = useGetMe();
@@ -90,17 +81,7 @@ const Header: FC<IProps> = ({ isHideSearch, isHideCounter, className }) => {
           <input type="password"></input>
         </div>
         <div className={cn(style.HeaderWrapper, 'xs:!justify-between xs:gap-[15px]')}>
-          {/*<MenuDrawer isOpen={isDrawerOpen} close={() => setIsDrawerOpen(false)} />*/}
           <div className="flex items-center gap-[20px] xs:gap-[15px]">
-            {/*<button*/}
-            {/*  className={cn(*/}
-            {/*    'hidden 2xl:block',*/}
-            {/*    isDrawerOpen ? '[&>svg]:rotate-180' : '[&>svg]:rotate-0',*/}
-            {/*  )}*/}
-            {/*  onClick={() => setIsDrawerOpen(true)}*/}
-            {/*>*/}
-            {/*  <HomeSvgSelector id={'chevron-down'} />*/}
-            {/*</button>*/}
             <Logo />
             <Categories />
           </div>
@@ -135,7 +116,6 @@ const Header: FC<IProps> = ({ isHideSearch, isHideCounter, className }) => {
           <Lang />
         </div>
       </Container>
-      {/*<Counter isHideCounter={isHideCounter} />*/}
       {isMobile && !isHideSearch && <Search />}
     </header>
   );

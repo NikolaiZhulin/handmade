@@ -10,6 +10,7 @@ import { useGetMe } from '@/api/auth/get-me';
 import { useGetFavouritePosts } from '@/api/posts/get-favourite';
 import { UserContext } from '@/contexts/UserContext';
 import { cn } from '@/utils/utils';
+import { ModalContext } from '@/contexts/ModalContext';
 
 import NameBlock from '../components/NameBlock';
 
@@ -22,6 +23,7 @@ const ProfileLeftBlock = () => {
   const { data } = useGetFavouritePosts();
   const [, setState] = useContext(UserContext);
   const { t } = useTranslation();
+  const [{ feedbackModal }, setModal] = useContext(ModalContext);
 
   return (
     <div className={cn(styles.wrapper)}>
@@ -52,20 +54,22 @@ const ProfileLeftBlock = () => {
                 push('/');
               },
             )
+          ) : link.component ? (
+            link.component(
+              <Category
+                onClick={() => setModal({ feedbackModal: true })}
+                withBorder={i !== PROFILE_SIDE_LINKS.length - 1}
+              >
+                <HomeSvgSelector id={link.icon} />
+                {t(link.title)}
+              </Category>,
+              feedbackModal,
+            )
           ) : (
             <Link href={link.link(me?.id ?? ' ')} key={link.title}>
               <Category
-                // isActive={link.regexp && link.regexp.test(pathname)}
+                isActive={link.regexp && link.regexp.test(pathname)}
                 withBorder={i !== PROFILE_SIDE_LINKS.length - 1}
-                // rightItem={
-                //   link.badge &&
-                //   data &&
-                //   !!data.length && (
-                //     <Badge>
-                //       <Typography variant="heading4">{data.length}</Typography>
-                //     </Badge>
-                //   )
-                // }
               >
                 <HomeSvgSelector id={link.icon} />
                 {t(link.title)}

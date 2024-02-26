@@ -9,7 +9,7 @@ export const GET_ME_QUERY = 'me';
 export const getMe = (token: string) => {
   return axiosRequest<never, IUser>({
     method: 'GET',
-    url: '/api/v1/auth/profile/me',
+    url: '/api/profile/me',
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
     token,

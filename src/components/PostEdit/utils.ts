@@ -12,12 +12,11 @@ export interface FormState {
   textGe: string;
   price: number;
   currency: Currency;
-  sex: string[];
-  jewel: string;
-  sample: string;
-  stone: string;
-  size: string;
-  careRecommendations: string;
+  // sex: string[];
+  // jewel: string;
+  // sample: string;
+  // stone: string;
+  // size: string;
   address: string;
   isJewelry: boolean;
   files: File[];
@@ -26,15 +25,11 @@ export interface FormState {
   usedPeriod: UsedPeriod;
   city: string;
   requestCategories: string[];
-  requestMaterials: string[];
-  requestStones: string[];
-  requestSamples: string[];
-  requestCity: string[];
   phone: string;
   contactName: string;
   additionalPhone: string;
   telegram: string;
-  whatsapp: string;
+  whatsApp: string;
   viber: string;
   facebook: string;
   isPhoneActive: boolean;
@@ -43,6 +38,13 @@ export interface FormState {
   isWhatsappActive: boolean;
   isViberActive: boolean;
   isFacebookActive: boolean;
+  material?: string;
+  metal?: string;
+  sample?: string;
+  stone?: string;
+  size?: string;
+  sex?: string;
+  recommendations?: string;
 }
 
 export const schema = z
@@ -59,7 +61,7 @@ export const schema = z
     telegram: z.string().optional(),
     facebook: z.string().optional(),
     viber: z.string().optional(),
-    whatsapp: z.string().optional(),
+    whatsApp: z.string().optional(),
     isUsed: z.boolean(),
     usedAmount: z
       .preprocess((value) => parseInt(value as string), z.number().nonnegative(NUMBER_NON_NEGATIVE))
@@ -105,10 +107,10 @@ export const setDefaultValues = (
     isViberActive: !!post.contacts.isViberActive,
     isFacebookActive: !!post.contacts.isFacebookActive,
     phone: post.contacts.phone ?? '',
-    contactName: post.contacts.name ?? '',
+    contactName: post.contacts.contactName ?? '',
     additionalPhone: post.contacts.additionalPhone ?? '',
     telegram: post.contacts.telegram ?? '',
-    whatsapp: post.contacts.whatsApp ?? '',
+    whatsApp: post.contacts.whatsApp ?? '',
     viber: post.contacts.viber ?? '',
     facebook: post.contacts.facebook ?? '',
   });

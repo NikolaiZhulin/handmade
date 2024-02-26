@@ -11,7 +11,7 @@ export interface ICreateFilterWordVariables {
 const createFilterWord = (data: ICreateFilterWordVariables) => {
   return axiosRequest<ICreateFilterWordVariables, void>({
     method: 'POST',
-    url: '/api/v1/admin/filter-words',
+    url: '/api/admin/filter-words',
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL || '',
     data,
   });

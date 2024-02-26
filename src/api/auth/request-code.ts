@@ -13,14 +13,17 @@ export interface RequestCodeVariables {
 export const requestCode = (data: RequestCodeVariables) => {
   return axiosRequest<RequestCodeVariables, number>({
     method: 'POST',
-    url: '/api/v1/auth/request-code',
+    url: '/api/auth/request-code',
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
     data,
   });
 };
 
-export const useRequestCode = (onSuccess?: () => void, onError?: () => void) => {
+export const useRequestCode = (
+  onSuccess?: () => void,
+  onError?: (err: AxiosError<IApiError>) => void,
+) => {
   return useMutation<number, AxiosError<IApiError>, RequestCodeVariables>(
     (data) => requestCode(data),
     {

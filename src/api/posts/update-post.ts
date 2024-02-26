@@ -11,7 +11,7 @@ export interface UpdatePostVariables {
 
 export const updatePost = (data: UpdatePostVariables) => {
   return axiosRequest<FormData, unknown>({
-    url: `/api/v1/posts/${data.id}`,
+    url: `/api/posts/${data.id}`,
     method: 'PUT',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
     data: data.data,

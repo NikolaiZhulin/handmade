@@ -7,7 +7,7 @@ import { IApiError } from '@/types/axios';
 export const deleteFavourite = (postId: string) => {
   return axiosRequest({
     method: 'DELETE',
-    url: `/api/v1/posts/${postId}/favourite`,
+    url: `/api/posts/${postId}/favourite`,
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
   });

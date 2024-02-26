@@ -12,7 +12,7 @@ export interface IUpdateCategoryVariables {
 export const updateCategory = (data: IUpdateCategoryVariables) => {
   return axiosRequest({
     method: 'PUT',
-    url: `/api/v1/admin/categories/${data.id}`,
+    url: `/api/admin/categories/${data.id}`,
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL || '',
     data: data.data,
   });

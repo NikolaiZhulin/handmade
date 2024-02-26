@@ -171,6 +171,7 @@ const Select: FC<IProps> = ({
                 onSelect={onSelect}
                 withTranslate={withTranslate}
                 withCheckBox={withCheckBox}
+                ref={listRef}
               />
             </DialogContent>
           </Dialog>
@@ -191,6 +192,7 @@ const Select: FC<IProps> = ({
             onSelect={onSelect}
             withTranslate={withTranslate}
             withCheckBox={withCheckBox}
+            ref={listRef}
           />
         ))}
     </div>

@@ -15,6 +15,7 @@ import { ICategoryItem } from '@/types/posts';
 import Button from '@/ui/Button';
 import Input from '@/ui/Input';
 import Typography from '@/ui/Typography';
+import { ImageService } from '@/constants/enums';
 
 interface IProps {
   category?: ICategoryItem;
@@ -95,7 +96,11 @@ const AddCategoryModal: FC<PropsWithChildren<IProps>> = ({ children, category })
           <div className="flex gap-[14px] items-center">
             {(category || file) && (
               <img
-                src={file ? URL.createObjectURL(file as File) : getImage(category?.icon ?? '')}
+                src={
+                  file
+                    ? URL.createObjectURL(file as File)
+                    : getImage(ImageService.POSTS, category?.icon ?? '')
+                }
                 className="w-[24px] h-[24px]"
               />
             )}

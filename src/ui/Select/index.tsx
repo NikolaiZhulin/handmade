@@ -85,7 +85,7 @@ const Select: FC<IProps> = ({
     >
       <SelectTrigger className={cn('relative', className)}>
         <FloatLabel label={placeholder} isFloating={!!currentOption || isFocussed} />
-        <p className="flex items-center gap-[4px] text-[14px] leading-[18px] font-helvetica font-semibold">
+        <p className="flex items-center gap-[4px] text-[14px] leading-[18px] font-montserrat font-semibold">
           {valueWithIcon && currentOption?.valueIcon}
           {!showOnlyIcon && t(currentOption?.label ?? '')}
         </p>

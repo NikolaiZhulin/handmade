@@ -16,8 +16,6 @@ import { AuthResponse, CallModalChange } from '@/types/auth';
 import { accessTokenCookie, refreshTokenCookie } from '@/helpers/tokens/tokens';
 import { MY_FAVOURITE_POSTS } from '@/api/posts/get-favourite';
 import { useTranslation } from '@/hooks/useTranslation';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { ModalContext } from '@/contexts/ModalContext';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
 
@@ -43,7 +41,7 @@ const LoginForm: FC<IProps> = ({
 }) => {
   const { t } = useTranslation();
   const loginSchema = zod.object({
-    email: zod.string().email(t('errors.wrongPhone')),
+    email: zod.string().email(t('errors.wrongEmail')),
     password: zod.string().min(8, t('errors.passLenght')),
     checked: zod.boolean(),
   });
@@ -62,8 +60,8 @@ const LoginForm: FC<IProps> = ({
   const queryClient = useQueryClient();
   const { mutate: handleLogin } = useLogin();
   const [, changeState] = useContext(UserContext);
-  const isLaptop = useMediaQuery('(max-width: 1200px)');
-  const [, setModal] = useContext(ModalContext);
+  // const isLaptop = useMediaQuery('(max-width: 1200px)');
+  // const [, setModal] = useContext(ModalContext);
   const { query, push } = useRouter();
 
   const checked = watch('checked');
@@ -117,8 +115,8 @@ const LoginForm: FC<IProps> = ({
         <Input
           className={cn(styles.Input, '2xl:w-full')}
           controllerProps={{ name: 'email', control }}
-          leftElem={<HomeSvgSelector id="phone-icon" />}
-          placeholder={t('auth.phone_placeholder')}
+          leftElem={<HomeSvgSelector id="mail" />}
+          placeholder="Email"
           type="text"
         />
         <Input

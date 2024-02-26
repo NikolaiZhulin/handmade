@@ -48,6 +48,9 @@ export const HeaderSelect: FC<IProps> = ({ setCities }) => {
   const formValues = watch();
 
   const handleSelectChange = (value: string | string[]) => {
+    if(!Array.isArray(formValues?.cities)){
+      return
+    }
     if (Array.isArray(value)) {
       setValue('cities', value);
       setCities(value);
@@ -55,7 +58,7 @@ export const HeaderSelect: FC<IProps> = ({ setCities }) => {
     }
     if (value) {
       if (value === 'all') {
-        if (citiesData.length === formValues.cities.length) {
+        if (citiesData.length === formValues?.cities?.length) {
           setValue('cities', []);
           setCities([]);
         } else {
@@ -63,8 +66,8 @@ export const HeaderSelect: FC<IProps> = ({ setCities }) => {
           setValue('cities', values);
           setCities(values);
         }
-      } else if (!formValues.cities.includes(value)) {
-        const nextValue = [...formValues.cities, value];
+      } else if (!formValues?.cities?.includes(value)) {
+        const nextValue = [...formValues?.cities, value];
         if (nextValue.length === citiesData.length - 1) {
           nextValue.push('all');
         }
@@ -89,7 +92,7 @@ export const HeaderSelect: FC<IProps> = ({ setCities }) => {
       onSelect={() => {}}
       containerClassname="w-auto"
       trigger={({ isOpen, toggleOpen, triggerRef }) => (
-        <div className="relative flex items-center justify-between pl-[16px] pr-[4px] w-[87px] h-[36px] text-[14px] leading-[18px] bg-light-gray font-helvetica font-normal gap-[6px] ring-0 focus:ring-0">
+        <div className="relative flex items-center justify-between pl-[16px] pr-[4px] w-[87px] h-[36px] text-[14px] leading-[18px] bg-light-gray font-montserrat font-normal gap-[6px] ring-0 focus:ring-0">
           <button
             ref={triggerRef}
             onClick={() => {
@@ -124,7 +127,7 @@ export const HeaderSelect: FC<IProps> = ({ setCities }) => {
           >
             <Checkbox
               controllerProps={{ control, name: 'empty' }}
-              checked={formValues.cities.includes(option.value)}
+              checked={formValues?.cities?.includes(option.value)}
               onChangeCustom={(_, value, e) => {
                 e?.stopPropagation();
                 handleSelectChange(value as string);

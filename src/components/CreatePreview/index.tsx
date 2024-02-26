@@ -8,8 +8,6 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Stub from '@/layout/Stub';
 import Typography from '@/ui/Typography';
 
-import { useForm } from 'react-hook-form';
-import { FormState } from '../PostEdit/utils';
 import { PreviewImage } from './components/PreviewImages';
 import style from './style.module.scss';
 
@@ -41,8 +39,13 @@ const CreatePreview: FC<IProps> = ({ step }) => {
     size,
     sex,
   } = state;
-  const { formState } = useForm<FormState>();
+  // const { formState } = useForm<FormState>();
   const hasAllRequiredFields = name && currency && (price || price === 0);
+
+  const sexesMap: Record<string, string> = {
+    for_him: t('for_him'),
+    for_her: t('for_her'),
+  };
 
   return (
     <>
@@ -114,7 +117,7 @@ const CreatePreview: FC<IProps> = ({ step }) => {
               <div className="flex  w-full justify-between">
                 <div className="flex flex-1 flex-col gap-2 items-start">
                   <Typography className={style.grayText} variant="heading3">
-                    {t('post.jewel')}
+                    {t('post.bijouterie')}
                   </Typography>
                   <Typography className={style.grayText} variant="heading3">
                     {t('post.material')}
@@ -135,28 +138,30 @@ const CreatePreview: FC<IProps> = ({ step }) => {
                     {t('inputs.careRecommendations')}
                   </Typography>
                   <Typography className={style.grayText} variant="heading3">
-                    {t('inputs.sex')}
+                    {t('sex')}
                   </Typography>
                 </div>
                 <div className="flex flex-1 flex-col gap-2 items-start">
                   <Typography variant="heading3">
-                    {requestCategories[0] ? requestCategories[0] : 'Отсутствует'}
+                    {requestCategories[0] ? t(`categories.${requestCategories[0]}`) : t('absent')}
                   </Typography>
                   <Typography variant="heading3">
-                    {requestMaterials[0] ? requestMaterials[0] : 'Отсутствует'}
+                    {requestMaterials[0] ? t(`metals.${requestMaterials[0]}`) : t('absent')}
                   </Typography>
                   <Typography variant="heading3">
-                    {requestSamples[0] ? requestSamples[0] : 'Отсутствует'}
+                    {requestSamples[0] ? requestSamples[0] : t('absent')}
                   </Typography>
                   <Typography variant="heading3">
-                    {requestStones[0] ? requestStones[0] : 'Отсутствует'}
+                    {requestStones[0] ? t(`stones.${requestStones[0]}`) : t('absent')}
                   </Typography>
-                  <Typography variant="heading3">{bijouterie ? 'post.yes' : 'post.no'}</Typography>
-                  <Typography variant="heading3">{size ? size : 'Отсутствует'}</Typography>
+                  <Typography variant="heading3">{bijouterie ? t('yes') : t('no')}</Typography>
+                  <Typography variant="heading3">{size ? size : t('absent')}</Typography>
                   <Typography variant="heading3">
-                    {careRecommendations ? careRecommendations : 'Отсутствует'}
+                    {careRecommendations ? careRecommendations : t('absent')}
                   </Typography>
-                  <Typography variant="heading3">{sex ? sex : 'Отсутствует'}</Typography>
+                  <Typography variant="heading3">
+                    {sex.length ? sex.map((s) => <span key={s}>{sexesMap[s]}</span>) : t('absent')}
+                  </Typography>
                 </div>
               </div>
             </>

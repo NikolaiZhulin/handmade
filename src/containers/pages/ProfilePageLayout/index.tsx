@@ -17,7 +17,7 @@ const ProfilePageLayout: FC<IProps> = ({ left, right }) => {
   const isLaptop = useMediaQuery('(max-width: 1200px)');
 
   return (
-    <Main>
+    <Main className="2xl:!pb-[60px] xs:!pt-[117px]">
       <Container>
         <Breadcrumbs className="xs:pt-0" isBackButton={isLaptop} />
         <MainWrapper className="2xl:!mt-0">

@@ -21,7 +21,7 @@ export interface IGetWordsVariables {
 export const getWords = (data: IGetWordsVariables) => {
   return axiosRequest<IGetWordsVariables, ResponseWithPagination<IKeyWord[]>>({
     method: 'GET',
-    url: '/api/v1/admin/key-words',
+    url: '/api/admin/key-words',
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL || '',
     params: convertObjectToQueryParams(data),
   });

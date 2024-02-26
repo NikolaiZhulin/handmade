@@ -45,7 +45,7 @@ const PostPage = ({ post }: InferGetServerSidePropsType<typeof getServerSideProp
   if (!currentLangText) {
     currentLangText = langs.find((el) => el) as string;
   }
-
+  console.log(post);
   return (
     <>
       <Head>
@@ -61,7 +61,7 @@ const PostPage = ({ post }: InferGetServerSidePropsType<typeof getServerSideProp
             currentPath={t(
               categories.find((el) => post.categories.includes(el.value))?.label ?? '',
             )}
-            currentLink={`/search?category=${post.categories[0]}`}
+            currentLink={`/?category=${post.categories[0]}`}
             className="2xl:!px-[30px]"
           />
           <MainWrapper className="justify-between 2xl:flex-col 2xl:w-full 2xl:!mt-0 !mt-[0]">

@@ -29,35 +29,39 @@ const Forms: Record<
   AuthFormType,
   (
     onClose: () => void,
-    callModalChange?: CallModalChange,
-    successAction?: () => void,
-    hideBackButton?: boolean,
-    setError?: (error?: string) => void,
+    options: {
+      callModalChange?: CallModalChange;
+      successAction?: () => void;
+      hideBackButton?: boolean;
+      setError?: (error?: string) => void;
+    },
   ) => JSX.Element
 > = {
-  registration: (onClose, callModalChange, _, hideBackButton) => (
+  registration: (onClose, options) => (
     <RegistrationForm
       onClose={onClose}
-      onModalChange={callModalChange}
-      hideBackButton={hideBackButton}
+      onModalChange={options.callModalChange}
+      hideBackButton={options.hideBackButton}
     />
   ),
-  login: (onClose, callModalChange, successAction, hideBackButton, setError) => (
+  login: (onClose, options) => (
     <LoginForm
       onClose={onClose}
-      changeModal={callModalChange}
-      successAction={successAction}
-      hideBackButton={hideBackButton}
-      setModalError={setError}
+      changeModal={options.callModalChange}
+      successAction={options.successAction}
+      hideBackButton={options.hideBackButton}
+      setModalError={options.setError}
     />
   ),
-  'reset-password': (onClose) => <RestorePasswordForm onClose={onClose} />,
+  'reset-password': (onClose, options) => (
+    <RestorePasswordForm onClose={onClose} setModalError={options.setError} />
+  ),
 };
 
 const modalTitles = {
-  registration: 'Зарегистрироваться',
-  login: 'Вход в систему',
-  'reset-password': 'Восстановить пароля',
+  registration: 'auth.signUp',
+  login: 'auth.signIn',
+  'reset-password': 'auth.restorePass',
 };
 
 const AuthWrapper: FC<IProps> = ({
@@ -122,7 +126,7 @@ const AuthWrapper: FC<IProps> = ({
           </Typography>
         ) : (
           <Typography className="w-[100%] flex justify-center " variant={'heading2'} weight={700}>
-            {modalTitles[currentType]}
+            {t(modalTitles[currentType])}
           </Typography>
         )}
       </div>
@@ -138,7 +142,12 @@ const AuthWrapper: FC<IProps> = ({
           small={isLaptop}
         />
       )}
-      {Forms[currentType](onClose, handleClick, successAction, hideBackButton, setError)}
+      {Forms[currentType](onClose, {
+        callModalChange: handleClick,
+        successAction,
+        hideBackButton,
+        setError,
+      })}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from 'react';
+import { FC } from 'react';
 import { toast } from 'react-toastify';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -6,13 +6,11 @@ import FlexContainer from '@/layout/FlexContainer';
 import Typography from '@/ui/Typography';
 import { mergeStyles } from '@/helpers/mergeStyles';
 import Button from '@/ui/Button';
-import ChangeView from '@/ui/ChangeView';
 import { useGetFullFavouritePosts } from '@/api/posts/get-favourite-full';
 import { useDeleteAllFavourite } from '@/api/posts/dlete-all-favourite';
 import { getErrorToast } from '@/helpers/aggregateErrorsMessage';
 import { MY_FAVOURITE_POSTS } from '@/api/posts/get-favourite';
 import { useTranslation } from '@/hooks/useTranslation';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/utils';
 
 import Modal from '../modals/Modal';
@@ -23,8 +21,8 @@ import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 import styles from './styles.module.scss';
 
 const Favourite: FC = () => {
+  //TODO: нужна информация о том продан ли товар из объявления
   const queryClient = useQueryClient();
-  const [view, setView] = useState(false);
   const { data, refetch } = useGetFullFavouritePosts();
   const { t } = useTranslation();
   const { mutate: deleteAllFavourites } = useDeleteAllFavourite(() => {
@@ -32,63 +30,36 @@ const Favourite: FC = () => {
     toast.success(t('favourites.cleared'));
     queryClient.invalidateQueries([MY_FAVOURITE_POSTS]);
   }, getErrorToast);
-  const isLaptop = useMediaQuery('(max-width: 1200px)');
 
   return (
     <FlexContainer
       direction="column"
       gap={14}
       align="start"
+      justify="start"
       className="2xl:!w-full 2xl:h-full xs:!justify-start"
     >
       {data && data?.posts.length ? (
         <>
-          <FlexContainer className={styles.w100}>
+          <FlexContainer className={cn(styles.w100, 'xs:!flex-col xs:!items-start xs:gap-[14px]')}>
             <Typography variant="heading2">{t('favourites.title')}</Typography>
             <FlexContainer gap={14}>
-              {!isLaptop && (
-                <Modal
-                  trigger={
-                    <Button color="neutral" className={styles.button}>
-                      <Typography variant="heading3" color="black">
-                        {t('favourites.clear')}
-                      </Typography>
-                    </Button>
-                  }
-                  header={t('favourites.clearWarn')}
-                  confirmHandler={() => deleteAllFavourites()}
-                />
-              )}
-              <ChangeView
-                setView={setView}
-                isGrid={view}
-                leftIconId="list-icon"
-                rightIconId="grid-icon"
+              <Modal
+                trigger={
+                  <Button color="gray" className={styles.button}>
+                    <Typography variant="heading3" color="black">
+                      {t('favourites.clear')}
+                    </Typography>
+                  </Button>
+                }
+                header={t('favourites.clearWarn')}
+                confirmHandler={() => deleteAllFavourites()}
               />
             </FlexContainer>
           </FlexContainer>
-          {isLaptop && (
-            <Modal
-              trigger={
-                <div
-                  className={cn(
-                    'h-[32px] bg-light-gray flex items-center justify-center px-[10px] rounded-[6px] overflow-hidden',
-                  )}
-                >
-                  <Typography variant="heading3" color="black" weight={700}>
-                    {t('favourites.clear')}
-                  </Typography>
-                </div>
-              }
-              triggerClassName="2xl:w-full"
-              header={t('favourites.clearWarn')}
-              confirmHandler={() => deleteAllFavourites()}
-              dialogClassName="xs:w-[calc(100%-40px)] xs:rounded-[12px]"
-            />
-          )}
-          <AnnouncementContainer isGrid={view} className="w-full 2xl:!mt-0">
+          <AnnouncementContainer className="w-full 2xl:!mt-0">
             {data.posts.map((post) => (
-              <Announcement key={post.id} post={post} isGrid={view} />
+              <Announcement key={post.id} post={post} isSold={true} />
             ))}
           </AnnouncementContainer>
         </>
@@ -105,7 +76,7 @@ const Favourite: FC = () => {
             <Typography variant="heading3" weight={700} className="xs:text-center">
               {t('favourites.noPosts')}
             </Typography>
-            <Typography variant="heading4" color="gray" className="xs:text-center">
+            <Typography variant="heading3" color="gray" className="xs:text-center">
               {t('favourites.advice')}
             </Typography>
           </FlexContainer>

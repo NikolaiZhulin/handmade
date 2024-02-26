@@ -14,7 +14,7 @@ export interface SignUpVariables {
 export const signUp = (data: SignUpVariables) => {
   return axiosRequest<SignUpVariables, AuthResponse>({
     method: 'POST',
-    url: '/api/v1/auth/sign-up',
+    url: '/api/auth/sign-up',
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
     data,

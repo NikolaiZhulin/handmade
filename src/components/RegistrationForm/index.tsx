@@ -17,8 +17,6 @@ import { AuthResponse, CallModalChange } from '@/types/auth';
 import { useTranslation } from '@/hooks/useTranslation';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { ModalContext } from '@/contexts/ModalContext';
 import SocialContainer from '@/components/SocialContainer';
 
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
@@ -33,17 +31,15 @@ interface IProps {
   hideBackButton?: boolean;
 }
 
-const RegistrationForm: FC<IProps> = ({ onClose, onModalChange, hideBackButton }) => {
+const RegistrationForm: FC<IProps> = ({ onClose, hideBackButton }) => {
   const { t } = useTranslation();
   const { mutate: requestCode } = useRequestCode(() => {
-    toast.success(t('toasts.codeSent'));
+    toast.success(t('toasts.codeSent'), { autoClose: 7000 });
   });
   const { mutate: signUp } = useSignUp();
   const [isTimeRunning, setIsTimeRunning] = useState(false);
   const [runningTime, setRunningTime] = useState(0);
   const [, changeState] = useContext(UserContext);
-  const isLaptop = useMediaQuery('(max-width: 1200px)');
-  const [, setModal] = useContext(ModalContext);
   const { query, push } = useRouter();
 
   const signUpSchema = zod.object({
@@ -122,20 +118,6 @@ const RegistrationForm: FC<IProps> = ({ onClose, onModalChange, hideBackButton }
 
   return (
     <>
-      {/*{isLaptop && !hideBackButton && (*/}
-      {/*  <button*/}
-      {/*    className="flex items-center gap-[14px] self-start -order-1"*/}
-      {/*    onClick={() => {*/}
-      {/*      setModal({ authModal: false });*/}
-      {/*      onClose();*/}
-      {/*    }}*/}
-      {/*  >*/}
-      {/*    <HomeSvgSelector id="arrow-left" />*/}
-      {/*    <Typography variant="heading3" className="xs:!text-[14px]">*/}
-      {/*      {t('back')}*/}
-      {/*    </Typography>*/}
-      {/*  </button>*/}
-      {/*)}*/}
       <Typography variant={'text2'} color={'black'}>
         {t('auth.registration_sms_info')}
       </Typography>
@@ -143,8 +125,8 @@ const RegistrationForm: FC<IProps> = ({ onClose, onModalChange, hideBackButton }
         <Input
           className={cn(style.Input)}
           controllerProps={{ name: 'email', control }}
-          leftElem={<HomeSvgSelector id="phone-icon" />}
-          placeholder={t('auth.phone_placeholder')}
+          leftElem={<HomeSvgSelector id="mail" />}
+          placeholder="Email"
           type="text"
         />
         <Input
@@ -158,7 +140,6 @@ const RegistrationForm: FC<IProps> = ({ onClose, onModalChange, hideBackButton }
               disabled={!email}
               onClick={handleRequestCode}
               className={style.ButtonSendSms}
-              // color={isTimeRunning ? 'neutral' : 'blue'}
               color={'gold'}
             >
               {isTimeRunning ? (
@@ -204,40 +185,6 @@ const RegistrationForm: FC<IProps> = ({ onClose, onModalChange, hideBackButton }
           {t('auth.socialSignIn')}
         </Typography>
         <SocialContainer />
-
-        {/*<Typography*/}
-        {/*  variant="heading3"*/}
-        {/*  className={cn(style.Heading5, '2xl:order-9 2xl:mb-[28px]', hideBackButton && '2xl:mb-0')}*/}
-        {/*>*/}
-        {/*  {t('auth.acceptRules1')} <a href="#">«{t('auth.acceptRules2')}»</a>*/}
-        {/*</Typography>*/}
-        {/* <Typography
-          variant={isLaptop ? 'heading2' : 'heading4'}
-          className={cn(style.Heading4, isLaptop && 'order-1')}
-        >
-          {isLaptop
-            ? capitalize(t('auth.oneClick').split(' ').slice(1).join(' '))
-            : t('auth.oneClick')}
-        </Typography> */}
-        {/*{isLaptop && !hideBackButton && (*/}
-        {/*  <>*/}
-        {/*    <div className="h-[1px] w-full bg-light-gray order-3" />*/}
-        {/*    <div className="h-[1px] w-full bg-light-gray order-10" />*/}
-        {/*    /!* <Typography variant="heading2" className={cn(style.Heading4, isLaptop && 'order-4')}>*/}
-        {/*      {t('auth.phone')}*/}
-        {/*    </Typography> *!/*/}
-        {/*    <div className="flex flex-col order-11 gap-[14px] items-center">*/}
-        {/*      <Typography variant="heading2">{t('auth.alreadyHave')}</Typography>*/}
-        {/*      <button*/}
-        {/*        onClick={onModalChange?.(true)}*/}
-        {/*        className="font-helvetica text-text-gray underline text-[14px] leading-[18px]"*/}
-        {/*      >*/}
-        {/*        {t('header.signIn')}*/}
-        {/*      </button>*/}
-        {/*    </div>*/}
-        {/*  </>*/}
-        {/*)}*/}
-        {/* <SocialContainer className="2xl:order-2" /> */}
       </div>
     </>
   );

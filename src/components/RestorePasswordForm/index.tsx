@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
 
 import Input from '@/ui/Input';
-import Heading5 from '@/ui/Heading5';
 import Heading2 from '@/ui/Heading2';
 import {
   CODE_LENGTH,
@@ -22,12 +21,10 @@ import { AuthResponse } from '@/types/auth';
 import { usePasswordRecovery } from '@/api/auth/restore-password';
 import { UserContext } from '@/contexts/UserContext';
 import { mergeStyles } from '@/helpers/mergeStyles';
-import Typography from '@/ui/Typography';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { ModalContext } from '@/contexts/ModalContext';
 import { useTranslation } from '@/hooks/useTranslation';
 import { cn } from '@/utils/utils';
 import { accessTokenService, refreshTokenService } from '@/helpers/tokens/tokenService';
+import { getBackRuError } from '@/helpers/getBackRuError';
 
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 import { THREE_MIN } from '../RegistrationForm';
@@ -36,6 +33,7 @@ import styles from './styles.module.scss';
 
 interface IProps {
   onClose: () => void;
+  setModalError?: (error?: string) => void;
 }
 
 const schema = z
@@ -53,11 +51,9 @@ const schema = z
     path: ['newPassword'],
   });
 
-const RestorePasswordForm: FC<IProps> = ({ onClose }) => {
+const RestorePasswordForm: FC<IProps> = ({ onClose, setModalError }) => {
   const [code, setCode] = useState(1);
   const [, changeState] = useContext(UserContext);
-  const isLaptop = useMediaQuery('(max-width: 1200px)');
-  const [, setModal] = useContext(ModalContext);
   const { t } = useTranslation();
   const [isTimeRunning, setIsTimeRunning] = useState(false);
   const [runningTime, setRunningTime] = useState(0);
@@ -89,8 +85,12 @@ const RestorePasswordForm: FC<IProps> = ({ onClose }) => {
 
   const { mutate: requestCode } = useRequestCode(
     () => {},
-    () => {
-      setError('email', { message: 'Указанный email не существует' });
+    (error) => {
+      error.response?.data.errors?.forEach((err) => {
+        const [, value] = getBackRuError(err, 'email', t, error.response?.status);
+        setError('email', { message: 'Проверьте почту' });
+        setModalError?.(value);
+      });
     },
   );
   const { mutate: changePassword } = usePasswordRecovery();
@@ -113,7 +113,7 @@ const RestorePasswordForm: FC<IProps> = ({ onClose }) => {
       {
         onSuccess: (data) => {
           setCode(data);
-          toast.success('Код отправлен');
+          toast.success(t('toasts.codeSent'), { autoClose: 7000 });
         },
         onError: () => {
           setIsTimeRunning(false);
@@ -129,7 +129,7 @@ const RestorePasswordForm: FC<IProps> = ({ onClose }) => {
         onSuccess: (data) => {
           handleSuccessLogin(data);
           setCode(1);
-          toast.warn('Пароль успешно обновлен', {
+          toast.warn(t('auth.password_updated'), {
             className: 'w-[97vw]',
             position: 'top-left',
           });
@@ -160,30 +160,12 @@ const RestorePasswordForm: FC<IProps> = ({ onClose }) => {
 
   return (
     <>
-      {isLaptop && (
-        <button
-          className="flex items-center gap-[14px] self-start -order-1"
-          onClick={() => {
-            setModal({ authModal: false });
-            onClose();
-          }}
-        >
-          <HomeSvgSelector id="arrow-left" />
-          <Typography variant="heading3" className="xs:!text-[14px]">
-            {t('back')}
-          </Typography>
-        </button>
-      )}
-      <div className={cn(styles.restorePasswordForm, '2xl:!w-[410px] xs:!w-full')}>
-        <div className={styles.textWrapper}>
-          <Heading2>{t('auth.restorePass')}</Heading2>
-          <Heading5>{t('auth.emailBound')}</Heading5>
-        </div>
+      <div className={cn(styles.restorePasswordForm, '2xl:!w-[42  0px] xs:!w-full')}>
         <Input
           className={styles.Input}
           controllerProps={{ name: 'email', control }}
           leftElem={<HomeSvgSelector id="mail" />}
-          placeholder="Email"
+          placeholder={t('email')}
           type="text"
         />
         <Input
@@ -196,8 +178,8 @@ const RestorePasswordForm: FC<IProps> = ({ onClose }) => {
             <Button
               disabled={!emailValue}
               onClick={handleRequestCode}
-              className="-m-t-[10px] !h-[32px] relative overflow-hidden min-w-[122px]"
-              color={isTimeRunning ? 'neutral' : 'blue'}
+              className="-m-t-[10px] !h-[32px] relative overflow-hidden min-w-[83px]"
+              color={'gold'}
             >
               {isTimeRunning ? (
                 <>
@@ -219,7 +201,7 @@ const RestorePasswordForm: FC<IProps> = ({ onClose }) => {
           }
           type="text"
         />
-        {+confirmationCode === +code && (
+        {Number(confirmationCode) === +code && (
           <>
             <Heading2>Придумайте новый пароль</Heading2>
             <Input

@@ -14,7 +14,7 @@ export interface LoginVariables {
 export const login = (data: LoginVariables) => {
   return axiosRequest<LoginVariables, AuthResponse>({
     method: 'POST',
-    url: '/api/v1/auth/log-in',
+    url: '/api/auth/log-in',
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
     data,

@@ -12,7 +12,6 @@
   background: $white;
   .NumberContainer {
     color: $text-gray;
-    //@include Heading2();
     font-weight: 400;
     .Total {
       color: $black;
@@ -25,7 +24,6 @@
   }
   .Period,
   .Info {
-    //@include Heading4();
     color: $text-gray;
   }
 }

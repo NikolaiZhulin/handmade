@@ -15,10 +15,10 @@ import { PostAddress } from '@/layout/RightBlockPost/components/Address';
 import { CategoryBadge } from '@/layout/RightBlockPost/components/CategoryBadge';
 import { Contacts } from '@/layout/RightBlockPost/components/Contacts';
 import Button from '@/ui/Button';
-
 import Swiper from '@/components/Swiper';
 import { mergeStyles } from '@/helpers/mergeStyles';
 import type { IPostContactInfo } from '@/types/posts';
+
 import style from '../style.module.scss';
 
 interface IProps {
@@ -39,12 +39,8 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
     textEn,
     textGe,
     contacts,
-    name,
-    price,
-    currency,
     files,
     requestCategories,
-    requestCity,
     requestMaterials,
     requestSamples,
     requestStones,
@@ -56,8 +52,6 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
   const handleBack = () => {
     onStep(-1);
   };
-  console.log('state', state);
-  console.log('contacts', contacts);
 
   const handlePost = () => {
     const payload = new FormData();
@@ -87,7 +81,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
       viber: dataToMap.viber,
       whatsApp: dataToMap.whatsApp,
       facebook: dataToMap.facebook,
-      name: dataToMap.contactName,
+      contactName: dataToMap.contactName,
       isPhoneActive: !dataToMap.phone ? false : dataToMap.isPhoneActive,
       isViberActive: !dataToMap.viber ? false : dataToMap.isViberActive,
       isAdditionalPhoneActive: !dataToMap.additionalPhone
@@ -104,7 +98,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
     createPost(payload, {
       onSuccess: () => {
         push('/');
-        toast.success(t('modals.post.createSuccessTitle'));
+        toast.success(t('modals.post.createSuccessTitle'), { autoClose: 7000 });
       },
       onError: (e) => {
         setModalType('error');
@@ -113,6 +107,11 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
         );
       },
     });
+  };
+
+  const sexesMap: Record<string, string> = {
+    for_him: t('for_him'),
+    for_her: t('for_her'),
   };
 
   return (
@@ -136,64 +135,73 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
           <Typography variant="heading3">{t('back')}</Typography>
         </button>
       </div>
-      <Typography className="2xl:py-[14px] xs:!px-[15px] 2xl:!px-[30px]" variant="heading2">
-        {t('post.isCorrect')}
-      </Typography>
-      <Swiper
-        images={files}
-        keyUpdater={false}
-        swiperHeight={'2xl:h-[542px] xs:h-[300px]'}
-        activeIndex={currentIndex}
-        onIndexChange={(index) => setCurrentIndex(index)}
-        leftButton={(onClick) => (
-          <>
-            {files.length > 1 && (
-              <button className={style.SliderButton} onClick={onClick}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="17"
-                  height="28"
-                  viewBox="0 0 17 28"
-                  fill="none"
-                >
-                  <path
-                    d="M2 2L14 14L2 26"
-                    stroke="white"
-                    stroke-width="3"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </button>
+      {files.length > 0 && (
+        <>
+          <Typography className="2xl:py-[14px] xs:!px-[15px] 2xl:!px-[30px]" variant="heading2">
+            {t('post.isCorrect')}
+          </Typography>
+
+          <Swiper
+            images={files}
+            keyUpdater={false}
+            swiperHeight={'2xl:h-[542px] xs:h-[300px]'}
+            activeIndex={currentIndex}
+            onIndexChange={(index) => setCurrentIndex(index)}
+            withCounter
+            leftButton={(onClick) => (
+              <>
+                {files.length > 1 && (
+                  <button className={style.SliderButton} onClick={onClick}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="17"
+                      height="28"
+                      viewBox="0 0 17 28"
+                      fill="none"
+                    >
+                      <path
+                        d="M2 2L14 14L2 26"
+                        stroke="white"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </>
             )}
-          </>
-        )}
-        rightButton={(onClick) => (
-          <>
-            {files.length > 1 && (
-              <button onClick={onClick} className={mergeStyles(style.SliderButton, style.right)}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="17"
-                  height="28"
-                  viewBox="0 0 17 28"
-                  fill="none"
-                >
-                  <path
-                    d="M2 2L14 14L2 26"
-                    stroke="white"
-                    stroke-width="3"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </button>
+            rightButton={(onClick) => (
+              <>
+                {files.length > 1 && (
+                  <button
+                    onClick={onClick}
+                    className={mergeStyles(style.SliderButton, style.right)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="17"
+                      height="28"
+                      viewBox="0 0 17 28"
+                      fill="none"
+                    >
+                      <path
+                        d="M2 2L14 14L2 26"
+                        stroke="white"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </>
             )}
-          </>
-        )}
-      />
+          />
+        </>
+      )}
       <div className="xs:!px-[15px] 2xl:!px-[30px]">
         <div className="flex flex-col 2xl:py-[14px] 2xl:mt-[14px] gap-[4px]">
           <Typography variant="heading2">{state.name}</Typography>
-          <Typography variant="heading2" className={cn(style.price, 'mt-auto')}>
+          <Typography variant="heading2" className={cn(style.price, 'mt-auto !text-[24px]')}>
             {state.price === 0
               ? t('main.dealPrice')
               : `${state.price} ${CURRENCY_SYMBOLS[state.currency]}`}
@@ -238,7 +246,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
             <div className="flex  w-full justify-between">
               <div className="flex flex-1 flex-col gap-2 items-start">
                 <Typography className={style.grayText} variant="heading3">
-                  {t('post.jewel')}
+                  {t('post.bijouterie')}
                 </Typography>
                 <Typography className={style.grayText} variant="heading3">
                   {t('post.material')}
@@ -259,28 +267,30 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
                   {t('inputs.careRecommendations')}
                 </Typography>
                 <Typography className={style.grayText} variant="heading3">
-                  {t('inputs.sex')}
+                  {t('sex')}
                 </Typography>
               </div>
               <div className="flex flex-1 flex-col gap-2 items-start">
                 <Typography variant="heading3">
-                  {requestCategories[0] ? requestCategories[0] : 'Отсутствует'}
+                  {requestCategories[0] ? t(`categories.${requestCategories[0]}`) : t('absent')}
                 </Typography>
                 <Typography variant="heading3">
-                  {requestMaterials[0] ? requestMaterials[0] : 'Отсутствует'}
+                  {requestMaterials[0] ? t(`metals.${requestMaterials[0]}`) : t('absent')}
                 </Typography>
                 <Typography variant="heading3">
-                  {requestSamples[0] ? requestSamples[0] : 'Отсутствует'}
+                  {requestSamples[0] ? requestSamples[0] : t('absent')}
                 </Typography>
                 <Typography variant="heading3">
-                  {requestStones[0] ? requestStones[0] : 'Отсутствует'}
+                  {requestStones[0] ? t(`stones.${requestStones[0]}`) : t('absent')}
                 </Typography>
-                <Typography variant="heading3">{bijouterie ? 'post.yes' : 'post.no'}</Typography>
-                <Typography variant="heading3">{size ? size : 'Отсутствует'}</Typography>
+                <Typography variant="heading3">{bijouterie ? t('yes') : t('no')}</Typography>
+                <Typography variant="heading3">{size ? size : t('absent')}</Typography>
                 <Typography variant="heading3">
-                  {careRecommendations ? careRecommendations : 'Отсутствует'}
+                  {careRecommendations ? careRecommendations : t('absent')}
                 </Typography>
-                <Typography variant="heading3">{sex ? sex : 'Отсутствует'}</Typography>
+                <Typography variant="heading3">
+                  {sex.length ? sex.map((s) => <span key={s}>{sexesMap[s]}</span>) : t('absent')}
+                </Typography>
               </div>
             </div>
           </div>

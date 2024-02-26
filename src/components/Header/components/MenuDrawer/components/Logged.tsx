@@ -32,7 +32,7 @@ const Logged: FC<IProps> = ({}) => {
         image={me?.image}
         subtext={
           <Link href={`/profile/${me?.id}`}>
-            <Typography variant="heading4" color="white" className="opacite-70">
+            <Typography variant="heading3" color="white" className="opacite-70">
               {t('profile.setup')}
             </Typography>
           </Link>
@@ -50,7 +50,7 @@ const Logged: FC<IProps> = ({}) => {
                   data &&
                   !!data.length && (
                     <Badge>
-                      <Typography variant="heading4">{data.length}</Typography>
+                      <Typography variant="heading3">{data.length}</Typography>
                     </Badge>
                   )
                 }
@@ -60,7 +60,7 @@ const Logged: FC<IProps> = ({}) => {
                 )}
               >
                 <HomeSvgSelector id={link.icon} />
-                <Typography variant="heading4" color="white" weight={550}>
+                <Typography variant="heading3" color="white" weight={500}>
                   {t(link.title)}
                 </Typography>
               </Category>,
@@ -85,13 +85,13 @@ const Logged: FC<IProps> = ({}) => {
                   data &&
                   !!data.length && (
                     <Badge>
-                      <Typography variant="heading4">{data.length}</Typography>
+                      <Typography variant="heading3">{data.length}</Typography>
                     </Badge>
                   )
                 }
               >
                 <HomeSvgSelector id={link.icon} />
-                <Typography variant="heading4" color="white" weight={550}>
+                <Typography variant="heading3" color="white" weight={500}>
                   {t(link.title)}
                 </Typography>
               </Category>

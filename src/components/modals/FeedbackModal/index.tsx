@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useContext } from 'react';
+import { FC, ReactNode, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as z from 'zod';
@@ -17,13 +17,18 @@ import Modal from '@/containers/Modal';
 import { ModalContext } from '@/contexts/ModalContext';
 import Textarea from '@/ui/Textarea';
 
-const FeedbackModal = () => {
+type Props = {
+  isOpen: boolean;
+  trigger: ReactNode;
+};
+
+const FeedbackModal: FC<Props> = (props) => {
+  const { isOpen, trigger } = props;
   const [{ feedbackModal }, setModal] = useContext(ModalContext);
   const { t } = useTranslation();
   const { mutate: createFeedback } = useCreateFeedback(() => {
     toast.success(t('toasts.messageSent'));
   }, getErrorToast);
-  const isFullScreen = useMediaQuery('(max-width: 600px)');
 
   const schema = z.object({
     description: z.string({ required_error: t('errors.required') }),
@@ -56,14 +61,15 @@ const FeedbackModal = () => {
 
   return (
     <div>
-      <button
-        className="p-2 rounded-[6px] bg-dark-gray"
-        onClick={() => setModal({ feedbackModal: true })}
-      >
-        <HomeSvgSelector id="feedback" />
-      </button>
+      {/*<button*/}
+      {/*  className="p-2 rounded-[6px] bg-dark-gray"*/}
+      {/*  onClick={() => setModal({ feedbackModal: true })}*/}
+      {/*>*/}
+      {/*  <HomeSvgSelector id="feedback" />*/}
+      {/*</button>*/}
+      {trigger}
       <Modal
-        isVisible={feedbackModal}
+        isVisible={feedbackModal || isOpen}
         onClose={() => setModal({ feedbackModal: false })}
         backdropClassName="xs:!w-full xs:!top-0 xs:!h-full"
         outerWrapperClassName="xs:h-full"

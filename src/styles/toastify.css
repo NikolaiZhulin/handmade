@@ -39,7 +39,7 @@
 }
 
 .Toastify__progress-bar{
-    display: none !important;
+    background: transparent !important;
 }
 
 .Toastify__close-button{

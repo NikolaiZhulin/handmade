@@ -17,6 +17,7 @@ import { IUserPostPreview, PostNameKeys } from '@/types/posts';
 import Button from '@/ui/Button';
 import Switch from '@/ui/Switch';
 import Typography from '@/ui/Typography';
+import { ImageService } from '@/constants/enums';
 
 import styles from './styles.module.scss';
 
@@ -45,7 +46,7 @@ const ProfilePost: FC<IProps> = ({ withBorder, post, disabled, refetch }) => {
   const { isActive } = watch();
 
   useEffect(() => {
-    if (isActive !== post.isActive) {
+    if (isActive !== undefined && isActive !== post.isActive) {
       const formData = new FormData();
       formData.append('isActive', isActive.toString());
       updatePost({ id: post.id, data: formData }, { onSuccess: refetch });
@@ -60,7 +61,7 @@ const ProfilePost: FC<IProps> = ({ withBorder, post, disabled, refetch }) => {
         <FlexContainer direction="column" gap={8} className={styles.h100}>
           <div className={mergeStyles(styles.image, disabled && styles.disabled)}>
             {post.images.length ? (
-              <img src={getImage(post.images[0])} />
+              <img src={getImage(ImageService.POSTS, post.images[0])} />
             ) : (
               <div className={styles.placeholder} />
             )}

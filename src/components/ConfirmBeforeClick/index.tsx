@@ -30,7 +30,7 @@ const ConfirmBeforeClick: FC<PropsWithChildren<IProps>> = ({
   return (
     <Dialog onOpenChange={setIsOpen} open={isOpen}>
       <DialogTrigger className={triggerClassName}>{children}</DialogTrigger>
-      <DialogContent className="w-[420px] xs:w-[calc(100%-40px)]">
+      <DialogContent className="w-[420px] xs:!w-[calc(100%-40px)]">
         <DialogHeader>
           <Typography variant="heading2">{text}</Typography>
         </DialogHeader>

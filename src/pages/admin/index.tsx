@@ -92,7 +92,7 @@ const Page = () => {
     <div className="flex items-center justify-center w-full h-full min-h-screen">
       <div className="p-[30px] w-[420px] flex flex-col gap-[14px] rounded-[12px] bg-white">
         {!isValid && isSubmitted && (
-          <Typography className="text-center" color="red" variant="heading4">
+          <Typography className="text-center" color="red" variant="heading3">
             {t('errors.wrongLoginAndPass')}
           </Typography>
         )}

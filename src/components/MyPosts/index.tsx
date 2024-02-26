@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { FC, useEffect, useState } from 'react';
 
 import { useGetMyPosts } from '@/api/posts/get-my-posts';
-import Announcement from '@/components/Announcement';
-import AnnouncementContainer from '@/components/AnnouncementContainer';
 import { mergeStyles } from '@/helpers/mergeStyles';
 import { useTranslation } from '@/hooks/useTranslation';
 import FlexContainer from '@/layout/FlexContainer';
 import Button from '@/ui/Button';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
+import Announcement from '@/components/Announcement';
+import AnnouncementContainer from '@/components/AnnouncementContainer';
 
 import SliderButton from '../SliderButton';
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
@@ -49,14 +49,16 @@ const MyPosts: FC = () => {
         <>
           {posts.posts.length ? (
             <AnnouncementContainer className="w-full">
-              {posts.posts.map((post) => (
-                <Announcement
-                  key={post.id}
-                  post={post}
-                  isMyAnnouncement
-                  refetchPostsList={refetch}
-                />
-              ))}
+              {[...posts.posts, ...posts.posts, ...posts.posts, ...posts.posts, ...posts.posts].map(
+                (post) => (
+                  <Announcement
+                    key={post.id}
+                    post={post}
+                    isMyAnnouncement
+                    refetchPostsList={refetch}
+                  />
+                ),
+              )}
             </AnnouncementContainer>
           ) : (
             <FlexContainer
@@ -66,7 +68,7 @@ const MyPosts: FC = () => {
               justify="center"
               gap={20}
             >
-              <HomeSvgSelector id="empty_folder" />
+              <img src="/images/empty-my-ads.png" alt="banner" className="w-[364px] h-[300px]" />
               <Typography variant="heading3" weight={700}>
                 {t('profile.emptyList')}
               </Typography>
@@ -75,23 +77,30 @@ const MyPosts: FC = () => {
         </>
       ) : (
         <FlexContainer
-          className={mergeStyles(styles.empty, styles.w100, '2xl:!h-full')}
+          className={mergeStyles(styles.empty, styles.w100)}
           align="center"
           direction="column"
           justify="center"
-          gap={20}
+          gap={10}
         >
-          <HomeSvgSelector id="empty_folder" />
-          <FlexContainer direction="column">
-            <Typography variant="heading3" weight={700}>
+          <img
+            src="/images/empty-my-ads.png"
+            alt="banner"
+            className="w-[364px] h-[300px] xs:w-[155px] xs:h-[128px]"
+          />
+          <FlexContainer direction="column" gap={4}>
+            <Typography variant="heading2" weight={700}>
               {t('profile.noPosts')}
             </Typography>
-            <Typography variant="heading3" color="gray" className={styles.maxText}>
+            <Typography variant="text3" color="gray">
               {t('profile.placePost')}
             </Typography>
           </FlexContainer>
           <Link href="/create">
-            <Button>{t('header.createPost')}</Button>
+            <Button className="2xl:!px-[10px] text-[14px] xs:!h-[35px] xs:w-[100%]">
+              <HomeSvgSelector id={'plus'} />
+              {t('header.createPost')}
+            </Button>
           </Link>
         </FlexContainer>
       )}

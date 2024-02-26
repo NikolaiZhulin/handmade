@@ -30,7 +30,7 @@ const CreateInfo: FC<PropsWithChildren<IProps>> = ({ step, setStep }) => {
 
   return (
     <>
-      <Breadcrumbs className="2xl:p-0 xs:p-0 xs:!px-[15px] 2xl:!px-[30px]" />
+      <Breadcrumbs className="2xl:p-0 xs:p-0" />
       <div className={cn('2xl:h-full')}>{formSteps[step]}</div>
     </>
   );

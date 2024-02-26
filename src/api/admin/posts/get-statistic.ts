@@ -6,7 +6,7 @@ import { IAdminPostsStatistic } from '@/types/admin/posts';
 export const getStatistic = () => {
   return axiosRequest<unknown, IAdminPostsStatistic>({
     method: 'GET',
-    url: '/api/v1/admin/posts/statistic',
+    url: '/api/admin/posts/statistic',
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL,
   });
 };

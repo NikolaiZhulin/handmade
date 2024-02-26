@@ -33,7 +33,6 @@ export default function Home() {
     t,
     i18n: { language },
   } = useTranslation();
-  console.log('step', step);
 
   return (
     <>
@@ -45,12 +44,10 @@ export default function Home() {
       </Head>
       <Header isHideSearch={true} />
       <Main>
-        <Container className="2xl:!h-auto 2xl:min-h-[calc(100vh-96px)] xs:p-[0]  2xl:py-0">
+        <Container className="2xl:!h-auto 2xl:min-h-[calc(100vh-96px)] xs:p-[0] 2xl:px-[30px] 2xl:py-0">
           <MainWrapper className="2xl:!mt-0 2xl:h-full 2xl:min-h-[calc(100vh-96px)]">
             <CreatePostContext.Provider value={context}>
-              <LeftBlock
-                className={`flex flex-col w-full gap-[18px] bg-white !mt-0 2xl:!h-auto 2xl:!static xs:!py-[14px] xs:gap-0 ${step === 3 ? '2xl:!px-[0px]' : '2xl:!px-[30px]'} xs:!pt-0 2xl:!pb-[30px]`}
-              >
+              <LeftBlock className="flex flex-col w-full gap-[18px] bg-white !mt-0 2xl:!h-auto 2xl:!static xs:!px-[20px] xs:!py-[14px] 2xl:!pb-[30px] xs:!pt-0 xs:gap-0">
                 <CreateInfo
                   step={step}
                   setStep={(direction) => setStep((prev) => prev + direction)}

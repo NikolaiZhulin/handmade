@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as z from 'zod';
@@ -36,13 +36,13 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
 
   const schema = z
     .object({
-      phone: z.string({ required_error: t('error.required') }),
-      contactName: z.string({ required_error: t('error.required') }),
+      phone: z.string({ required_error: t('errors.required') }),
+      contactName: z.string({ required_error: t('errors.required') }),
       additionalPhone: z.string().optional(),
       telegram: z.string().optional(),
       facebook: z.string().optional(),
       viber: z.string().optional(),
-      whatsapp: z.string().optional(),
+      whatsApp: z.string().optional(),
       isPhoneActive: z.boolean(),
       isAdditionalPhoneActive: z.boolean(),
       isTelegramActive: z.boolean(),
@@ -87,21 +87,21 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
       }
     });
 
-  const { control, watch, getValues, handleSubmit, clearErrors, setValue } = useForm({
+  const { control, watch, getValues, handleSubmit } = useForm({
     defaultValues: {
-      phone: state.phone,
-      contactName: state.contactName,
-      additionalPhone: state.additionalPhone,
-      telegram: state.telegram,
-      whatsapp: state.whatsApp,
-      viber: state.viber,
-      facebook: state.facebook,
+      phone: state.contacts.phone,
+      contactName: state.contacts.contactName,
+      additionalPhone: state.contacts.additionalPhone,
+      telegram: state.contacts.telegram,
+      whatsApp: state.contacts.whatsApp,
+      viber: state.contacts.viber,
+      facebook: state.contacts.facebook,
       isPhoneActive: state.isPhoneActive,
-      isAdditionalPhoneActive: false,
-      isTelegramActive: false,
-      isWhatsappActive: false,
-      isViberActive: false,
-      isFacebookActive: false,
+      isAdditionalPhoneActive: Boolean(state.contacts.additionalPhone),
+      isTelegramActive: Boolean(state.contacts.telegram),
+      isWhatsappActive: Boolean(state.contacts.whatsApp),
+      isViberActive: Boolean(state.contacts.viber),
+      isFacebookActive: Boolean(state.contacts.facebook),
     },
     resolver: zodResolver(schema),
     shouldFocusError: false,
@@ -109,22 +109,21 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
   });
 
   const formValues = watch();
-  console.log('formValues', formValues);
 
   const handleBack = () => {
     onStep(-1);
   };
 
-  useEffect(() => {
-    if (!formValues.isAdditionalPhoneActive) {
-      clearErrors('additionalPhone');
-      setValue('additionalPhone', '');
-    }
-    if (!formValues.isPhoneActive) {
-      clearErrors('phone');
-      setValue('phone', '');
-    }
-  }, [clearErrors, formValues.isAdditionalPhoneActive, formValues.isPhoneActive, setValue]);
+  // useEffect(() => {
+  //   if (!formValues.isAdditionalPhoneActive) {
+  //     clearErrors('additionalPhone');
+  //     setValue('additionalPhone', '');
+  //   }
+  //   if (!formValues.isPhoneActive) {
+  //     clearErrors('phone');
+  //     setValue('phone', '');
+  //   }
+  // }, [clearErrors, formValues.isAdditionalPhoneActive, formValues.isPhoneActive, setValue]);
 
   const handlePost = () => {
     handleSubmit((values) => {
@@ -157,15 +156,15 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
         additionalPhone: values.additionalPhone,
         telegram: values.telegram,
         viber: values.viber,
-        whatsApp: values.whatsapp,
+        whatsApp: values.whatsApp,
         facebook: values.facebook,
-        name: values.contactName,
+        contactName: values.contactName,
         isPhoneActive: !values.phone ? false : values.isPhoneActive,
         isViberActive: !values.viber ? false : values.isViberActive,
         isAdditionalPhoneActive: !values.additionalPhone ? false : values.isAdditionalPhoneActive,
         isFacebookActive: !values.facebook ? false : values.isFacebookActive,
         isTelegramActive: !values.telegram ? false : values.isTelegramActive,
-        isWhatsappActive: !values.whatsapp ? false : values.isWhatsappActive,
+        isWhatsappActive: !values.whatsApp ? false : values.isWhatsappActive,
       };
       payload.append('contacts', JSON.stringify(contacts));
       payload.append('source', 'web');
@@ -183,6 +182,11 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
         },
       });
     })();
+  };
+
+  const handleMove = (direction: number) => () => {
+    setState({ ...state, contacts: getValues() });
+    onStep(direction);
   };
 
   return (
@@ -223,7 +227,7 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
             controllerProps={{ name: thirdStepConfig[0].controller, control }}
             className={mergeStyles(style.w100)}
             placeholder={t(thirdStepConfig[0].placeholder)}
-            disabled={formValues[thirdStepConfig[0].switch]}
+            // disabled={formValues[thirdStepConfig[0].switch]}
             mask={thirdStepConfig[0].mask}
           />
         </div>
@@ -236,21 +240,14 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
               leftElem={<HomeSvgSelector id={item.icon} />}
               className={mergeStyles(style.w100)}
               placeholder={t(item.placeholder)}
-              disabled={formValues[item.switch]}
+              // disabled={formValues[item.switch]}
               mask={item.mask}
             />
           </div>
         ))}
         <Button
           className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}
-          onClick={
-            isLaptop
-              ? () => {
-                  setState(formValues);
-                  onStep(1);
-                }
-              : handlePost
-          }
+          onClick={isLaptop ? handleMove(1) : handlePost}
           disabled={isLoading}
         >
           {isLaptop ? 'Продолжить' : t('post.post')}

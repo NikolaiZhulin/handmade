@@ -17,7 +17,7 @@ export const thirdStepConfig = [
   },
   {
     icon: 'whatsapp',
-    controller: 'whatsapp',
+    controller: 'whatsApp',
     placeholder: 'inputs.whatsApp',
     switch: 'isWhatsappActive',
     mask: undefined,

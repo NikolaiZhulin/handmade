@@ -78,15 +78,8 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
     mode: 'all',
   });
 
-  const {
-    sex,
-    requestCity,
-    size,
-    requestCategories,
-    requestMaterials,
-    requestStones,
-    requestSamples,
-  } = watch();
+  const { sex, requestCity, requestCategories, requestMaterials, requestStones, requestSamples } =
+    watch();
 
   const handleMove = (direction: number) => () => {
     setState(getValues());
@@ -129,15 +122,13 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
         </div>
         <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
           <Typography variant="heading2">{t('post.addDescription')}</Typography>
-          <Typography variant="heading3" className={style['gray-text']}>
-            {t('post.willFaster')}
-          </Typography>
+          <Typography variant="heading3">{t('post.willFaster')}</Typography>
         </div>
         <div className="flex flex-col gap-2 px-[2px]">
           <div className="pt-2">
             <CustomSelect
               options={categories}
-              placeholder={t('inputs.jewel')}
+              placeholder={t('inputs.product')}
               onSelect={handleCategoriesValue}
               value={categories.find((el) => requestCategories?.includes(el.value))}
               withoutDialog

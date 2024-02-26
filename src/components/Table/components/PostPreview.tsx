@@ -35,10 +35,10 @@ const PostPreview: FC<IProps> = ({ post, update }) => {
       <DialogContent className="w-[800px] flex p-0">
         <div className="p-[30px] w-[529px] shrink-0 flex flex-col gap-[20px]">
           <div className="flex gap-2 mb-2">
-            <Typography variant="heading5" color="gray" className="underline">
+            <Typography variant="heading3" color="gray" className="underline">
               {post.id}
             </Typography>
-            <Typography variant="heading5" color="gray">
+            <Typography variant="heading3" color="gray">
               {new Date(post.createdAt).toLocaleDateString('ru-RU', {
                 month: '2-digit',
                 day: '2-digit',
@@ -49,10 +49,10 @@ const PostPreview: FC<IProps> = ({ post, update }) => {
               })}
             </Typography>
           </div>
-          <Typography variant="heading4">{post[textKey as keyof typeof post]}</Typography>
+          <Typography variant="heading3">{post[textKey as keyof typeof post]}</Typography>
           <Select
             options={categories}
-            placeholder={t('inputs.category')}
+            placeholder={t('inputs.product')}
             value={categories.find((el) => el.value === selectedValue)}
             onChange={setSelectedValue}
           />

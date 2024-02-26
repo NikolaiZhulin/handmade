@@ -1,8 +1,8 @@
 import { FC, PropsWithChildren } from 'react';
 
 import Heading2 from '@/ui/Heading2';
+import Heading3 from '@/ui/Heading3';
 import Logo from '@/ui/Logo';
-import Heading5 from '@/ui/Heading5';
 
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 
@@ -16,7 +16,7 @@ const Develop: FC<PropsWithChildren<IProps>> = () => {
       <Logo></Logo>
       <HomeSvgSelector id="develop"></HomeSvgSelector>
       <Heading2>Делаем сайт лучше</Heading2>
-      <Heading5>Мы скоро возобновим работу, заходите позже</Heading5>
+      <Heading3>Мы скоро возобновим работу, заходите позже</Heading3>
     </main>
   );
 };

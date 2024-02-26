@@ -7,7 +7,7 @@ import { IApiError } from '@/types/axios';
 export const deleteCategory = (id: string) => {
   return axiosRequest({
     method: 'DELETE',
-    url: `/api/v1/admin/categories/${id}`,
+    url: `/api/admin/categories/${id}`,
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL || '',
   });
 };

@@ -14,6 +14,7 @@ interface IProps extends HTMLAttributes<HTMLButtonElement> {
 
 const COLORS_MAP = {
   green: style.green,
+  gray: style.gray,
   blue: style.blue,
   neutral: style.neutral,
   deleteProfile: style.deleteProfile,

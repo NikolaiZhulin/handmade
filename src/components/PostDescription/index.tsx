@@ -45,24 +45,7 @@ const PostDescription: FC<IProps> = ({ text, postId }) => {
   const [modals, setModal] = useContext(ModalContext);
   const { mutate: createReport } = useCreateReport();
   const isFullScreen = useMediaQuery('(max-width: 1200px)');
-  // const [isFullText, setIsFullText] = useState(false);
-  // const [textHeight, setTextHeight] = useState('154px');
   const textRef = useRef<HTMLParagraphElement | null>(null);
-
-  // useLayoutEffect(() => {
-  //   const textHeight = textRef.current?.getBoundingClientRect().height;
-  //
-  //   if (textHeight && textHeight < 154) {
-  //     setTextHeight('auto');
-  //     return;
-  //   }
-  //
-  //   if (isFullText) {
-  //     setTextHeight(`${textHeight}px`);
-  //   } else {
-  //     setTextHeight('154px');
-  //   }
-  // }, [isFullText]);
 
   const { control, reset, watch, setValue, handleSubmit } = useForm<FormState>({
     defaultValues: {
@@ -133,18 +116,6 @@ const PostDescription: FC<IProps> = ({ text, postId }) => {
             {text}
           </Typography>
         </div>
-        {/*{isFullScreen && (*/}
-        {/*  <Button*/}
-        {/*    color="neutral"*/}
-        {/*    fullWidth={true}*/}
-        {/*    className={cn('2xl:!h-[32px]', textHeight === 'auto' && '2xl:!hidden')}*/}
-        {/*    onClick={() => setIsFullText((prev) => !prev)}*/}
-        {/*  >*/}
-        {/*    <Typography variant="text3" weight={400}>*/}
-        {/*      {isFullText ? 'Скрыть' : 'Показать'}*/}
-        {/*    </Typography>*/}
-        {/*  </Button>*/}
-        {/*)}*/}
         <ButtonLogin
           className={cn(style.ButtonLogin, '2xl:!w-full')}
           onClick={() =>

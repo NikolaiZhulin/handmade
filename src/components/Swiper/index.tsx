@@ -6,6 +6,7 @@ import { getImage } from '@/helpers/getImage';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import ImagesPrewiev from '@/ui/ImagesPreview';
 import { cn } from '@/utils/utils';
+import { ImageService } from '@/constants/enums';
 
 interface IProps {
   images: string[] | File[];
@@ -35,7 +36,6 @@ const Swiper: FC<IProps> = ({
   previewBlockClassname,
   inModal,
 }) => {
-  // const swiperRef = useRef<SwiperContainer>(null);
   const [swiperKey, setSwiperKey] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(activeIndex ?? 0);
   const isLaptop = useMediaQuery('(max-width: 1200px)');
@@ -54,7 +54,7 @@ const Swiper: FC<IProps> = ({
             setCurrentIndex(swiper.realIndex);
             onIndexChange?.(swiper.realIndex);
           },
-          realIndexChange: (swiper) => {},
+          realIndexChange: () => {},
         },
       };
 
@@ -78,7 +78,7 @@ const Swiper: FC<IProps> = ({
     }
   };
 
-  const previewClickHandler = (index: number) => () => {
+  const previewClickHandler = (index: number) => {
     swiperRef.current?.swiper.slideTo(index);
     onIndexChange?.(index);
   };
@@ -119,7 +119,10 @@ const Swiper: FC<IProps> = ({
             style={{ backgroundColor: inModal ? 'black gap-[14px]' : '' }}
           >
             {images.map((img) => {
-              const url = typeof img === 'string' ? getImage(img) : URL.createObjectURL(img);
+              const url =
+                typeof img === 'string'
+                  ? getImage(ImageService.POSTS, img)
+                  : URL.createObjectURL(img);
               return (
                 <swiper-slide key={url}>
                   <img src={url} alt="" />
@@ -168,7 +171,7 @@ const Swiper: FC<IProps> = ({
           <div
             className={cn(
               'xs:overflow-auto xs:w-full xs:h-[98px] no-scrollbar',
-              inModal && 'mt-auto py-[14px]',
+              inModal && 'overflow-x-auto mt-auto py-[14px]',
             )}
           >
             <div
@@ -182,18 +185,20 @@ const Swiper: FC<IProps> = ({
                 transform:
                   !inModal && currentIndex > 4
                     ? `translateY(calc(-${currentIndex - 4} * 113px))`
+                    : inModal
+                    ? `translateX(calc(-${currentIndex} * 128px))`
                     : '',
               }}
             >
-              {images.map((img, i) => {
+              {images.map((img, index) => {
                 const url = typeof img === 'string' ? img : URL.createObjectURL(img);
 
                 return (
                   <ImagesPrewiev
                     image={url}
                     key={url}
-                    isActive={i === currentIndex}
-                    onClick={() => previewClickHandler(i)}
+                    isActive={index === currentIndex}
+                    onClick={() => previewClickHandler(index)}
                   />
                 );
               })}

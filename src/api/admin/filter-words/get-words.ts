@@ -20,7 +20,7 @@ export interface IGetFilterWordsVariables {
 export const getFilterWords = (data: IGetFilterWordsVariables) => {
   return axiosRequest<IGetFilterWordsVariables, ResponseWithPagination<IKeyWord[]>>({
     method: 'GET',
-    url: '/api/v1/admin/filter-words',
+    url: '/api/admin/filter-words',
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL || '',
     params: convertObjectToQueryParams(data),
   });

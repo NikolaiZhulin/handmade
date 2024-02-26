@@ -7,9 +7,9 @@ export const CONTACT_LINKS = {
 
 export const ICONS_MAP = {
   telegram: 'telegram',
-  phone: 'tube',
+  phone: 'phone-icon',
   whatsApp: 'whatsapp',
   viber: 'viber',
-  facebook: 'facebook_filled',
-  additionalPhone: 'tube',
+  facebook: 'facebook',
+  additionalPhone: 'phone-icon',
 };

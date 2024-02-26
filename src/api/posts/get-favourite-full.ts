@@ -8,7 +8,7 @@ const MY_FULL_FAVOURITE_POSTS = 'myFullFavouritePosts';
 export const getFullFavouritePosts = () => {
   return axiosRequest<never, IPostResponse>({
     method: 'GET',
-    url: '/api/v1/posts/favourite/full',
+    url: '/api/posts/favourite/full',
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
   });

@@ -10,6 +10,11 @@ export const cities = [
     icon: '',
   },
   {
+    label: 'cities.kutaisi',
+    value: 'kutaisi',
+    icon: '',
+  },
+  {
     label: 'cities.tbilisi',
     value: 'tbilisi',
     icon: '',

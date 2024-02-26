@@ -2,6 +2,7 @@ import { FC, PropsWithChildren } from 'react';
 
 import { getImage } from '@/helpers/getImage';
 import { mergeStyles } from '@/helpers/mergeStyles';
+import { ImageService } from '@/constants/enums';
 
 import style from './style.module.scss';
 
@@ -20,7 +21,14 @@ const Images: FC<PropsWithChildren<IProps>> = ({ images, title, isGrid }) => {
         !images.length && style.placeholder,
       )}
     >
-      {images[0] && <img src={getImage(images[0])} alt={title} title={title} loading="lazy" />}
+      {images[0] && (
+        <img
+          src={getImage(ImageService.POSTS, images[0])}
+          alt={title}
+          title={title}
+          loading="lazy"
+        />
+      )}
     </div>
   );
 };

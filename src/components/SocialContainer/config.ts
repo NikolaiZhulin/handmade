@@ -7,7 +7,7 @@ export const config = [
     lowBg: 'bg-light-blue transition-[background-color] duration-250',
     action: () => {
       window.open(
-        `${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/v1/auth/facebook`,
+        `${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/auth/facebook`,
         'newwindow',
         'toolbar=no, menubar=no, width=600, height=700, opener',
       );
@@ -21,7 +21,7 @@ export const config = [
     lowBg: 'bg-light-red transition-[background-color] duration-250',
     action: () => {
       window.open(
-        `${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/v1/auth/google`,
+        `${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/auth/google`,
         'newwindow',
         'toolbar=no, menubar=no, width=600, height=700, opener',
       );

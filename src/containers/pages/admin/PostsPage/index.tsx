@@ -7,12 +7,10 @@ import RightBlock from '@/layout/RightBlock';
 import MainWrapper from '@/layout/MainWrapper';
 import Statistics from '@/components/Statistics';
 import Table from '@/components/Table';
-import AdminHeader from '@/components/AdminHeader';
 import { useGetStatistic } from '@/api/admin/posts/get-statistic';
 import { useTranslation } from '@/hooks/useTranslation';
 import Pagination from '@/components/Pagination';
 import { GetAdminPostsVariables, useGetAdminPosts } from '@/api/admin/posts/get-posts';
-import AdminTopBlock from '@/components/AdminTopBlock';
 import TableRow from '@/components/Table/components/TablePostRow';
 
 const PostsPage = () => {
@@ -33,7 +31,6 @@ const PostsPage = () => {
 
   return (
     <Container>
-      <AdminHeader />
       <Main className="!pt-[62px]">
         <MainWrapper>
           <AdminLeftBlock />
@@ -69,7 +66,6 @@ const PostsPage = () => {
               )}
             </div>
             <RightBlock>
-              <AdminTopBlock setRules={setRules} />
               <Table
                 headerItems={[
                   'ID',

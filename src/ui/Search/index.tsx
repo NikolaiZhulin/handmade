@@ -21,12 +21,11 @@ const Search = () => {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isButtonFocused, setIsButtonFocused] = useState(false);
   const { t } = useTranslation();
-  const isTablet = useMediaQuery('(max-width: 768px)');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value);
 
   const handleSearchClick = () => {
-    if (!/search/.test(pathname)) {
+    if (!/^\//.test(pathname)) {
       push(
         {
           query: {
@@ -34,7 +33,7 @@ const Search = () => {
             category: query.category ?? 'all',
             cities: cities.includes('all') ? 'all' : cities.join(','),
           },
-          pathname: '/search',
+          pathname: '/',
         },
         undefined,
       );
@@ -46,7 +45,7 @@ const Search = () => {
             category: query.category ?? 'all',
             cities: cities.includes('all') ? 'all' : cities.join(','),
           },
-          pathname: '/search',
+          pathname: '/',
         },
         undefined,
         { shallow: true },

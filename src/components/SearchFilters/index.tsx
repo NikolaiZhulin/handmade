@@ -10,7 +10,6 @@ import { useTranslation } from '@/hooks/useTranslation';
 import Typography from '@/ui/Typography';
 import { useGetCategoriesForSelect } from '@/hooks/useGetCategoriesForSelect';
 import CustomSelect from '@/ui/CustomSelect';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/utils';
 import { metals } from '@/constants/metals';
 import { ShowAllListButton } from '@/ui/ShowAllListButton';
@@ -55,25 +54,110 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
           ? ['all']
           : (query.cities as string).split(',')
         : [],
-      metal: (query.metals as string)?.split(','),
-      sample: (query.samples as string)?.split(','),
-      stone: (query.stones as string)?.split(','),
-      sex: (query.sex as string)?.split(','),
-      isJewelry: true,
+      metal: [],
+      sample: [],
+      stone: [],
+      sex: [],
+      isJewelry: false,
       category: (query.category as string) ?? 'all',
       search: (query.search as string) ?? '',
       withPhoto: false,
       priceFrom: undefined,
       priceTo: undefined,
-      isUsed: false,
     },
   });
 
   const { city, metal, sample, sex, stone, isUsed, withPhoto, search, category } = watch();
 
-  const setIsJewelry = (isActive: boolean) => () => setValue('isJewelry', !isActive);
+  const setIsJewelry = (isActive: boolean) => () => {
+    setValue('isJewelry', !isActive);
+  };
+
+  const setMetal = (value: string) => {
+    if(!Array.isArray(metal)){
+      return
+    }
+    if (value) {
+      if (!metal.includes(value)) {
+        const nextValue = [...metal, value];
+        setValue('metal', nextValue);
+      } else {
+        const nextValues = [...metal];
+
+        const existed = nextValues.findIndex((item) => item === value);
+        nextValues.splice(existed, 1);
+        setValue('metal', nextValues);
+      }
+    }
+  };
+
+  const setSample = (value: string) => {
+    if(!Array.isArray(sample)){
+      return
+    }
+    if (value) {
+      if (!sample?.includes(value)) {
+        const nextValue = [...sample, value];
+        setValue('sample', nextValue);
+      } else {
+        const nextValues = [...sample];
+
+        const existed = nextValues.findIndex((item) => item === value);
+        nextValues.splice(existed, 1);
+        setValue('sample', nextValues);
+      }
+    }
+  };
+
+  const setSex = (value: string) => {
+    if(!Array.isArray(sex)){
+      return
+    }
+    if (value) {
+      if (!sex.includes(value)) {
+        const nextValue = [...sex, value];
+        setValue('sex', nextValue);
+      } else {
+        const nextValues = [...sex];
+
+        const existed = nextValues.findIndex((item) => item === value);
+        nextValues.splice(existed, 1);
+        setValue('sex', nextValues);
+      }
+    }
+  };
+
+  const setStone = (value: string) => {
+    if (!value || !Array.isArray(stone)) {
+      return;
+    }
+
+    if (value === 'none' && stone.includes(value)) {
+      const emptyArr: string[] = [];
+      setValue('stone', emptyArr);
+      return;
+    }
+    if (value === 'none') {
+      setValue('stone', [value]);
+      return;
+    }
+
+    if (!stone.includes(value)) {
+      const nextValue = [...stone.filter((s) => s !== 'none'), value];
+      setValue('stone', nextValue);
+    } else {
+      const nextValues = [...stone];
+
+      const existed = nextValues.findIndex((item) => item === value);
+      nextValues.splice(existed, 1);
+      setValue('stone', nextValues);
+    }
+  };
 
   const handleSelectChange = (value: string | string[]) => {
+    if(!Array.isArray(city)){
+      return
+    }
     if (Array.isArray(value)) {
       setValue('city', value);
       return;
@@ -107,7 +191,7 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
 
   const applyFilters = () => {
     handleSubmit((values) => {
-      onApplyFilters({ ...values, isUsed: !values.isUsed });
+      onApplyFilters({ ...values });
     })();
     onModalClose?.();
   };
@@ -121,12 +205,29 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
       isUsed: false,
       priceFrom: undefined,
       priceTo: undefined,
+      metal: undefined,
+      sample: [],
     });
     applyFilters();
   };
 
-  const resetCities = () => {
-    setValue('city', []);
+  const onReset = (field: string) => {
+    switch (field) {
+      case 'city':
+        setValue('city', ['all']);
+        break;
+      case 'metal':
+        setValue('metal', []);
+        break;
+      case 'sample':
+        setValue('sample', []);
+        break;
+      case 'stone':
+        setValue('stone', []);
+        break;
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
@@ -146,7 +247,7 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
           {t('search.reset')}
         </Button>
         <CustomSelect
-          placeholder={t('inputs.category')}
+          placeholder={t('inputs.product')}
           containerClassname="mt-[14px]"
           options={[{ value: 'all', label: t('inputs.allCategories') }, ...categories]}
           onSelect={(value) => setValue('category', value)}
@@ -157,8 +258,8 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
           {t('inputs.onlyImage')}
         </Checkbox>
         <div className={styles.cityReset}>
-          <Typography variant="heading2">Metal</Typography>
-          <button onClick={resetCities}>
+          <Typography variant="heading2">{t('metal')}</Typography>
+          <button onClick={() => onReset('metal')}>
             <Typography variant="text3">{t('reset')}</Typography>
           </button>
         </div>
@@ -169,7 +270,7 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
             id={el.value}
             value={el.value}
             checked={metal?.includes(el.value)}
-            onChangeCustom={(_, value) => handleSelectChange(value as string)}
+            onChangeCustom={(_, value) => setMetal(value as string)}
           >
             {t(el.label)}
           </Checkbox>
@@ -181,14 +282,14 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
           )}
         >
           <div className=" min-h-[0px] flex flex-col gap-[14px]">
-            {metals.slice(0, 4).map((el) => (
+            {metals.slice(4, metals.length).map((el) => (
               <Checkbox
                 key={el.value}
                 controllerProps={{ control, name: 'metal' }}
                 id={el.value}
                 value={el.value}
                 checked={metal?.includes(el.value)}
-                onChangeCustom={(_, value) => handleSelectChange(value as string)}
+                onChangeCustom={(_, value) => setMetal(value as string)}
               >
                 {t(el.label)}
               </Checkbox>
@@ -200,8 +301,8 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
           isOpen={isMetalsListOpen}
         />
         <div className={cn(styles.cityReset)}>
-          <Typography variant="heading2">Sample</Typography>
-          <button onClick={resetCities}>
+          <Typography variant="heading2">{t('sample')}</Typography>
+          <button onClick={() => onReset('sample')}>
             <Typography variant="text3">{t('reset')}</Typography>
           </button>
         </div>
@@ -212,26 +313,26 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
             id={el.value}
             value={el.value}
             checked={sample?.includes(el.value)}
-            onChangeCustom={(_, value) => handleSelectChange(value as string)}
+            onChangeCustom={(_, value) => setSample(value as string)}
           >
             {t(el.label)}
           </Checkbox>
         ))}
 
         <div className={styles.cityReset}>
-          <Typography variant="heading2">Stone</Typography>
-          <button onClick={resetCities}>
+          <Typography variant="heading2">{t('stone')}</Typography>
+          <button onClick={() => onReset('stone')}>
             <Typography variant="text3">{t('reset')}</Typography>
           </button>
         </div>
-        {stones.slice(0, 4).map((el) => (
+        {stones.slice(0, 5).map((el) => (
           <Checkbox
             key={el.value}
             controllerProps={{ control, name: 'stone' }}
             id={el.value}
             value={el.value}
-            checked={metal?.includes(el.value)}
-            onChangeCustom={(_, value) => handleSelectChange(value as string)}
+            checked={stone?.includes(el.value)}
+            onChangeCustom={(_, value) => setStone(value as string)}
           >
             {t(el.label)}
           </Checkbox>
@@ -239,18 +340,18 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
         <div
           className={cn(
             'grid grid-rows-[0fr] transition-[all] overflow-hidden mt-[-14px]',
-            isMetalsListOpen && 'grid-rows-[1fr] mt-[0px]',
+            isStonesListOpen && 'grid-rows-[1fr] mt-[0px]',
           )}
         >
           <div className=" min-h-[0px] flex flex-col gap-[14px]">
-            {stones.slice(0, 4).map((el) => (
+            {stones.slice(5, stones.length).map((el) => (
               <Checkbox
                 key={el.value}
                 controllerProps={{ control, name: 'stone' }}
                 id={el.value}
                 value={el.value}
                 checked={stone?.includes(el.value)}
-                onChangeCustom={(_, value) => handleSelectChange(value as string)}
+                onChangeCustom={(_, value) => setStone(value as string)}
               >
                 {t(el.label)}
               </Checkbox>
@@ -263,7 +364,7 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
         />
 
         <div className={styles.cityReset}>
-          <Typography variant="heading2">Jewelry</Typography>
+          <Typography variant="heading2">{t('jewelry')}</Typography>
         </div>
         <SliderButton
           leftText={t('yes')}
@@ -275,7 +376,7 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
         />
 
         <div className={styles.cityReset}>
-          <Typography variant="heading2">Sex</Typography>
+          <Typography variant="heading2">{t('sex')}</Typography>
         </div>
         {sexes.map((el) => (
           <Checkbox
@@ -284,7 +385,7 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
             id={el.value}
             value={el.value}
             checked={sex?.includes(el.value)}
-            onChangeCustom={(_, value) => handleSelectChange(value as string)}
+            onChangeCustom={(_, value) => setSex(value as string)}
           >
             {t(el.label)}
           </Checkbox>
@@ -309,8 +410,8 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
         {/*</Checkbox>*/}
 
         <div className={styles.cityReset}>
-          <Typography variant="heading2">{t('inputs.city')}</Typography>
-          <button onClick={resetCities}>
+          <Typography variant="heading2">{t('header.city')}</Typography>
+          <button onClick={() => onReset('city')}>
             <Typography variant="text3">{t('reset')}</Typography>
           </button>
         </div>
@@ -320,7 +421,7 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
             controllerProps={{ control, name: 'city' }}
             id={el.value}
             value={el.value}
-            checked={city.includes(el.value)}
+            checked={city?.includes(el.value)}
             onChangeCustom={(_, value) => handleSelectChange(value as string)}
           >
             {t(el.label)}
@@ -330,7 +431,6 @@ const SearchFilters: FC<IProps> = ({ onModalClose, onApplyFilters, searchedItems
           {t('search.show')} ({searchedItems || 0})
         </Button>
       </div>
-      {/*{!isLaptop && <BanerSidebar />}*/}
     </>
   );
 };

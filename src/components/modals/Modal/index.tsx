@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { cloneElement, FC, ReactElement, ReactNode, useState } from 'react';
 
 import Typography from '@/ui/Typography';
 import Button from '@/ui/Button';
@@ -36,10 +36,18 @@ const Modal: FC<IProps> = ({
 
   const onOpenChange = (open: boolean) => setIsOpen(open);
 
+  const handleTriggerClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(true);
+  };
+
   return (
     <Dialog onOpenChange={onOpenChange} open={isOpen}>
-      <DialogTrigger className={triggerClassName}>{trigger}</DialogTrigger>
-      <DialogContent className={cn('w-[420px]', dialogClassName)}>
+      <DialogTrigger className={triggerClassName}>
+        {cloneElement(trigger as ReactElement, { onClick: handleTriggerClick })}
+      </DialogTrigger>
+      <DialogContent className={cn('w-[420px] xs:w-[calc(100%-40px)]', dialogClassName)}>
         <DialogHeader>
           <Typography variant="heading2">{header}</Typography>
         </DialogHeader>

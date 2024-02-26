@@ -12,7 +12,7 @@ export interface ICreateFeedbackVariables {
 const createFeedback = (data: ICreateFeedbackVariables) => {
   return axiosRequest<ICreateFeedbackVariables, void>({
     method: 'POST',
-    url: '/api/v1/admin/feedback',
+    url: '/api/admin/feedback',
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL,
     data,
   });

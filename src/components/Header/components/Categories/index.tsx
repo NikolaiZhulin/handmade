@@ -22,7 +22,7 @@ const Categories = () => {
 
   const content = categories.map((item) => (
     <Link
-      href={`/search?category=${item.value}`}
+      href={`/?category=${item.value}`}
       key={item.value}
       className="w-[320px] block 2xl:w-[100%]"
     >

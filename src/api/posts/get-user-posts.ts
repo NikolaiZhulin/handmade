@@ -9,7 +9,7 @@ export const GET_USER_POSTS_KEY = 'userPosts';
 export const getUserPosts = (userId: string) => {
   return axiosRequest<never, { posts: IPostResponse['posts']; user: ExternalUser }>({
     method: 'GET',
-    url: `/api/v1/posts/posts/${userId}?active=true`,
+    url: `/api/posts/posts/${userId}?active=true`,
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
   });

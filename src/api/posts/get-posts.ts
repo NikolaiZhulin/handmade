@@ -16,6 +16,11 @@ export interface GetPostsVariables {
     priceTo?: number;
     isUsed?: boolean;
     search?: string;
+    metal?: string[];
+    sample?: string[];
+    stone?: string[];
+    isJewelry?: boolean;
+    sex?: string[];
   };
   page?: {
     page?: number;
@@ -46,7 +51,7 @@ export const getPosts = (data: GetPostsVariables) => {
 
   return axiosRequest<GetPostsVariables, ResponseWithPagination<IPostResponse>>({
     method: 'GET',
-    url: '/api/v1/posts/all',
+    url: '/api/posts/all',
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
     params: convertObjectToQueryParams(data),

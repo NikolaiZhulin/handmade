@@ -57,7 +57,7 @@ const Lang: FC<PropsWithChildren<IProps>> = () => {
             {langs.map((lang) => (
               <div
                 className={cn(
-                  'w-full flex items-center gap-[14px] cursor-pointer font-[500] h-[34px] pl-[6px] font-helvetica',
+                  'w-full flex items-center gap-[14px] cursor-pointer font-[500] h-[34px] pl-[6px] font-montserrat',
                   'transition-all ease-out font-helvetica hover:bg-light-gray',
                   '[&:not(:last-child)]:border-b-[1px] border-solid border-light-gray 2xl:h-[36px] group transition-all duration-300 ease-out hover:bg-green-light',
                 )}

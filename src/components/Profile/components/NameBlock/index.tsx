@@ -1,9 +1,9 @@
 import { FC, ReactNode } from 'react';
 
 import FlexContainer from '@/layout/FlexContainer';
-import Heading1 from '@/ui/Heading1';
 import { getImage } from '@/helpers/getImage';
 import Typography from '@/ui/Typography';
+import { ImageService } from '@/constants/enums';
 
 import styles from './styles.module.scss';
 
@@ -24,7 +24,7 @@ const NameBlock: FC<IProps> = ({ name, subtext, image, smallUserName, preview, n
           <img src={preview} alt="profile photo" title="profile photo" />
         ) : image ? (
           <img
-            src={image.startsWith('http') ? image : getImage(image, 'profiles')}
+            src={image.startsWith('http') ? image : getImage(ImageService.AUTH, image, 'profiles')}
             alt="profile photo"
             title="profile photo"
           />

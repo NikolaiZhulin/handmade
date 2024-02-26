@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import * as z from 'zod';
 
 import { IGetWordsVariables } from '@/api/admin/key-words/get-words';
-import AdminHeader from '@/components/AdminHeader';
 import Table from '@/components/Table';
 import { getErrorToast } from '@/helpers/aggregateErrorsMessage';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -82,7 +81,6 @@ const FilterWordsPage = ({}) => {
 
   return (
     <Container>
-      <AdminHeader />
       <Main className="!pt-[62px]">
         <MainWrapper>
           <AdminLeftBlock />

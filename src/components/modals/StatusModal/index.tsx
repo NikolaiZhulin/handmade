@@ -44,7 +44,7 @@ const StatusModal: FC<IProps> = ({
         </DialogHeader>
         <DialogDescription className="flex flex-col gap-2">
           <Typography variant="heading2">{title}</Typography>
-          <Typography variant="heading5" color="gray">
+          <Typography variant="text2" color="gray">
             {subtitle}
           </Typography>
         </DialogDescription>

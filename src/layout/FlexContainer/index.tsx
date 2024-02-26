@@ -5,7 +5,9 @@ import { mergeStyles } from '@/helpers/mergeStyles';
 import style from './style.module.scss';
 
 const GAPS_MAP = {
+  4: style.gap4,
   8: style.gap8,
+  10: style.gap10,
   14: style.gap14,
   16: style.gap16,
   20: style.gap20,

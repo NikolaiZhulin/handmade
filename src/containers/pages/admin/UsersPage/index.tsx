@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { IGetUsersVariables, useGetUsers } from '@/api/admin/users/get-users';
-import AdminHeader from '@/components/AdminHeader';
 import Pagination from '@/components/Pagination';
 import Table from '@/components/Table';
 import UsersStatistic from '@/components/UsersStatistic';
@@ -44,7 +43,6 @@ const UsersPage = () => {
 
   return (
     <Container>
-      <AdminHeader />
       <Main className="!pt-[62px]">
         <MainWrapper>
           <AdminLeftBlock />

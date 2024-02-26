@@ -22,7 +22,7 @@
   }
   &::after {
     position: absolute;
-    left: 2px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
     overflow: hidden;
@@ -62,7 +62,7 @@
   }
   &.login {
     &::after {
-      left: 50%;
+      left: 51%;
     }
   }
 }

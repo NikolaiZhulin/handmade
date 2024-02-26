@@ -41,3 +41,9 @@ export enum ReportPostReason {
   RULES = 'breakRules',
   SCAMM = 'scammer',
 }
+
+export enum ImageService {
+  ADMIN = 'admin/categories',
+  AUTH = 'profile',
+  POSTS = 'posts',
+}

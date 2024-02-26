@@ -33,7 +33,7 @@ export const getAdminPosts = (data: GetAdminPostsVariables) => {
 
   return axiosRequest<GetAdminPostsVariables, ResponseWithPagination<IAdminPost[]>>({
     method: 'GET',
-    url: '/api/v1/admin/posts',
+    url: '/api/admin/posts',
     contentType: 'application/json',
     baseURL: process.env.NEXT_PUBLIC_ADMIN_API_URL || '',
     params: convertObjectToQueryParams(data),

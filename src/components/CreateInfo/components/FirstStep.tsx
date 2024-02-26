@@ -52,7 +52,7 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
       textRu: z.string(),
       textEn: z.string(),
       textGe: z.string(),
-      price: z.coerce.number({ invalid_type_error: t('errors.enterNumber') }),
+      price: z.coerce.number(),
       currency: z.string().nonempty(t('errors.required')),
     })
     .partial({
@@ -178,7 +178,7 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
 
           <FlexContainer className={cn(style.FlexContainer, 'pt-2')}>
             <Input
-              controllerProps={{ name: 'price', control }}
+              controllerProps={{ name: 'price', control, defaultValue: 0 }}
               placeholder={t('price')}
               type="number"
               disabled={!accessToken}
@@ -197,7 +197,7 @@ export const FirstStep: FC<IProps> = ({ onStep }) => {
           </FlexContainer>
         </div>
         <InputImages initialFiles={files} onFiles={handleFilesChange} disabled={!accessToken} />
-        {files.length > 0 && (
+        {watch().name && (
           <Button
             color="neutral"
             className={cn(style.ButtonNext, '2xl:mt-auto !w-full')}

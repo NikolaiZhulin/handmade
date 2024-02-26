@@ -6,7 +6,6 @@ import Modal from '@/containers/Modal';
 import { GetPostsVariables } from '@/api/posts/get-posts';
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
 import { cn } from '@/utils/utils';
-import Typography from '@/ui/Typography';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import CustomSelect from '@/ui/CustomSelect';
 import { cities } from '@/constants/cities';
@@ -62,22 +61,16 @@ export const FiltersRow: FC<Props> = (props) => {
           placeholder={'Город'}
           containerClassname="min-w-[155px]"
           options={[{ value: 'all', label: t('inputs.allCategories') }, ...cities]}
-          // onSelect={(value) => setValue('category', value)}
-          // value={cities[0]}
         />
         <CustomSelect
           placeholder={'Изделие'}
           containerClassname="min-w-[155px]"
           options={[{ value: 'all', label: t('inputs.allCategories') }, ...cities]}
-          // onSelect={(value) => setValue('category', value)}
-          // value={}
         />
         <CustomSelect
           placeholder={'Металл'}
           containerClassname="min-w-[155px]"
           options={[{ value: 'all', label: t('inputs.allCategories') }, ...cities]}
-          // onSelect={(value) => setValue('category', value)}
-          // value={}
         />
       </div>
     </>

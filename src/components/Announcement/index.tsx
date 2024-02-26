@@ -34,6 +34,7 @@ interface IProps {
   isUsdPrice?: boolean;
   isMyAnnouncement?: boolean;
   refetchPostsList?: () => void;
+  isSold?: boolean;
 }
 
 const Announcement: FC<PropsWithChildren<IProps>> = ({
@@ -43,6 +44,7 @@ const Announcement: FC<PropsWithChildren<IProps>> = ({
   isGrid,
   isUsdPrice,
   refetchPostsList,
+  isSold,
 }) => {
   const { data: favourite, refetch } = useGetFavouritePosts();
   const { mutate: makeFavourite } = useMakeFavourite();
@@ -65,7 +67,7 @@ const Announcement: FC<PropsWithChildren<IProps>> = ({
   const { isActive } = watch();
 
   useEffect(() => {
-    if (isActive !== post.isActive) {
+    if (isActive !== undefined && isActive !== post.isActive) {
       const formData = new FormData();
       formData.append('isActive', isActive.toString());
       updatePost({ id: post.id, data: formData }, { onSuccess: refetchPostsList });
@@ -105,6 +107,17 @@ const Announcement: FC<PropsWithChildren<IProps>> = ({
       prefetch={false}
       target="_blank"
     >
+      {isSold && (
+        <div className="absolute left-0 right-0 top-0 bottom-0 bg-black bg-opacity-50 z-[2] flex items-center justify-center">
+          <Typography
+            variant="text2"
+            className="max-w-[220px] w-[100%] h-[32px] bg-gold flex justify-center items-center xs:w-[auto] xs:px-[16px]"
+            color="white"
+          >
+            {t('sold')}
+          </Typography>
+        </div>
+      )}
       <div className={mergeStyles(style.Announcement, className, style.Grid)}>
         <Images images={post.images} title={post[nameKey as keyof PostNameKeys]} isGrid={isGrid} />
         <div className={cn(style.AnnouncementInformation)}>
