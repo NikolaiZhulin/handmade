@@ -10,5 +10,5 @@ export default function BodyPortal({ children }: {children: ReactNode}) {
 
   useSSRLayoutEffect(() => setIsMounted(true), []);
 
-  return <>{isMounted && createPortal(children as ReactPortal, document.body)}</>;
+  return <>{isMounted && createPortal(children, document.body)}</>;
 }
