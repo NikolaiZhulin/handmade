@@ -1,4 +1,4 @@
-import {ReactNode, ReactPortal, useState} from 'react';
+import {ReactNode, useState} from 'react';
 import { createPortal } from 'react-dom';
 
 import useSSRLayoutEffect from '@/hooks/common/useSSRLayoutEffect';
@@ -10,5 +10,5 @@ export default function BodyPortal({ children }: {children: ReactNode}) {
 
   if (typeof window === 'undefined') return null;
 
-  return <>{isMounted && createPortal(children as ReactPortal, document.body)}</>;
+  return <>{isMounted && createPortal(<>{children}</>, document.body)}</>;
 }
