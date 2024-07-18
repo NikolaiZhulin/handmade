@@ -120,7 +120,9 @@
     "postViews": "views",
     "edit": "Edit",
     "postDeleteWarn": "Want to delete the ad?",
-    "changePassTitle": "Change Password"
+    "changePassTitle": "Change Password",
+    "profile": "Profile",
+    "my_ads": "My ads"
   },
   "favourites": {
     "cleared": "Favorites cleared",
@@ -150,11 +152,15 @@
   },
   "metals": {
     "gold": "Gold",
+    "red_gold": "Red gold",
+    "white_gold": "White gold",
     "silver": "Silver",
     "platinum": "Platinum",
     "copper": "Copper",
     "brass": "Brass",
-    "titan": "Titan"
+    "titan": "Titan",
+    "iron": "Iron",
+    "all_metals": "All metals"
   },
 
   "categories": {
@@ -176,7 +182,52 @@
     "agate": "Agate",
     "aquamarine": "Aquamarine",
     "alpanite": "Alpanite",
-    "amethyst": "Amethyst"
+    "ametrine": "Ametrine",
+    "turquoise": "Turquoise",
+    "synthetic_turquoise": "Synthetic Turquoise",
+    "diamond": "Diamond",
+    "grown_diamond": "Grown Diamond",
+    "garnet": "Garnet",
+    "pearl": "Pearl",
+    "emerald": "Emerald",
+    "iolite": "Iolite",
+    "quartz": "Quartz",
+    "kyanite": "Kyanite",
+    "cameo": "Cameo",
+    "corundum": "Corundum",
+
+    "coral": "Coral",
+    "london_topaz": "London Topaz",
+    "lapis_lazuli": "Lapis lazuli",
+    "morganite": "Morganite",
+    "malachite": "Malachite",
+    "nanositall": "Nanositall",
+    "onyx": "Onyx",
+    "opal": "Opal",
+    "peridot": "Peridot",
+    "nacre": "Nacre",
+    "rhodolite": "Rhodolite",
+    "rubellite": "Rubellite",
+    "ruby": "Ruby",
+    "sapphire": "Sapphire",
+    "swarovski": "Swarovski",
+    "sultanite": "Sultanite",
+    "cornelian": "Cornelian",
+    "tanzanite": "Tanzanite",
+    "topaz": "Topaz",
+    "tourmaline": "Tourmaline",
+    "cubic_zirconia": "Cubic zirconia",
+    "chalcedony": "Chalcedony",
+    "chrysolite": "Chrysolite",
+    "chrysoprase": "Chrysoprase",
+    "chrome_diopside": "Chrome Diopside",
+    "tsavorite": "Tsavorite",
+    "colored_diamond": "Colored Diamond",
+    "citrine": "Citrine",
+    "zircon": "Zircon",
+    "spinel": "Spinel",
+    "enamel": "Enamel",
+    "all_stones": "All stones"
   },
   "timeMaps": {
     "minute1": "minute",
@@ -227,7 +278,7 @@
     "phone": "Phone",
     "additionalPhone": "Additional phone",
     "name": "Name",
-    "products": "Goods",
+    "product": "Goods",
     "city": "City",
     "currentPass": "Current password",
     "newPass": "New password",
@@ -362,5 +413,10 @@
   "metal": "Metal",
   "size": "Size",
   "careRecommendations": "Recommendations for care",
-  "absent": "Absent"
+  "absent": "Absent",
+  "priceFrom": "Price from",
+  "priceTo": "Price to",
+  "factory": "Factory product",
+  "handmade": "Handmade product",
+  "all_samples": "All samples"
 }

@@ -24,7 +24,7 @@ const NameBlock: FC<IProps> = ({ name, subtext, image, smallUserName, preview, n
           <img src={preview} alt="profile photo" title="profile photo" />
         ) : image ? (
           <img
-            src={image.startsWith('http') ? image : getImage(ImageService.AUTH, image, 'profiles')}
+            src={image.startsWith('http') ? image : getImage(ImageService.AUTH, image)}
             alt="profile photo"
             title="profile photo"
           />

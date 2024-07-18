@@ -1,7 +1,6 @@
 import { FC, PropsWithChildren, useContext } from 'react';
 import Link from 'next/link';
 
-import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
 import { MODAL_CONTEXT_VALUES, ModalContext } from '@/contexts/ModalContext';
 import { cn } from '@/utils/utils';
 
@@ -23,8 +22,11 @@ const Logo: FC<PropsWithChildren<IProps>> = () => {
         }}
         className="[&>svg]:hidden 2xl:[&>svg]:block"
       >
-        <img src="/images/logo.png" alt="logo" className="w-[77px] h-[70px] 2xl:hidden"/>
-        <HomeSvgSelector id="mini-logo" />
+        <img
+          src="/images/logo.png"
+          alt="logo"
+          className="w-[77px] h-[auto] 2xl:w-[46px] xs:w-[31px]"
+        />
       </Link>
     </div>
   );

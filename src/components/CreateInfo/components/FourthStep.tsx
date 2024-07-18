@@ -41,13 +41,14 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
     contacts,
     files,
     requestCategories,
-    requestMaterials,
-    requestSamples,
-    requestStones,
-    careRecommendations,
+    material,
+    sample,
+    stone,
+    recommendations,
     bijouterie,
     size,
     sex,
+    madeBy,
   } = state;
   const handleBack = () => {
     onStep(-1);
@@ -207,7 +208,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
               : `${state.price} ${CURRENCY_SYMBOLS[state.currency]}`}
           </Typography>
           <div className="flex items-center gap-[14px]">
-            <PostAddress city={state.requestCity[0]} address={state.address} className="!p-0" />
+            <PostAddress city={state.city} address={state.address} className="!p-0" />
             {requestCategories.map((badge) => (
               <CategoryBadge value={badge} key={badge} className="!p-0" />
             ))}
@@ -239,59 +240,75 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
               <Typography variant="heading3">{state.textEn}</Typography>
             </div>
           )}
-          <div className="flex flex-col gap-[14px]">
-            <Typography variant="heading2" className="py-[4px]">
+          <div className="flex flex-col gap-[8px] 2xl:!px-[30px] xs:!px-[15px]">
+            <Typography variant="heading2" className="mt-[4px] mb-[18px]">
               {t('post.parameters')}
             </Typography>
-            <div className="flex  w-full justify-between">
-              <div className="flex flex-1 flex-col gap-2 items-start">
-                <Typography className={style.grayText} variant="heading3">
-                  {t('post.bijouterie')}
-                </Typography>
-                <Typography className={style.grayText} variant="heading3">
-                  {t('post.material')}
-                </Typography>
-                <Typography className={style.grayText} variant="heading3">
-                  {t('inputs.sample')}
-                </Typography>
-                <Typography className={style.grayText} variant="heading3">
-                  {t('inputs.stone')}
-                </Typography>
-                <Typography className={style.grayText} variant="heading3">
-                  {t('inputs.bijouterie')}
-                </Typography>
-                <Typography className={style.grayText} variant="heading3">
-                  {t('inputs.size')}
-                </Typography>
-                <Typography className={style.grayText} variant="heading3">
-                  {t('inputs.careRecommendations')}
-                </Typography>
-                <Typography className={style.grayText} variant="heading3">
-                  {t('sex')}
-                </Typography>
-              </div>
-              <div className="flex flex-1 flex-col gap-2 items-start">
-                <Typography variant="heading3">
-                  {requestCategories[0] ? t(`categories.${requestCategories[0]}`) : t('absent')}
-                </Typography>
-                <Typography variant="heading3">
-                  {requestMaterials[0] ? t(`metals.${requestMaterials[0]}`) : t('absent')}
-                </Typography>
-                <Typography variant="heading3">
-                  {requestSamples[0] ? requestSamples[0] : t('absent')}
-                </Typography>
-                <Typography variant="heading3">
-                  {requestStones[0] ? t(`stones.${requestStones[0]}`) : t('absent')}
-                </Typography>
-                <Typography variant="heading3">{bijouterie ? t('yes') : t('no')}</Typography>
-                <Typography variant="heading3">{size ? size : t('absent')}</Typography>
-                <Typography variant="heading3">
-                  {careRecommendations ? careRecommendations : t('absent')}
-                </Typography>
-                <Typography variant="heading3">
-                  {sex.length ? sex.map((s) => <span key={s}>{sexesMap[s]}</span>) : t('absent')}
-                </Typography>
-              </div>
+            <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+              <Typography className={style.grayText} variant="heading3">
+                {t('inputs.category')}
+              </Typography>
+              <Typography variant="heading3">
+                {requestCategories[0] ? t(`categories.${requestCategories[0]}`) : t('absent')}
+              </Typography>
+            </div>
+            <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+              <Typography className={style.grayText} variant="heading3">
+                {t('metal')}
+              </Typography>
+              <Typography variant="heading3">
+                {material ? t(`metals.${material}`) : t('absent')}
+              </Typography>
+            </div>
+            <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+              <Typography className={style.grayText} variant="heading3">
+                {t('inputs.sample')}
+              </Typography>
+              <Typography variant="heading3">{sample ? sample : t('absent')}</Typography>
+            </div>
+            <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+              <Typography className={style.grayText} variant="heading3">
+                {t('stone')}
+              </Typography>
+              <Typography variant="heading3">
+                {stone ? t(`stones.${stone}`) : t('absent')}
+              </Typography>
+            </div>
+            <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+              <Typography className={style.grayText} variant="heading3">
+                {t('post.bijouterie')}
+              </Typography>
+              <Typography variant="heading3">{bijouterie ? t('yes') : t('no')}</Typography>
+            </div>
+            <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+              <Typography className={style.grayText} variant="heading3">
+                {t('size')}
+              </Typography>
+              <Typography variant="heading3">{size ? size : t('absent')}</Typography>
+            </div>
+            <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+              <Typography className={style.grayText} variant="heading3">
+                {t('sex')}
+              </Typography>
+              <Typography variant="heading3">
+                {sex ? <span key={sex}>{sexesMap[sex]}</span> : t('absent')}
+              </Typography>
+            </div>
+            <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+              <Typography className={style.grayText} variant="heading3">
+                {t('inputs.product')}
+              </Typography>
+              <Typography variant="heading3" className={'break-all'}>
+                {madeBy ? t(madeBy) : t('absent')}
+              </Typography>
+            </div>
+            <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+              <Typography className={style.grayText} variant="heading3">
+                {t('careRecommendations')}
+              </Typography>
+              <Typography variant="heading3" className={'break-all'}>
+                {recommendations ? recommendations : t('absent')}
+              </Typography>
             </div>
           </div>
           <div>

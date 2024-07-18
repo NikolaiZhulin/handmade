@@ -2,10 +2,10 @@
 @import '../../styles/mixin.scss';
 
 .search {
-  background: #DDD8D4;
+  background: $white;
   display: flex;
   height: 44px;
-  border: 1px solid #DDD8D4;
+  border: 1px solid $main-green;
   padding: 0;
   padding-right: 18px;
   flex: 1;
@@ -26,7 +26,7 @@
     height: 100%;
     @include Heading3();
     color: $black;
-    background: #DDD8D4;
+    background: $white;
 
     &::placeholder {
       position: relative;

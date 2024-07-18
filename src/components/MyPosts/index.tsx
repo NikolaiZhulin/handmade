@@ -49,16 +49,14 @@ const MyPosts: FC = () => {
         <>
           {posts.posts.length ? (
             <AnnouncementContainer className="w-full">
-              {[...posts.posts, ...posts.posts, ...posts.posts, ...posts.posts, ...posts.posts].map(
-                (post) => (
-                  <Announcement
-                    key={post.id}
-                    post={post}
-                    isMyAnnouncement
-                    refetchPostsList={refetch}
-                  />
-                ),
-              )}
+              {posts.posts.map((post) => (
+                <Announcement
+                  key={post.id}
+                  post={post}
+                  isMyAnnouncement
+                  refetchPostsList={refetch}
+                />
+              ))}
             </AnnouncementContainer>
           ) : (
             <FlexContainer

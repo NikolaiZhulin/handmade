@@ -1,5 +1,10 @@
 export const samples = [
   {
+    label: '56',
+    value: '56',
+    icon: '',
+  },
+  {
     label: '375',
     value: '375',
     icon: '',
@@ -7,6 +12,11 @@ export const samples = [
   {
     label: '500',
     value: '500',
+    icon: '',
+  },
+  {
+    label: '583',
+    value: '583',
     icon: '',
   },
   {
@@ -20,13 +30,18 @@ export const samples = [
     icon: '',
   },
   {
-    label: '900',
-    value: '900',
+    label: '958',
+    value: '958',
     icon: '',
   },
   {
     label: '999',
     value: '999',
+    icon: '',
+  },
+  {
+    label: 'all_samples',
+    value: 'all_samples',
     icon: '',
   },
 ];

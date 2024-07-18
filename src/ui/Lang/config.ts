@@ -1,7 +1,7 @@
 export const LANGS_MAP = {
+  ge: 'ქართული',
   en: 'English',
   ru: 'Русский',
-  ge: 'ქართული',
 };
 
-export const DEFAULT_LANGS = ['ru', 'en', 'ge'];
+export const DEFAULT_LANGS = ['ge', 'ru', 'en'];

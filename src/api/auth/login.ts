@@ -16,7 +16,7 @@ export const login = (data: LoginVariables) => {
     method: 'POST',
     url: '/api/auth/log-in',
     contentType: 'application/json',
-    baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
+    baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
     data,
   });
 };

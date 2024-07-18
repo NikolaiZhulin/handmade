@@ -1,11 +1,10 @@
 import { useRouter } from 'next/router';
-import { ChangeEvent, useState, KeyboardEvent, useContext } from 'react';
+import { ChangeEvent, useState, KeyboardEvent, useContext, useEffect } from 'react';
 
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
 import { mergeStyles } from '@/helpers/mergeStyles';
 import { useTranslation } from '@/hooks/useTranslation';
 import { MODAL_CONTEXT_VALUES, ModalContext } from '@/contexts/ModalContext';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/utils';
 
 import style from './style.module.scss';
@@ -22,6 +21,14 @@ const Search = () => {
   const [isButtonFocused, setIsButtonFocused] = useState(false);
   const { t } = useTranslation();
 
+  useEffect(() => {
+    setCities(query?.cities as string[]);
+  }, [query.cities]);
+
+  useEffect(() => {
+    setSearchValue(query?.search || '');
+  }, [query.search]);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value);
 
   const handleSearchClick = () => {
@@ -29,21 +36,22 @@ const Search = () => {
       push(
         {
           query: {
+            ...query,
             search: searchValue,
-            category: query.category ?? 'all',
-            cities: cities.includes('all') ? 'all' : cities.join(','),
+            cities: Array.isArray(cities) ? cities.join(',') : cities,
           },
           pathname: '/',
         },
         undefined,
+        { shallow: true },
       );
     } else {
       push(
         {
           query: {
+            ...query,
             search: searchValue,
-            category: query.category ?? 'all',
-            cities: cities.includes('all') ? 'all' : cities.join(','),
+            cities: Array.isArray(cities) ? cities.join(',') : cities,
           },
           pathname: '/',
         },

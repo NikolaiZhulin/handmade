@@ -16,7 +16,7 @@ export const signUp = (data: SignUpVariables) => {
     method: 'POST',
     url: '/api/auth/sign-up',
     contentType: 'application/json',
-    baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
+    baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
     data,
   });
 };

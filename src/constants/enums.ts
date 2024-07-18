@@ -5,6 +5,10 @@ export enum CodeType {
   CONNECT_MAIL = 'connect-email',
 }
 
+export enum PostMadeBy {
+  FACTORY = 'factory',
+  HANDMADE = 'handmade',
+}
 export enum AuthFormType {
   LOGIN = 'login',
   REGISTRATION = 'registration',

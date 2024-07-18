@@ -55,7 +55,7 @@ const MainPage = () => {
             {!isLaptop && <BanerSidebar />}
           </LeftBlock>
           <RightBlock className="2xl:!rounded-none xs:!px-[14px]">
-            <CategoriesBar />
+            <CategoriesBar onClick={() => {}} />
             <FlexContainer className="mt-[30px]">
               <Heading2>{t('main.lastPosts')}</Heading2>
               <div className="flex items-center gap-[16px]">

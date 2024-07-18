@@ -201,7 +201,7 @@ const RestorePasswordForm: FC<IProps> = ({ onClose, setModalError }) => {
           }
           type="text"
         />
-        {Number(confirmationCode) === +code && (
+        {+confirmationCode === +code && (
           <>
             <Heading2>Придумайте новый пароль</Heading2>
             <Input

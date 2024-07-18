@@ -11,13 +11,19 @@ export const getMe = (token: string) => {
     method: 'GET',
     url: '/api/profile/me',
     contentType: 'application/json',
-    baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
+    baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
     token,
   });
 };
 
 export const useGetMe = () => {
-  return useQuery([GET_ME_QUERY], () => getMe(accessTokenCookie.value() ?? ''), {
-    staleTime: 3600,
-  });
+  return useQuery(
+    [GET_ME_QUERY],
+    () => {
+      return getMe(accessTokenCookie.value() ?? '');
+    },
+    {
+      staleTime: 3600,
+    },
+  );
 };

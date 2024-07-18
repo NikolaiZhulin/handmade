@@ -15,7 +15,7 @@ export const requestCode = (data: RequestCodeVariables) => {
     method: 'POST',
     url: '/api/auth/request-code',
     contentType: 'application/json',
-    baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
+    baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
     data,
   });
 };

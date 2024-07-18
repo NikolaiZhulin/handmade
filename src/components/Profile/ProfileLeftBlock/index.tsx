@@ -7,7 +7,6 @@ import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
 import Category from '@/ui/Category';
 import Typography from '@/ui/Typography';
 import { useGetMe } from '@/api/auth/get-me';
-import { useGetFavouritePosts } from '@/api/posts/get-favourite';
 import { UserContext } from '@/contexts/UserContext';
 import { cn } from '@/utils/utils';
 import { ModalContext } from '@/contexts/ModalContext';
@@ -17,10 +16,10 @@ import NameBlock from '../components/NameBlock';
 import { PROFILE_SIDE_LINKS } from './config';
 import styles from './styles.module.scss';
 
-const ProfileLeftBlock = () => {
+const ProfileLeftBlock = (props: { setMobileHidden?: () => void }) => {
+  const { setMobileHidden } = props;
   const { data: me } = useGetMe();
   const { pathname, push } = useRouter();
-  const { data } = useGetFavouritePosts();
   const [, setState] = useContext(UserContext);
   const { t } = useTranslation();
   const [{ feedbackModal }, setModal] = useContext(ModalContext);
@@ -31,7 +30,7 @@ const ProfileLeftBlock = () => {
         name={me?.name ?? 'U'}
         image={me?.image}
         subtext={
-          <Link href={`/profile/${me?.id}`}>
+          <Link href={`/profile/${me?.id}`} onClick={setMobileHidden}>
             <Typography variant="text3" color="gray" className="underline">
               {t('profile.setup')}
             </Typography>

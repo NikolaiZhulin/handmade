@@ -75,6 +75,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout<{ dehydratedState: D
     if (accessTokenCookie.value()) {
       contextValue[1]({ accessToken: accessTokenCookie.value() });
     }
+    console.log(process.env);
   }, []);
 
   return getLayout(

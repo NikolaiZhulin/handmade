@@ -1,6 +1,5 @@
 import { FC, PropsWithChildren, useMemo } from 'react';
 
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils/utils';
 
 import Breadcrumbs from '../Breadcrumbs';
@@ -16,7 +15,6 @@ interface IProps {
 }
 
 const CreateInfo: FC<PropsWithChildren<IProps>> = ({ step, setStep }) => {
-  const isLaptop = useMediaQuery('(max-width: 1200px)');
   const onStep = (direction: number) => setStep(direction);
 
   const formSteps = useMemo(() => {

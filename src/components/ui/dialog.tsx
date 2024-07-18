@@ -62,7 +62,7 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & { withClose?: boolean }
->(({ className, children, withClose, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Content
@@ -74,11 +74,9 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      {withClose && (
-        <DialogPrimitive.Close className="absolute !z-[1000] top-[19px] right-[15px] [&>svg]:h-[24px] [&>svg]:w-[24px] hover:opacity-50">
-          <HomeSvgSelector id={'modal-cross'} />
-        </DialogPrimitive.Close>
-      )}
+      <DialogPrimitive.Close className="absolute !z-[1000] top-[19px] right-[15px] [&>svg]:h-[24px] [&>svg]:w-[24px] hover:opacity-50">
+        <HomeSvgSelector id={'modal-cross'} />
+      </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
 ));

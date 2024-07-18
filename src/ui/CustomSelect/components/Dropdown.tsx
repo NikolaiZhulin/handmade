@@ -64,7 +64,7 @@ const Dropdown = forwardRef<HTMLDivElement, IProps>(
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className={cn('max-h-[263px] overflow-auto', dropdownInnerContainerClassname)}>
+        <div className={cn('max-h-[275px] overflow-auto', dropdownInnerContainerClassname)}>
           {typeof options === 'function'
             ? options({ isHovered, close: () => setIsOpen(false) })
             : options.map((option, i) => (

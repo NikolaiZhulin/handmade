@@ -131,6 +131,24 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
 
       const dataToMap = { ...state, ...values };
 
+      const contacts: IPostContactInfo = {
+        phone: values.phone,
+        additionalPhone: values.additionalPhone,
+        telegram: values.telegram,
+        viber: values.viber,
+        whatsApp: values.whatsApp,
+        facebook: values.facebook,
+        contactName: values.contactName,
+        isPhoneActive: !values.phone ? false : values.isPhoneActive,
+        isViberActive: !values.viber ? false : values.isViberActive,
+        isAdditionalPhoneActive: !values.additionalPhone ? false : values.isAdditionalPhoneActive,
+        isFacebookActive: !values.facebook ? false : values.isFacebookActive,
+        isTelegramActive: !values.telegram ? false : values.isTelegramActive,
+        isWhatsappActive: !values.whatsApp ? false : values.isWhatsappActive,
+      };
+
+      dataToMap.contacts = contacts;
+
       Object.keys(values).forEach((key) => {
         delete dataToMap[key as keyof typeof dataToMap];
       });
@@ -151,22 +169,6 @@ const ThirdStep: FC<IProps> = ({ onStep }) => {
         }
       });
 
-      const contacts: IPostContactInfo = {
-        phone: values.phone,
-        additionalPhone: values.additionalPhone,
-        telegram: values.telegram,
-        viber: values.viber,
-        whatsApp: values.whatsApp,
-        facebook: values.facebook,
-        contactName: values.contactName,
-        isPhoneActive: !values.phone ? false : values.isPhoneActive,
-        isViberActive: !values.viber ? false : values.isViberActive,
-        isAdditionalPhoneActive: !values.additionalPhone ? false : values.isAdditionalPhoneActive,
-        isFacebookActive: !values.facebook ? false : values.isFacebookActive,
-        isTelegramActive: !values.telegram ? false : values.isTelegramActive,
-        isWhatsappActive: !values.whatsApp ? false : values.isWhatsappActive,
-      };
-      payload.append('contacts', JSON.stringify(contacts));
       payload.append('source', 'web');
 
       createPost(payload, {

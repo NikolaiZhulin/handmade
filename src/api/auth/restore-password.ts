@@ -16,7 +16,7 @@ export const passwordRecovery = (data: PasswordRestoreVariables) => {
     method: 'POST',
     url: '/api/auth/password/recovery',
     contentType: 'application/json',
-    baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL || '',
+    baseURL: process.env.NEXT_PUBLIC_POSTS_API_URL || '',
     data,
   });
 };

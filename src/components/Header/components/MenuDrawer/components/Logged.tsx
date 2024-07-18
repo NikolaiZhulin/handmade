@@ -60,7 +60,7 @@ const Logged: FC<IProps> = ({}) => {
                 )}
               >
                 <HomeSvgSelector id={link.icon} />
-                <Typography variant="heading3" color="white" weight={500}>
+                <Typography variant="heading3" color="white" weight={600}>
                   {t(link.title)}
                 </Typography>
               </Category>,
@@ -91,7 +91,7 @@ const Logged: FC<IProps> = ({}) => {
                 }
               >
                 <HomeSvgSelector id={link.icon} />
-                <Typography variant="heading3" color="white" weight={500}>
+                <Typography variant="heading3" color="white" weight={600}>
                   {t(link.title)}
                 </Typography>
               </Category>

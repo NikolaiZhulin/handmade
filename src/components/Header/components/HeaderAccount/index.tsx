@@ -39,7 +39,7 @@ const HeaderAccount: FC<IProps> = ({ id }) => {
               src={
                 me.image.startsWith('http')
                   ? me.image
-                  : getImage(ImageService.AUTH, me?.image, 'profiles')
+                  : getImage(ImageService.AUTH, me?.image)
               }
               alt="profile image"
               title="profile image"

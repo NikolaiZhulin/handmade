@@ -31,7 +31,6 @@ const Modal: FC<PropsWithChildren<IProps>> = ({
   outerWrapperClassName,
   innerWrapperClassName,
   backdropClassName,
-  withCloseButton,
   title,
 }) => {
   useBlockScroll(isVisible);
@@ -73,7 +72,7 @@ const Modal: FC<PropsWithChildren<IProps>> = ({
             isHidden={!isVisibleInner}
             onClose={onClose}
             keepBackdrop={keepBackdrop}
-            className={cn(backdropClassName, 'xs:!top-96px')}
+            className={cn(backdropClassName, 'relative xs:!top-96px')}
           >
             <div
               className={mergeStyles(
@@ -106,14 +105,12 @@ const Modal: FC<PropsWithChildren<IProps>> = ({
                         {title}
                       </Typography>
                     )}
-                    {withCloseButton && (
-                      <button
-                        onClick={onClose}
-                        className="ml-[auto] [&>svg]:h-[24px] [&>svg]:w-[24px] hover:opacity-50"
-                      >
-                        <HomeSvgSelector id={'modal-cross'} />
-                      </button>
-                    )}
+                    <button
+                      onClick={onClose}
+                      className="ml-[auto] padding-[10px] absolute top-[20px] right-[20px] xs:top-[15px] xs:right-[15px] [&>svg]:h-[24px] [&>svg]:w-[24px] hover:opacity-50"
+                    >
+                      <HomeSvgSelector id={'modal-cross'} />
+                    </button>
                   </div>
                   {children}
                 </div>

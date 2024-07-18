@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Select from '@/ui/CustomSelect';
 import { cn } from '@/utils/utils';
@@ -19,24 +20,30 @@ const Categories = () => {
   const { t } = useTranslation();
   const categories = useGetCategoriesForSelect();
   const inDialog = useMediaQuery('(max-width: 600px)');
+  const router = useRouter();
+  const { query } = router;
 
-  const content = categories.map((item) => (
-    <Link
-      href={`/?category=${item.value}`}
-      key={item.value}
-      className="w-[320px] block 2xl:w-[100%]"
-    >
-      <div
-        className={cn(
-          'group hover:text-white px-[10px] relative flex cursor-pointer select-none items-center transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-          'font-montserrat 2xl:px-[30px] xs:!px-[15px] font-semibold text-[14px] leading-[18px] py-[10px] gap-[8px] pr-[18px] hover:pr-0 transition-all duration-300 hover:bg-green-light ease-out',
-        )}
+  const content = categories.map((item) => {
+    const isActive = item.value === query.category;
+    return (
+      <Link
+        href={`/?category=${item.value}&resetOtherFilters=true`}
+        key={item.value}
+        className="w-[320px] block 2xl:w-[100%]"
       >
-        {item.icon}
-        {item.label}
-      </div>
-    </Link>
-  ));
+        <div
+          className={cn(
+            'group h-[44px] hover:text-white px-[10px] relative flex cursor-pointer select-none items-center transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+            'font-montserrat 2xl:px-[30px] xs:!px-[15px] font-semibold text-[14px] leading-[18px] py-[10px] gap-[8px] pr-[18px] hover:pr-0 transition-all duration-300 hover:bg-green-light ease-out',
+            isActive ? 'font-bold bg-light-gray' : undefined,
+          )}
+        >
+          {item.icon}
+          {item.label}
+        </div>
+      </Link>
+    );
+  });
 
   if (inDialog) {
     return (

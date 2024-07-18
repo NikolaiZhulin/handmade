@@ -46,7 +46,7 @@ const ProfilePost: FC<IProps> = ({ withBorder, post, disabled, refetch }) => {
   const { isActive } = watch();
 
   useEffect(() => {
-    if (isActive !== undefined && isActive !== post.isActive) {
+    if (isActive !== post.isActive) {
       const formData = new FormData();
       formData.append('isActive', isActive.toString());
       updatePost({ id: post.id, data: formData }, { onSuccess: refetch });

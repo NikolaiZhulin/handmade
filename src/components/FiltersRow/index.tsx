@@ -3,20 +3,19 @@ import { useTranslation } from 'next-i18next';
 
 import SearchFilters from '@/components/SearchFilters';
 import Modal from '@/containers/Modal';
-import { GetPostsVariables } from '@/api/posts/get-posts';
+import { Filters, GetPostsVariables } from '@/api/posts/get-posts';
 import { HomeSvgSelector } from '@/components/svg/HomeSvgSelector';
 import { cn } from '@/utils/utils';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import CustomSelect from '@/ui/CustomSelect';
-import { cities } from '@/constants/cities';
 
 type Props = {
   onApplyFilters: (data: GetPostsVariables['filter']) => void;
+  filters: Filters;
   className?: string;
 };
 
 export const FiltersRow: FC<Props> = (props) => {
-  const { onApplyFilters, className } = props;
+  const { onApplyFilters, className, filters } = props;
   const canModalOpen = useMediaQuery('(max-width: 1200px)');
 
   useEffect(() => {
@@ -39,39 +38,42 @@ export const FiltersRow: FC<Props> = (props) => {
         title="Фильтрация"
         withCloseButton
       >
-        <SearchFilters
-          onApplyFilters={onApplyFilters}
-          onModalClose={() => setIsFilterModalOpen(false)}
-        />
+        {canModalOpen && (
+          <SearchFilters
+            onApplyFilters={onApplyFilters}
+            onModalClose={() => setIsFilterModalOpen(false)}
+            filters={filters}
+          />
+        )}
       </Modal>
       <div
         className={cn(
-          'flex gap-[30px] items-center max-w-full overflow-x-auto py-[1px] pb-[10px]',
+          'flex gap-[30px] items-center max-w-full overflow-x-auto py-[1px]',
           className,
         )}
       >
         <button
           onClick={() => setIsFilterModalOpen(true)}
-          className="text-main-green flex gap-[8px] pl-[16px] items-center"
+          className="text-main-green flex gap-[8px]  items-center"
         >
           <HomeSvgSelector id="filters-icon" />
           {t('search.filters')}
         </button>
-        <CustomSelect
-          placeholder={'Город'}
-          containerClassname="min-w-[155px]"
-          options={[{ value: 'all', label: t('inputs.allCategories') }, ...cities]}
-        />
-        <CustomSelect
-          placeholder={'Изделие'}
-          containerClassname="min-w-[155px]"
-          options={[{ value: 'all', label: t('inputs.allCategories') }, ...cities]}
-        />
-        <CustomSelect
-          placeholder={'Металл'}
-          containerClassname="min-w-[155px]"
-          options={[{ value: 'all', label: t('inputs.allCategories') }, ...cities]}
-        />
+        {/*<CustomSelect*/}
+        {/*  placeholder={'Город'}*/}
+        {/*  containerClassname="min-w-[155px]"*/}
+        {/*  options={[{ value: 'all', label: t('inputs.allCategories') }, ...cities]}*/}
+        {/*/>*/}
+        {/*<CustomSelect*/}
+        {/*  placeholder={t('product')}*/}
+        {/*  containerClassname="min-w-[155px]"*/}
+        {/*  options={[{ value: 'all', label: t('inputs.allCategories') }, ...cities]}*/}
+        {/*/>*/}
+        {/*<CustomSelect*/}
+        {/*  placeholder={t('metal')}*/}
+        {/*  containerClassname="min-w-[155px]"*/}
+        {/*  options={[{ value: 'all', label: t('inputs.allCategories') }, ...cities]}*/}
+        {/*/>*/}
       </div>
     </>
   );

@@ -4,24 +4,28 @@ import { axiosRequest } from '@/helpers/axiosRequest';
 import { convertObjectToQueryParams } from '@/helpers/convertObjectToParams';
 import { ResponseWithPagination } from '@/types/common';
 import { IPostResponse } from '@/types/posts';
+import { PostMadeBy } from '@/constants/enums';
 
 export type SortBy = 'createdAt' | 'price';
 export type sortAt = 'ASC' | 'DESC';
+
+export type Filters = {
+  category: string;
+  withPhoto?: boolean;
+  city?: string[];
+  priceFrom?: number;
+  priceTo?: number;
+  isUsed?: boolean;
+  search?: string;
+  metal?: string[];
+  sample?: string[];
+  stone?: string[];
+  isJewelry?: boolean;
+  sex?: string[];
+  madeBy?: PostMadeBy;
+};
 export interface GetPostsVariables {
-  filter: {
-    category?: string;
-    withPhoto?: boolean;
-    city?: string[] | string;
-    priceFrom?: number;
-    priceTo?: number;
-    isUsed?: boolean;
-    search?: string;
-    metal?: string[];
-    sample?: string[];
-    stone?: string[];
-    isJewelry?: boolean;
-    sex?: string[];
-  };
+  filter: Filters;
   page?: {
     page?: number;
     limit?: number;

@@ -4,16 +4,17 @@ import { axiosRequest } from '@/helpers/axiosRequest';
 import { convertObjectToQueryParams } from '@/helpers/convertObjectToParams';
 import { IUserData } from '@/types/admin/users';
 import { ResponseWithPagination } from '@/types/common';
-import {SortBy} from "@/api/posts/get-posts";
 
 export interface IGetUsersVariables {
-  filter: Record<string, string | number | string[] | boolean>;
+  filter: {
+    search?: string;
+  };
   page?: {
     page?: number;
     limit?: number;
   };
   sort?: {
-    sortBy?: SortBy;
+    sortBy?: string;
     sortAt?: 'ASC' | 'DESC';
   };
 }

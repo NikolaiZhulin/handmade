@@ -63,19 +63,18 @@ const PostEdit: FC<IProps> = ({ postId }) => {
       setFiles(post.images);
     }
   }, [post]);
-
   const { control, setValue, handleSubmit, watch, reset, formState } = useForm<FormState>({
     defaultValues: {
-      isJewelry: true,
-      sex: post?.characteristics?.sex,
-      size: post?.characteristics?.size,
+      sex: post?.sex,
+      size: post?.size,
       city: post?.city,
-      sample: post?.characteristics?.sample,
-      recommendations: post?.characteristics?.recommendations,
+      sample: post?.sample,
+      recommendations: post?.recommendations,
       requestCategories: post?.categories,
-      material: post?.characteristics?.material,
-      stone: post?.characteristics?.stone,
+      material: post?.material,
+      stone: post?.stone,
       address: post?.address,
+      isJewelry: post?.isJewelry,
     },
     resolver: zodResolver(schema),
     mode: 'all',
@@ -97,8 +96,17 @@ const PostEdit: FC<IProps> = ({ postId }) => {
     }
   }, [post]);
 
-  const { currency, sex, stone, requestCategories, sample, material, city, ...formValues } =
-    watch();
+  const {
+    currency,
+    sex,
+    stone,
+    isJewelry,
+    requestCategories,
+    sample,
+    material,
+    city,
+    ...formValues
+  } = watch();
 
   const handleFilesChange = (files: (File | string)[]) => {
     setFiles(files);
@@ -110,8 +118,12 @@ const PostEdit: FC<IProps> = ({ postId }) => {
 
   const handleFieldChange =
     (key: keyof FormState, inArray = false) =>
-    (newValue: string) => {
-      setValue(key, inArray ? [newValue] : newValue, { shouldTouch: true, shouldDirty: true });
+    (newValue: string | boolean) => {
+      if (typeof newValue === 'boolean') {
+        setValue(key, newValue, { shouldTouch: true, shouldDirty: true });
+      } else {
+        setValue(key, inArray ? [newValue] : newValue, { shouldTouch: true, shouldDirty: true });
+      }
     };
 
   const handleSave = () => {
@@ -177,28 +189,30 @@ const PostEdit: FC<IProps> = ({ postId }) => {
   };
 
   const handleCategoriesValue = (newValue: string) => {
-    setValue('requestCategories', [newValue], { shouldTouch: true });
+    handleFieldChange('requestCategories', true)(newValue);
   };
 
   const handleMetalValue = (newValue: string) => {
-    setValue('material', newValue, { shouldTouch: true });
+    handleFieldChange('material')(newValue);
   };
 
   const handleCityValue = (newValue: string) => {
-    setValue('city', newValue, { shouldTouch: true });
+    handleFieldChange('city')(newValue);
   };
 
   const handleSamplesValue = (newValue: string) => {
-    setValue('sample', newValue, { shouldTouch: true });
+    handleFieldChange('sample')(newValue);
   };
   const handleStoneValue = (newValue: string) => {
-    setValue('stone', newValue, { shouldTouch: true });
+    handleFieldChange('stone')(newValue);
   };
-  const setIsJewelry = (isActive: boolean) => () =>
-    setValue('isJewelry', !isActive, { shouldTouch: true });
+  const setIsJewelry = (isActive: boolean) => () => {
+    const value = !isActive;
+    handleFieldChange('isJewelry')(value);
+  };
 
   const handleSelectChange = (value: string) => {
-    setValue('sex', value, { shouldTouch: true });
+    handleFieldChange('sex')(value);
   };
 
   return (
@@ -259,7 +273,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
             <div className="pt-2">
               <Select
                 options={categories}
-                placeholder={t('inputs.products')}
+                placeholder={t('inputs.product')}
                 onSelect={handleCategoriesValue}
                 value={categories.find((el) => requestCategories?.includes(el.value))}
               />
@@ -270,7 +284,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
                 options={metals}
                 placeholder={t('inputs.metal')}
                 onSelect={handleMetalValue}
-                value={metals.find((el) => material?.includes(el.value))}
+                value={metals.find((el) => material === el.value)}
               />
             </div>
             <div className="pt-2">
@@ -326,7 +340,7 @@ const PostEdit: FC<IProps> = ({ postId }) => {
             variant="gray"
             onClick={setIsJewelry}
             className="!w-full"
-            defaultValue={true}
+            defaultValue={!isJewelry}
           />
           <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
             <Typography variant="heading2">{t('sex')}</Typography>

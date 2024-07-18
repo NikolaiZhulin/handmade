@@ -22,16 +22,14 @@ export interface IMainPagePost {
   createdAt?: string;
   address?: string;
   usdPrice: number;
-  characteristics: {
-    material?: string;
-    metal?: string;
-    sample?: string;
-    isJewelry?: boolean;
-    stone?: string;
-    size?: string;
-    sex?: string;
-    recommendations?: string;
-  };
+  material?: string;
+  metal?: string;
+  sample?: string;
+  isJewelry?: boolean;
+  stone?: string;
+  size?: string;
+  sex?: string;
+  recommendations?: string;
 }
 
 export type PostNameKeys = Pick<IMainPagePost, 'nameRu' | 'nameGe' | 'nameEn'>;

@@ -5,6 +5,16 @@ export const metals = [
     icon: '',
   },
   {
+    label: 'metals.red_gold',
+    value: 'red_gold',
+    icon: '',
+  },
+  {
+    label: 'metals.white_gold',
+    value: 'white_gold',
+    icon: '',
+  },
+  {
     label: 'metals.silver',
     value: 'silver',
     icon: '',
@@ -25,8 +35,13 @@ export const metals = [
     icon: '',
   },
   {
-    label: 'metals.titan',
-    value: 'titan',
+    label: 'metals.iron',
+    value: 'iron',
+    icon: '',
+  },
+  {
+    label: 'metals.all_metals',
+    value: 'all_metals',
     icon: '',
   },
 ];

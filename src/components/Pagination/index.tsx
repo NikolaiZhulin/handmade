@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { IPagination } from '@/types/common';
 import { cn } from '@/utils/utils';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { SortBy } from '@/api/posts/get-posts';
+import { Filters, SortBy } from '@/api/posts/get-posts';
 
 import { HomeSvgSelector } from '../svg/HomeSvgSelector';
 
@@ -14,7 +14,7 @@ interface IProps {
   meta?: IPagination;
   setRules: Dispatch<
     SetStateAction<{
-      filter: Record<string, string | number | string[] | boolean>;
+      filter: Filters;
       page?: {
         page?: number;
         limit?: number;

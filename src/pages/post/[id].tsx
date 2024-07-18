@@ -19,6 +19,8 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { categories } from '@/constants/categories';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import RightBlockPostHeader from '@/components/RightBlockPostHead';
+import Typography from '@/ui/Typography';
+import style from '@/components/CreatePreview/style.module.scss';
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext<{ id: string }>) => {
   const params = ctx.params;
@@ -45,7 +47,12 @@ const PostPage = ({ post }: InferGetServerSidePropsType<typeof getServerSideProp
   if (!currentLangText) {
     currentLangText = langs.find((el) => el) as string;
   }
-  console.log(post);
+
+  const sexesMap: Record<string, string> = {
+    for_him: t('for_him'),
+    for_her: t('for_her'),
+  };
+
   return (
     <>
       <Head>
@@ -89,6 +96,72 @@ const PostPage = ({ post }: InferGetServerSidePropsType<typeof getServerSideProp
                   id={post.id}
                 />
               )}
+              <div className="flex flex-col gap-[8px] 2xl:!px-[30px] xs:!px-[15px]">
+                <Typography variant="heading2" className="mt-[4px] mb-[18px]">
+                  {t('post.parameters')}
+                </Typography>
+                <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('inputs.category')}
+                  </Typography>
+                  <Typography variant="heading3">
+                    {post.categories[0] ? t(`categories.${post.categories[0]}`) : t('absent')}
+                  </Typography>
+                </div>
+                <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('metal')}
+                  </Typography>
+                  <Typography variant="heading3">
+                    {post.material ? t(`metals.${post.material}`) : t('absent')}
+                  </Typography>
+                </div>
+                <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('sample')}
+                  </Typography>
+                  <Typography variant="heading3">
+                    {post.sample ? post.sample : t('absent')}
+                  </Typography>
+                </div>
+                <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('stone')}
+                  </Typography>
+                  <Typography variant="heading3">
+                    {post.stone ? t(`stones.${post.stone}`) : t('absent')}
+                  </Typography>
+                </div>
+                <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('post.bijouterie')}
+                  </Typography>
+                  <Typography variant="heading3">{post.isJewelry ? t('yes') : t('no')}</Typography>
+                </div>
+                <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('size')}
+                  </Typography>
+                  <Typography variant="heading3">{post.size ? post.size : t('absent')}</Typography>
+                </div>
+                <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('sex')}
+                  </Typography>
+                  <Typography variant="heading3">
+                    {post.sex ? <span key={post.sex}>{sexesMap[post.sex]}</span> : t('absent')}
+                  </Typography>
+                </div>
+                <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
+                  <Typography className={style.grayText} variant="heading3">
+                    {t('careRecommendations')}
+                  </Typography>
+                  <Typography variant="heading3" className={'break-all'}>
+                    {post.recommendations ? post.recommendations : t('absent')}
+                  </Typography>
+                </div>
+              </div>
+
               {!!post.userPosts.length && (
                 <OtherAnnouncement
                   posts={post.userPosts}

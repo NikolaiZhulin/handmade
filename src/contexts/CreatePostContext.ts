@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { Currency, UsedPeriod } from '@/constants/enums';
+import { Currency, PostMadeBy } from '@/constants/enums';
 import type { IPostContactInfo } from '@/types/posts';
 
 export interface ICreatePostContext {
@@ -13,17 +13,14 @@ export interface ICreatePostContext {
   files: File[];
   contacts: IPostContactInfo;
   requestCategories: string[];
-  requestMaterials: string[];
-  requestStones: string[];
-  requestSamples: string[];
-  requestCity: string[];
+  material: string;
+  stone: string;
+  sample: string;
+  city: string;
   size: string;
-  sex: string[];
-  careRecommendations: string;
+  sex: string;
+  recommendations: string;
   bijouterie: boolean;
-  isUsed: boolean;
-  usedAmount?: number;
-  usedPeriod?: UsedPeriod;
   phone: string;
   additionalPhone: string;
   telegram: string;
@@ -38,6 +35,7 @@ export interface ICreatePostContext {
   isViberActive: boolean;
   isFacebookActive: boolean;
   address: string;
+  madeBy: PostMadeBy | undefined;
 }
 
 export const CREATE_POST_CONTEXT_DEFAULT_VALUES: ICreatePostContext = {
@@ -47,7 +45,8 @@ export const CREATE_POST_CONTEXT_DEFAULT_VALUES: ICreatePostContext = {
   textGe: '',
   price: undefined,
   size: '',
-  sex: [],
+  sex: '',
+  madeBy: undefined,
   contacts: {
     phone: '',
     additionalPhone: undefined,
@@ -63,18 +62,15 @@ export const CREATE_POST_CONTEXT_DEFAULT_VALUES: ICreatePostContext = {
     isTelegramActive: undefined,
     isWhatsappActive: undefined,
   },
-  careRecommendations: '',
+  recommendations: '',
   bijouterie: true,
   currency: Currency.GEL,
   files: [],
   requestCategories: [],
-  requestMaterials: [],
-  requestStones: [],
-  requestSamples: [],
-  requestCity: [],
-  isUsed: true,
-  usedAmount: undefined,
-  usedPeriod: undefined,
+  material: '',
+  stone: '',
+  sample: '',
+  city: '',
   phone: '',
   additionalPhone: '',
   telegram: '',

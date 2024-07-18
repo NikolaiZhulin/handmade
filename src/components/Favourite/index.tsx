@@ -59,7 +59,7 @@ const Favourite: FC = () => {
           </FlexContainer>
           <AnnouncementContainer className="w-full 2xl:!mt-0">
             {data.posts.map((post) => (
-              <Announcement key={post.id} post={post} isSold={true} />
+              <Announcement key={post.id} post={post} />
             ))}
           </AnnouncementContainer>
         </>

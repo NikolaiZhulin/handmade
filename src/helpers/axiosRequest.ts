@@ -17,7 +17,7 @@ export type ApiParams<T> = {
   responseType?: AxiosRequestConfig['responseType'];
 };
 
-const Url = process.env.NEXT_PUBLIC_AUTH_API_URL || '';
+const Url = process.env.NEXT_PUBLIC_POSTS_API_URL || '';
 
 const createAxiosResponseInterceptor = () => {
   let isRefreshing = false;
@@ -60,7 +60,7 @@ const createAxiosResponseInterceptor = () => {
         const unintercepted = axios.create();
         return new Promise((res, rej) => {
           unintercepted
-            .get(`${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/auth/tokens/refresh`, {
+            .get(`${process.env.NEXT_PUBLIC_POSTS_API_URL}/api/auth/tokens/refresh`, {
               headers: {
                 Authorization: `Bearer ${refreshTokenCookie.value()}`,
               },
@@ -116,6 +116,7 @@ export const axiosRequest = async <TRequestData, TResponseData = void>({
     timeout: 1000 * 90,
   };
   const token = accessTokenService.getToken() || Cookies.get(ACCESS_TOKEN_KEY) || SSRToken;
+  console.log('token: ', token);
 
   if (!config.baseURL) {
     config.baseURL = baseURL || Url;
@@ -141,6 +142,7 @@ export const axiosRequest = async <TRequestData, TResponseData = void>({
 
   try {
     createAxiosResponseInterceptor();
+    console.log(config);
     const response = await axios.request(config);
     return response.data;
   } catch (error) {

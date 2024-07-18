@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC, useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -19,6 +19,7 @@ import CustomSelect from '@/ui/CustomSelect';
 import Input from '@/ui/Input';
 import Typography from '@/ui/Typography';
 import { cn } from '@/utils/utils';
+import { PostMadeBy } from '@/constants/enums';
 
 import style from '../style.module.scss';
 
@@ -29,25 +30,27 @@ interface IProps {
 interface FormState {
   size: string;
   isJewelry: boolean;
-  sex: string[];
-  careRecommendations: string;
+  sex: string;
+  recommendations: string;
   requestCategories: string[];
-  requestMaterials: string[];
-  requestStones: string[];
-  requestCity: string[];
-  requestSamples: string[];
+  material: string;
+  stone: string;
+  city: string;
+  sample: string;
   address: string;
+  madeBy: PostMadeBy;
 }
 
 const schema = z.object({
   isJewelry: z.boolean(),
   requestCity: z.array(z.string()),
   requestCategories: z.array(z.string()),
-  requestMaterials: z.array(z.string()),
-  requestStones: z.array(z.string()),
-  requestSamples: z.array(z.string()),
+  material: z.array(z.string()),
+  stone: z.array(z.string()),
+  sample: z.array(z.string()),
   size: z.string(),
   address: z.string(),
+  madeBy: z.string(),
 });
 
 const SecondStep: FC<IProps> = ({ onStep }) => {
@@ -66,20 +69,20 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
       isJewelry: true,
       sex: state.sex,
       size: state.size,
-      requestCity: state.requestCity,
-      requestSamples: state.requestSamples,
-      careRecommendations: state.careRecommendations,
+      city: state.city,
+      sample: state.sample,
+      recommendations: state.recommendations,
       requestCategories: state.requestCategories,
-      requestMaterials: state.requestMaterials,
-      requestStones: state.requestStones,
+      material: state.material,
+      stone: state.stone,
       address: state.address,
+      madeBy: state.madeBy,
     },
     resolver: zodResolver(schema),
     mode: 'all',
   });
 
-  const { sex, requestCity, requestCategories, requestMaterials, requestStones, requestSamples } =
-    watch();
+  const { sex, city, requestCategories, material, stone, madeBy, sample } = watch();
 
   const handleMove = (direction: number) => () => {
     setState(getValues());
@@ -91,24 +94,28 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
   };
 
   const handleMetalValue = (newValue: string) => {
-    setValue('requestMaterials', [newValue], { shouldTouch: true });
+    setValue('material', newValue, { shouldTouch: true });
   };
 
   const handleCityValue = (newValue: string) => {
-    setValue('requestCity', [newValue], { shouldTouch: true });
+    setValue('city', newValue, { shouldTouch: true });
   };
 
   const handleSamplesValue = (newValue: string) => {
-    setValue('requestSamples', [newValue], { shouldTouch: true });
+    setValue('sample', newValue, { shouldTouch: true });
   };
   const handleStoneValue = (newValue: string) => {
-    setValue('requestStones', [newValue], { shouldTouch: true });
+    setValue('stone', newValue, { shouldTouch: true });
   };
   const setIsJewelry = (isActive: boolean) => () =>
     setValue('isJewelry', !isActive, { shouldTouch: true });
 
   const handleSelectChange = (value: string) => {
-    setValue('sex', [value], { shouldTouch: true });
+    setValue('sex', value, { shouldTouch: true });
+  };
+
+  const setMadeBy = (value: PostMadeBy) => {
+    setValue('madeBy', value, { shouldTouch: true });
   };
 
   return (
@@ -140,7 +147,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
               options={metals}
               placeholder={t('inputs.metal')}
               onSelect={handleMetalValue}
-              value={metals.find((el) => requestMaterials?.includes(el.value))}
+              value={metals.find((el) => el.value === material)}
               withoutDialog
             />
           </div>
@@ -148,9 +155,9 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
             <CustomSelect
               withTranslate={true}
               options={samples}
-              placeholder={t('inputs.sample')}
+              placeholder={t('sample')}
               onSelect={handleSamplesValue}
-              value={samples.find((el) => requestSamples?.includes(el.value))}
+              value={samples.find((el) => el.value === sample)}
               withoutDialog
             />
           </div>
@@ -158,19 +165,19 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
             <CustomSelect
               withTranslate={true}
               options={stones}
-              placeholder={t('inputs.stone')}
+              placeholder={t('stone')}
               onSelect={handleStoneValue}
-              value={stones.find((el) => requestStones?.includes(el.value))}
+              value={stones.find((el) => el.value === stone)}
               withoutDialog
             />
           </div>
           <div className="pt-2">
-            <Input controllerProps={{ control, name: 'size' }} placeholder={t('inputs.size')} />
+            <Input controllerProps={{ control, name: 'size' }} placeholder={t('size')} />
           </div>
           <div className="pt-2">
             <Input
-              controllerProps={{ control, name: 'careRecommendations' }}
-              placeholder={t('inputs.careRecommendations')}
+              controllerProps={{ control, name: 'recommendations' }}
+              placeholder={t('careRecommendations')}
             />
           </div>
           <div className="pt-2">
@@ -179,7 +186,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
               options={cities}
               placeholder={t('inputs.city')}
               onSelect={handleCityValue}
-              value={cities.find((el) => requestCity?.includes(el.value))}
+              value={cities.find((el) => el.value === city)}
               withoutDialog
             />
           </div>
@@ -203,7 +210,7 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
           defaultValue={true}
         />
         <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
-          <Typography variant="heading2">{t('post.sex')}</Typography>
+          <Typography variant="heading2">{t('sex')}</Typography>
         </div>
         <div className=" min-h-[0px] flex flex-col gap-[14px]">
           {sexes.map(({ label, value }) => (
@@ -219,6 +226,21 @@ const SecondStep: FC<IProps> = ({ onStep }) => {
             </Checkbox>
           ))}
         </div>
+        <div className="2xl:flex 2xl:flex-col 2xl:gap-[4px]">
+          <Typography variant="heading2">{t('inputs.product')}</Typography>
+        </div>
+        {Object.values(PostMadeBy).map((el) => (
+          <Checkbox
+            key={el}
+            controllerProps={{ control, name: 'sex' }}
+            id={el}
+            value={el}
+            checked={madeBy?.includes(el)}
+            onChangeCustom={(_, value) => setMadeBy(value as PostMadeBy)}
+          >
+            {t(el)}
+          </Checkbox>
+        ))}
         <Button
           className={cn(style.ButtonNext, '2xl:mt-auto !w-full mt-8')}
           onClick={handleMove(1)}

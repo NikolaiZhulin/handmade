@@ -67,7 +67,7 @@ const Announcement: FC<PropsWithChildren<IProps>> = ({
   const { isActive } = watch();
 
   useEffect(() => {
-    if (isActive !== undefined && isActive !== post.isActive) {
+    if (isActive !== post.isActive) {
       const formData = new FormData();
       formData.append('isActive', isActive.toString());
       updatePost({ id: post.id, data: formData }, { onSuccess: refetchPostsList });
@@ -87,7 +87,7 @@ const Announcement: FC<PropsWithChildren<IProps>> = ({
   const nameKey = `name${capitalize(language)}`;
 
   const priceBlock = (
-    <div className={cn('flex items-center gap-[10px] xs:gap-[6px]  ml-auto', style.price)}>
+    <div className={cn('flex items-center gap-[10px] xs:gap-[6px]', style.price)}>
       <Typography variant="text3" className={cn(style.Heading2, '!text-[18px]')}>
         {post.price === 0
           ? t('main.dealPrice')
@@ -126,9 +126,9 @@ const Announcement: FC<PropsWithChildren<IProps>> = ({
           </Typography>
           {isMyAnnouncement ? (
             <div className={style.myAnnouncementBottom}>
-              <Typography variant="text2" color="gray" className={cn(style.Heading5, style.views)}>
-                35 просмотров
-              </Typography>
+              {/*<Typography variant="text2" color="gray" className={cn(style.Heading5, style.views)}>*/}
+              {/*  35 просмотров*/}
+              {/*</Typography>*/}
               {priceBlock}
               <div className={cn(style.divider, 'w-full h-[1px] bg-light-gray')} />
               <div className={cn(style.updateDelete, 'flex items-center gap-[10px]')}>

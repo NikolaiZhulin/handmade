@@ -1,7 +1,7 @@
 import * as z from 'zod';
 
-import { Currency, UsedPeriod } from '@/constants/enums';
-import { NUMBER_NON_NEGATIVE, REQUIRED_FIELD } from '@/constants/texts/validations';
+import { Currency } from '@/constants/enums';
+import { REQUIRED_FIELD } from '@/constants/texts/validations';
 import { IFullPost, PostNameKeys } from '@/types/posts';
 import { capitalize } from '@/helpers/capitalize';
 
@@ -12,17 +12,9 @@ export interface FormState {
   textGe: string;
   price: number;
   currency: Currency;
-  // sex: string[];
-  // jewel: string;
-  // sample: string;
-  // stone: string;
-  // size: string;
   address: string;
-  isJewelry: boolean;
+  isJewelry?: boolean | string;
   files: File[];
-  isUsed: boolean;
-  usedAmount: number;
-  usedPeriod: UsedPeriod;
   city: string;
   requestCategories: string[];
   phone: string;
@@ -62,11 +54,6 @@ export const schema = z
     facebook: z.string().optional(),
     viber: z.string().optional(),
     whatsApp: z.string().optional(),
-    isUsed: z.boolean(),
-    usedAmount: z
-      .preprocess((value) => parseInt(value as string), z.number().nonnegative(NUMBER_NON_NEGATIVE))
-      .nullable(),
-    usedPeriod: z.string().nullable(),
     city: z.string(),
     requestCategories: z.array(z.string()).nonempty(REQUIRED_FIELD),
     isPhoneActive: z.boolean(),
@@ -75,6 +62,14 @@ export const schema = z
     isWhatsappActive: z.boolean(),
     isViberActive: z.boolean(),
     isFacebookActive: z.boolean(),
+    isJewelry: z.boolean().optional(),
+    sex: z.string().optional(),
+    size: z.string().optional(),
+    sample: z.string().optional(),
+    recommendations: z.string().optional(),
+    material: z.string().optional(),
+    stone: z.string().optional(),
+    address: z.string().optional(),
   })
   .partial({
     textEn: true,
@@ -90,16 +85,21 @@ export const setDefaultValues = (
   const nameKey = `name${capitalize(lang)}`;
   reset({
     name: post[nameKey as keyof PostNameKeys] ?? post.nameRu,
+    address: post.address,
     textRu: post.textRu,
     textEn: post.textEn,
     textGe: post.textGe,
     price: post.price,
     currency: post.currency,
-    isUsed: post.isUsed,
-    usedAmount: post.usedAmount,
-    usedPeriod: post.usedPeriod,
     city: post.city,
-    requestCategories: post.categories,
+    isJewelry: post.isJewelry,
+    sex: post?.sex,
+    size: post?.size,
+    sample: post?.sample,
+    recommendations: post?.recommendations,
+    requestCategories: post?.categories,
+    material: post?.material,
+    stone: post?.stone,
     isPhoneActive: !!post.contacts.isPhoneActive,
     isAdditionalPhoneActive: !!post.contacts.isAdditionalPhoneActive,
     isTelegramActive: !!post.contacts.isTelegramActive,
