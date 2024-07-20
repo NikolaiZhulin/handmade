@@ -3,6 +3,7 @@ import { cloneElement, FC, ReactElement, ReactNode, useState } from 'react';
 import Typography from '@/ui/Typography';
 import Button from '@/ui/Button';
 import { cn } from '@/utils/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 import {
   Dialog,
@@ -33,6 +34,7 @@ const Modal: FC<IProps> = ({
   confirmHandler,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
   const onOpenChange = (open: boolean) => setIsOpen(open);
 
@@ -65,10 +67,10 @@ const Modal: FC<IProps> = ({
               color="neutral"
               onClick={() => setIsOpen(false)}
             >
-              Отмена
+              {t('cancel')}
             </Button>
             <Button className="!w-1/2 xs:!w-full xs:!shrink" color="green" onClick={confirmHandler}>
-              Удалить
+              {t('delete')}
             </Button>
           </DialogFooter>
         )}
