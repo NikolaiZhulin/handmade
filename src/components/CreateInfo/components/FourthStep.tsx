@@ -139,7 +139,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
       {files.length > 0 && (
         <>
           <Typography className="2xl:py-[14px] xs:!px-[15px] 2xl:!px-[30px]" variant="heading2">
-            {t('post.isCorrect')}
+            {t('preview.title')}
           </Typography>
 
           <Swiper
@@ -240,10 +240,10 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
               <Typography variant="heading3">{state.textEn}</Typography>
             </div>
           )}
+          <Typography variant="heading2" className="mt-[4px] mb-[18px]">
+            {t('preview.parameters')}
+          </Typography>
           <div className="flex flex-col gap-[8px] 2xl:!px-[30px] xs:!px-[15px]">
-            <Typography variant="heading2" className="mt-[4px] mb-[18px]">
-              {t('post.parameters')}
-            </Typography>
             <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
               <Typography className={style.grayText} variant="heading3">
                 {t('inputs.category')}
@@ -262,7 +262,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
             </div>
             <div className="flex w-full gap-[10px] [&>p]:flex-1 justify-between">
               <Typography className={style.grayText} variant="heading3">
-                {t('inputs.sample')}
+                {t('sample')}
               </Typography>
               <Typography variant="heading3">{sample ? sample : t('absent')}</Typography>
             </div>
@@ -312,7 +312,7 @@ export const FourthStep: FC<IProps> = ({ onStep }) => {
             </div>
           </div>
           <div>
-            <Typography variant="heading2">Контакты</Typography>
+            <Typography variant="heading2">{t('post.contacts')}</Typography>
             <Contacts contacts={contacts} className="2xl:!py-0" hideButtons={true} />
           </div>
           <Button

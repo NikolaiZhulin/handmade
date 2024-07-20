@@ -66,6 +66,7 @@
     "reportTitle": "Complaint",
     "postUpdated": "Data updated",
     "postDeleted": "Ad deleted",
+    "isCorrect": "Preview",
     "report": {
       "sold": "Product sold",
       "wrongPrice": "Wrong price",
@@ -83,7 +84,8 @@
     "en": "(in English)",
     "ge": "(in Georgian)",
     "title2": "Preview of the ad",
-    "access": "Will be available at the next step of submitting the ad"
+    "access": "Will be available at the next step of submitting the ad",
+    "parameters": "Parameters"
   },
   "search": {
     "found": "Found",
