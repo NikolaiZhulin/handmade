@@ -24,19 +24,27 @@ const Lang: FC<PropsWithChildren<IProps>> = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modals, setModal] = useContext(ModalContext);
 
-  const [langs, setLangs] = useState(DEFAULT_LANGS);
+  const [langs, setLangs] = useState<string[]>(DEFAULT_LANGS);
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem('selectedLang');
+    if (savedLang) {
+      push({ query }, undefined, { locale: savedLang });
+      setLangs((prev) => [savedLang, ...prev.filter((el) => el !== savedLang)]);
+    } else {
+      setLangs((prev) => [language, ...prev.filter((el) => el !== language)]);
+    }
+  }, []);
 
   const handleClick = (lang: string) => () => {
     if (Object.values(modals).some((el) => el)) {
       setModal(MODAL_CONTEXT_VALUES);
     }
+
+    localStorage.setItem('selectedLang', lang); // Save selected language to localStorage
     push({ query }, undefined, { locale: lang });
     setLangs((prev) => [lang, ...prev.filter((el) => el !== lang)]);
   };
-
-  useEffect(() => {
-    setLangs((prev) => [language, ...prev.filter((el) => el !== language)]);
-  }, []);
 
   return (
     <div className={style.Lang}>
