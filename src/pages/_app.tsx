@@ -24,6 +24,7 @@ import { useModalContext } from '@/hooks/useModalContext/useModalContext';
 import { SOCIAL_AUTH_CHANEL } from '@/constants/base';
 
 import nextI18NextConfig from '../../next-i18next.config';
+// import '../../i18n';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
