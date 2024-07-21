@@ -24,6 +24,7 @@ const FloatLabel: FC<IProps> = ({
       className={cn(
         'absolute -top-[6px] left-[14px] px-[6px] translate-y-[90%] transition-all duration-150 ease-in -translate-x-[6px]',
         'text-[14px] leading-[18px] font-montserrat text-text-gray pointer-events-none font-normal',
+        'max-w-[260px] overflow-hidden whitespace-nowrap text-ellipsis',
         withIcon && !isFloating && 'left-[42px]',
         isFloating && '-translate-y-[54%] top-0 bg-white text-[12px] leading-[14px]',
         className,

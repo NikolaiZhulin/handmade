@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { Filters, GetPostsVariables } from '@/api/posts/get-posts';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -110,9 +110,11 @@ export const ActiveFiltersRow: FC<Props> = (props) => {
     onApplyFilters(updatedFilters);
   };
 
+  const filteredActiveFilters = allActiveFilters.filter((filt) => filt.value !== 'all');
+
   return (
     <div className="flex items-center gap-[14px] max-w-full overflow-x-auto mt-[14px] pb-[8px]">
-      {allActiveFilters.map((filt, index) => {
+      {filteredActiveFilters.map((filt, index) => {
         let updatedFilters: Filters;
 
         if (typeof filt.value === 'boolean') {

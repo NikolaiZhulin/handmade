@@ -6,6 +6,7 @@ export const useTranslation = () => {
   return {
     t,
     changeLanguage: (language: string) => i18n.changeLanguage(language),
+    // changeLanguage: () => i18n.init(),
     i18n,
   };
 };

@@ -89,7 +89,7 @@ export const HeaderSelect: FC<IProps> = ({ setCities }) => {
       onSelect={() => {}}
       containerClassname="w-auto"
       trigger={({ isOpen, toggleOpen, triggerRef }) => (
-        <div className="relative flex items-center justify-between pl-[16px] pr-[4px] w-[87px] h-[36px] text-[14px] leading-[18px] bg-main-green border-[1px] border-solid border-main-green font-montserrat font-normal gap-[6px] ring-0 focus:ring-0">
+        <div className="relative flex items-center w-[87px] h-[36px] text-[14px] leading-[18px] bg-main-green border-[1px] border-solid border-main-green font-montserrat font-normal gap-[6px] ring-0 focus:ring-0">
           <button
             ref={triggerRef}
             onClick={() => {
@@ -98,7 +98,7 @@ export const HeaderSelect: FC<IProps> = ({ setCities }) => {
               }
               toggleOpen((prev) => !prev);
             }}
-            className="w-full flex items-center gap-[4px] text-[14px] leading-[18px] font-montserrat font-normal whitespace-nowrap text-white"
+            className="justify-between pl-[12px] pr-[6px] h-full w-full flex items-center gap-[4px] text-[14px] leading-[18px] font-montserrat font-normal whitespace-nowrap text-white"
           >
             {t('header.city')}
             <span
